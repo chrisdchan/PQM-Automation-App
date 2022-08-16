@@ -27,13 +27,10 @@ namespace PQM_V2.Views
             //DataContext = new HomeViewModel();
         }
 
-        private void Border_MouseMove(object sender, MouseEventArgs e)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void Rectangle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
+            this.Focusable = true;
+            Keyboard.Focus(this);
         }
     }
 }

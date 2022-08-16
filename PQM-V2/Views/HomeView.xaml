@@ -5,7 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PQM_V2.Views"
              mc:Ignorable="d" 
+             Loaded="UserControl_Loaded"
              d:DesignHeight="600" d:DesignWidth="800">
+    <UserControl.InputBindings>
+        <KeyBinding Command="{Binding navigateStartupCommand}"
+                    CommandParameter="{x:Null}"
+                    Key="Enter"
+                    Modifiers="Ctrl">
+        </KeyBinding>
+    </UserControl.InputBindings>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -24,7 +32,7 @@
             <ComboBox Width="100">
                 <ComboBoxItem Content="File" IsSelected="True"/>
                 <ComboBoxItem>
-                    <Button Content="Open Files (Ctrl + O)"/>
+                    <Button Content="{Binding variable}"/>
                 </ComboBoxItem>
                 <ComboBoxItem>
                     <Button Content="Open Folders (Ctrl + O)"/>

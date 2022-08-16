@@ -17,31 +17,38 @@ namespace PQM_V2.ViewModels
         public double smallFontSize { get; set; }
         public double mediumFontSize { get; set; }
         public double largeFontSize { get; set; }
+        public NavigationStore _navigationStore { get; set; }
         public RelayCommand openFileDialogCommand { get; private set; }
         public RelayCommand openFolderDialogCommand { get; private set; }
-        public ICommand navigateHomeCommand { get; private set; }
+        public RelayCommand navigateHomeCommand { get; private set; }
 
         public StartupViewModel(NavigationStore navigationStore)
         {
             smallFontSize = 12;
-            mediumFontSize = 18; ;
+            mediumFontSize = 18;
             largeFontSize = 40;
 
-            openFileDialogCommand = new RelayCommand(openFileDialog, OpenFileDialogCanUse);
-            openFolderDialogCommand = new RelayCommand(OpenFolderDialog, OpenFolderDialogCanUse);
-            navigateHomeCommand = new NavigationCommand(navigationStore);
+            _navigationStore = navigationStore;
+
+            openFileDialogCommand = new RelayCommand(openFileDialog, openFileDialogCanUse);
+            openFolderDialogCommand = new RelayCommand(openFolderDialog, openFolderDialogCanUse);
+            navigateHomeCommand = new RelayCommand(navigateHome, navigateHomeCanUse);
         }
 
         public void openFileDialog(object message)
         {
             MessageBox.Show("Opening File Dialog");
         }
-        public bool OpenFileDialogCanUse(object message) { return (string)message == "OpenFileDialog"; }
-        public void OpenFolderDialog(object message)
+        public bool openFileDialogCanUse(object message) { return (string)message == "OpenFileDialog"; }
+        public void openFolderDialog(object message)
         {
             MessageBox.Show("Opening Folder Dialog");
         }
-        public bool OpenFolderDialogCanUse(object message) {return (string)message == "OpenFolderDialog";}
-
+        public bool openFolderDialogCanUse(object message) {return (string)message == "OpenFolderDialog";}
+        public void navigateHome(object message)
+        {
+            _navigationStore.selectedViewModel = new HomeViewModel(_navigationStore);
+        }
+        public bool navigateHomeCanUse(object message) { return true; }
     }
 }

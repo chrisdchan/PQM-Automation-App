@@ -14,6 +14,12 @@ namespace PQM_V2.ViewModels
         public MainViewModel(NavigationStore navigationStore) 
         {
             _navigationStore = navigationStore;
+            _navigationStore.selectedViewModelChanged += onSelectedViewModelChanged;
+        }
+
+        private void onSelectedViewModelChanged()
+        {
+            onPropertyChanged(nameof(selectedViewModel));
         }
     }
 }

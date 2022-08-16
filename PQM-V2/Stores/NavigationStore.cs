@@ -10,10 +10,11 @@ namespace PQM_V2.Stores
     public class NavigationStore
     {
         public event Action selectedViewModelChanged;
+
         private BaseViewModel _selectedViewModel;
         public BaseViewModel selectedViewModel
         {
-            get { return _selectedViewModel; }
+            get => _selectedViewModel;
             set
             {
                 _selectedViewModel = value;

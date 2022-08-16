@@ -18,6 +18,11 @@
                     Key="O"
                     Modifiers="Ctrl+Shift">
         </KeyBinding>
+        <KeyBinding Command="{Binding navigateHomeCommand}"
+                    CommandParameter="navigateHome"
+                    Key="Enter"
+                    Modifiers="Ctrl">
+        </KeyBinding>
     </UserControl.InputBindings>
     <Grid>
         <Grid.ColumnDefinitions>
