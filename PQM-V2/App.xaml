@@ -1,0 +1,10 @@
+﻿<Application x:Class="PQM_V2.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:PQM_V2"
+             xmlns:views="clr-namespase:PQM_V2.Views"
+             xmlns:viewmodels="clr-namespase:PQM_V2.ViewModels"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+    </Application.Resources>
+</Application>
