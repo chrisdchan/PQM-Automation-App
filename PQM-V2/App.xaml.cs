@@ -15,5 +15,17 @@ namespace PQM_V2
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            NavigationStore navigationStore = new NavigationStore();
+            navigationStore.selectedViewModel = new StartupViewModel(navigationStore);
+            
+            MainWindow = new MainWindow()
+            {
+                DataContext = new MainViewModel(navigationStore)
+            };
+            MainWindow.Show();
+            base.OnStartup(e);
+        }
     }
 }

@@ -25,7 +25,7 @@ namespace PQM_V2.Views
         public StartupView()
         {
             InitializeComponent();
-            DataContext = new StartupViewModel();
+            //DataContext = new StartupViewModel();
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)

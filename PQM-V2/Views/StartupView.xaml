@@ -9,11 +9,11 @@
              Loaded="UserControl_Loaded"
              d:DesignHeight="600" d:DesignWidth="800">
     <UserControl.InputBindings>
-        <KeyBinding Command="{Binding OpenFileDialogCommand}"
+        <KeyBinding Command="{Binding openFileDialogCommand}"
                     CommandParameter="OpenFileDialog"
                     Key="O"
                     Modifiers="Ctrl"/>
-        <KeyBinding Command="{Binding OpenFolderDialogCommand}"
+        <KeyBinding Command="{Binding openFolderDialogCommand}"
                     CommandParameter="OpenFolderDialog"
                     Key="O"
                     Modifiers="Ctrl+Shift">
@@ -66,7 +66,7 @@
             Margin="20"
             Foreground="#ffffff">
             <fa:ImageAwesome.InputBindings>
-                <MouseBinding Command="{Binding OpenFileDialogCommand}"
+                <MouseBinding Command="{Binding openFileDialogCommand}"
                               CommandParameter="OpenFileDialog"
                               MouseAction="LeftClick">
                 </MouseBinding>
@@ -88,7 +88,7 @@
             Margin="20"
             Foreground="#ffffff">
             <fa:ImageAwesome.InputBindings>
-                <MouseBinding Command="{Binding OpenFolderDialogCommand}"
+                <MouseBinding Command="{Binding openFolderDialogCommand}"
                               CommandParameter="OpenFolderDialog"
                               MouseAction="LeftClick">
                 </MouseBinding>

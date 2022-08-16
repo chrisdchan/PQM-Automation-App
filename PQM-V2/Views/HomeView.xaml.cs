@@ -24,7 +24,7 @@ namespace PQM_V2.Views
         public HomeView()
         {
             InitializeComponent();
-            DataContext = new HomeViewModel();
+            //DataContext = new HomeViewModel();
         }
 
         private void Border_MouseMove(object sender, MouseEventArgs e)

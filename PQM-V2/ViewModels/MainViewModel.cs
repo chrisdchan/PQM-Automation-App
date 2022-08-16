@@ -9,10 +9,11 @@ namespace PQM_V2.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        public BaseViewModel selectedViewModel { get; set; }
-        public MainViewModel() 
+        private readonly NavigationStore _navigationStore;
+        public BaseViewModel selectedViewModel => _navigationStore.selectedViewModel;
+        public MainViewModel(NavigationStore navigationStore) 
         {
-            selectedViewModel = new StartupViewModel();
+            _navigationStore = navigationStore;
         }
     }
 }

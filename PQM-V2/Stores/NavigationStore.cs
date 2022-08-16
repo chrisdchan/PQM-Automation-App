@@ -9,9 +9,9 @@ namespace PQM_V2.Stores
 {
     public class NavigationStore
     {
-        public event Action SelectedViewModelChanged;
+        public event Action selectedViewModelChanged;
         private BaseViewModel _selectedViewModel;
-        public BaseViewModel SelectedViewModel
+        public BaseViewModel selectedViewModel
         {
             get { return _selectedViewModel; }
             set
@@ -20,10 +20,9 @@ namespace PQM_V2.Stores
                 OnSelectedViewModelChanged();
             }
         }
-
         private void OnSelectedViewModelChanged()
         {
-            SelectedViewModelChanged?.Invoke();
+            selectedViewModelChanged?.Invoke();
         }
 
     }

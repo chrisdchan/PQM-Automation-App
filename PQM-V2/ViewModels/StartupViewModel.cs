@@ -17,17 +17,19 @@ namespace PQM_V2.ViewModels
         public double smallFontSize { get; set; }
         public double mediumFontSize { get; set; }
         public double largeFontSize { get; set; }
-        public RelayCommand OpenFileDialogCommand { get; private set; }
-        public RelayCommand OpenFolderDialogCommand { get; private set; }
+        public RelayCommand openFileDialogCommand { get; private set; }
+        public RelayCommand openFolderDialogCommand { get; private set; }
+        public ICommand navigateHomeCommand { get; private set; }
 
-        public StartupViewModel()
+        public StartupViewModel(NavigationStore navigationStore)
         {
             smallFontSize = 12;
             mediumFontSize = 18; ;
             largeFontSize = 40;
 
-            OpenFileDialogCommand = new RelayCommand(openFileDialog, OpenFileDialogCanUse);
-            OpenFolderDialogCommand = new RelayCommand(OpenFolderDialog, OpenFolderDialogCanUse);
+            openFileDialogCommand = new RelayCommand(openFileDialog, OpenFileDialogCanUse);
+            openFolderDialogCommand = new RelayCommand(OpenFolderDialog, OpenFolderDialogCanUse);
+            navigateHomeCommand = new NavigationCommand(navigationStore);
         }
 
         public void openFileDialog(object message)

@@ -18,7 +18,7 @@ namespace PQM_V2.Commands
         }
         public override void Execute(object parameter)
         {
-            _navigationStore.SelectedViewModel = new HomeViewModel();
+            _navigationStore.selectedViewModel = new HomeViewModel();
         }
     }
 }
