@@ -32,7 +32,7 @@ namespace PQM_V2.ViewModels
 
             openFileDialogCommand = new RelayCommand(openFileDialog, openFileDialogCanUse);
             openFolderDialogCommand = new RelayCommand(openFolderDialog, openFolderDialogCanUse);
-            navigateHomeCommand = new RelayCommand(navigateHome, navigateHomeCanUse);
+            navigateHomeCommand = new RelayCommand(navigateHome);
         }
 
         public void openFileDialog(object message)
@@ -49,6 +49,5 @@ namespace PQM_V2.ViewModels
         {
             _navigationStore.selectedViewModel = new HomeViewModel(_navigationStore);
         }
-        public bool navigateHomeCanUse(object message) { return true; }
     }
 }

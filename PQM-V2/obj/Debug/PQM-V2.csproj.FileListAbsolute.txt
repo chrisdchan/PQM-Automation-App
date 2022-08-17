@@ -22,3 +22,5 @@ C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\HomeView.baml
 C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\StartupView.baml
 C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\PQM-V2.csproj.AssemblyReference.cache
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\StructuresLegendView.g.cs
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\StructuresLegendView.baml

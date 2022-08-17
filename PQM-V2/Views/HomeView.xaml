@@ -26,18 +26,10 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel 
-            Grid.Column="0" Grid.ColumnSpan="3"
-            Orientation="Horizontal">
-            <ComboBox Width="100">
-                <ComboBoxItem Content="File" IsSelected="True"/>
-                <ComboBoxItem>
-                    <Button Content="{Binding variable}"/>
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <Button Content="Open Folders (Ctrl + O)"/>
-                </ComboBoxItem>
-            </ComboBox>
-        </StackPanel>
+        <local:StructuresLegendView
+            Grid.Column="0" Grid.Row="1"
+            Grid.RowSpan="2">
+        </local:StructuresLegendView>
+        
     </Grid>
 </UserControl>
