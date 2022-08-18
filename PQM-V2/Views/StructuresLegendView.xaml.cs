@@ -24,7 +24,6 @@ namespace PQM_V2.Views
         public StructuresLegendView()
         {
             InitializeComponent();
-            DataContext = new StructuresLegendViewModel();
         }
     }
 }

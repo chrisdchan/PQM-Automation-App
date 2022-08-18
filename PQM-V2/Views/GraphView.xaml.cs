@@ -1,6 +1,4 @@
-﻿using PQM_V2.Stores;
-using PQM_V2.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,19 +16,13 @@ using System.Windows.Shapes;
 namespace PQM_V2.Views
 {
     /// <summary>
-    /// Interaction logic for StartupView.xaml
+    /// Interaction logic for GraphView.xaml
     /// </summary>
-    public partial class StartupView : UserControl
+    public partial class GraphView : UserControl
     {
-        public StartupView()
+        public GraphView()
         {
             InitializeComponent();
-        }
-
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            this.Focusable = true;
-            Keyboard.Focus(this);
         }
     }
 }

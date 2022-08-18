@@ -24,3 +24,9 @@ C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\GeneratedInternalTypeHelper.
 C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\PQM-V2.csproj.AssemblyReference.cache
 C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\StructuresLegendView.g.cs
 C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\StructuresLegendView.baml
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\bin\Debug\MathNet.Numerics.dll
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\bin\Debug\System.ValueTuple.dll
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\bin\Debug\MathNet.Numerics.xml
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\bin\Debug\System.ValueTuple.xml
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\GraphView.g.cs
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\GraphView.baml

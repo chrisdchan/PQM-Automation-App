@@ -18,7 +18,8 @@ namespace PQM_V2
         protected override void OnStartup(StartupEventArgs e)
         {
             NavigationStore navigationStore = new NavigationStore();
-            navigationStore.selectedViewModel = new StartupViewModel(navigationStore);
+            GraphStore graphStore = new GraphStore();
+            navigationStore.selectedViewModel = new StartupViewModel(navigationStore, graphStore);
             
             MainWindow = new MainWindow()
             {

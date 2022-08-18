@@ -12,21 +12,44 @@
         <converters:InverseBooleanConverter x:Key="inverseBooleanConverter"/>
     </UserControl.Resources>
     <Grid>
-        <ListView>
+        <ListView Background="#707070"
+                  ItemsSource="{Binding LegendItemsList}">
+            <ListView.InputBindings>
+                <MouseBinding Command="{Binding }"></MouseBinding>
+            </ListView.InputBindings>
+            <ListView.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+            </ListView.Resources>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="140px"/>
+                            <ColumnDefinition Width="10px"/>
+                            <ColumnDefinition Width="20px"/>
+                            <ColumnDefinition Width="10px"/>
+                            <ColumnDefinition Width="20px"/>
                         </Grid.ColumnDefinitions>
-                        <Label Content="{Binding name}"/>
-                        <Rectangle Fill="{Binding color}"/>
-                        <fa:ImageAwesome Icon="Eye" 
-                                         Visibility="{Binding visible}"/>
-                        <fa:ImageAwesome Icon="EyeSlash"
-                                         Visibility="{Binding visible, Converter={StaticResource inverseBooleanConverter}}">
+                        <Label FontSize="15"
+                                Grid.Column="0"
+                               Content="{Binding name}" 
+                               Foreground="#ffffff"/>
+                        <Rectangle 
+                            Height="10"
+                            Width="20"
+                            Grid.Column="2"
+                            Fill="{Binding color}"/>
+                        <fa:ImageAwesome 
+                            Icon="Eye" Height="20px" Width="20px"
+                            Grid.Column="4"
+                            HorizontalAlignment="Right"
+                            Foreground="#cccccc"
+                            Visibility="{Binding eye}"/>
+                        <fa:ImageAwesome 
+                            Icon="EyeSlash" Height="20px" Width="20px"
+                            Grid.Column="5"
+                            Foreground="#cccccc"
+                            Visibility="{Binding eyeSlash}">
                         </fa:ImageAwesome>
                     </Grid>
                 </DataTemplate>

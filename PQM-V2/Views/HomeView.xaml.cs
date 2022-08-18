@@ -24,7 +24,6 @@ namespace PQM_V2.Views
         public HomeView()
         {
             InitializeComponent();
-            //DataContext = new HomeViewModel();
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)

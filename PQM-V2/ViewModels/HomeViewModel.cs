@@ -1,4 +1,5 @@
 ﻿using PQM_V2.Commands;
+using PQM_V2.Models;
 using PQM_V2.Stores;
 using System;
 using System.Collections.Generic;
@@ -11,18 +12,35 @@ namespace PQM_V2.ViewModels
     public class HomeViewModel : BaseViewModel
     {
         private readonly NavigationStore _navigationStore;
-        public string variable { get; set; }
+        private readonly GraphStore _graphStore;
+
+        public Graph graph => _graphStore.graph;
         public RelayCommand navigateStartupCommand { get; private set; }
-        public HomeViewModel(NavigationStore navigationStore)
+        public RelayCommand exitApplicationCommand { get; private set; }
+        public StructuresLegendViewModel structuresLegendViewModel { get; set; }
+        public HomeViewModel(NavigationStore navigationStore, GraphStore graphStore)
         {
             _navigationStore = navigationStore;
-            variable = "hello";
+            _graphStore = graphStore;
 
+
+            _graphStore.graphChanged += onGraphChanged;
+
+            structuresLegendViewModel = new StructuresLegendViewModel(graphStore);
             navigateStartupCommand = new RelayCommand(navigateStartup);
+            exitApplicationCommand = new RelayCommand(exitApplication);
+        }
+        private void onGraphChanged()
+        {
+            onPropertyChanged(nameof(graph));
         }
         private void navigateStartup(object message)
         {
-            _navigationStore.selectedViewModel = new StartupViewModel(_navigationStore);
+            _navigationStore.selectedViewModel = new StartupViewModel(_navigationStore, _graphStore);
+        }
+        private void exitApplication(object message)
+        {
+            System.Windows.Application.Current.Shutdown();
         }
     }
 }

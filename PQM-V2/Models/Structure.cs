@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MathNet.Numerics.LinearAlgebra;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,54 +7,35 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 
 namespace PQM_V2.Models
 {
-    enum SplineType { None, Cubic, Monotone }
-    struct Spline
-    {
-        public SplineType type;
-        public double x1 { get; }
-        public double y1 { get; }
-        public double x2 { get; }
-        public double y2 { get; }
-        public double delta => (y2 - y1) / (x2 - x1);
-        public double h => x2 - x1;
-
-        public double[] derivatives { get; set; }
-        public double[] coefficients { get; set; }
-
-        public Spline(double x1, double y1, double x2, double y2)
-        {
-            this.type = SplineType.None;
-            this.x1 = x1;
-            this.y1 = y1;
-            this.x2 = x2;
-            this.y2 = y2;
-
-            derivatives = new double[2];
-            coefficients = new double[4];
-        }
-    }
 
 
     public class Structure
     {
         private string _filePath;
         private string _metric;
-        private string _name;
         private bool _invalidReadFlag;
-
         private List<Spline> _splines;
+
+        public SolidColorBrush color { get; set; }
+        public string name { get; set; }
+
         public Structure(string filePath)
         {
+            if (!File.Exists(filePath)) throw new FileNotFoundException();
+
             _filePath = filePath;
             _splines = new List<Spline>();
 
-            getSplines();
-            getMetricAndName();
+            setSplines();
+            setMetricAndName();
+
+            setCoeffients();
         }
-        private void getSplines()
+        private void setSplines()
         {
             List<double> newX = new List<double>();
             List<double> newY = new List<double>();
@@ -131,7 +113,7 @@ namespace PQM_V2.Models
 
             return normalized;
         }
-        private void getMetricAndName()
+        private void setMetricAndName()
         {
             string fileName = Path.GetFileName(_filePath);
             string[] fileNameParts = fileName.Split(' ');
@@ -145,11 +127,11 @@ namespace PQM_V2.Models
                 {
                     myName += fileNameParts[i] + " ";
                 }
-                _name = myName;
+                name = myName;
             }
             else
             {
-                _name = last;
+                name = last;
             }
         }
         private void setCoeffients()
@@ -211,11 +193,11 @@ namespace PQM_V2.Models
                 row += 2;
             }
 
-            A[row, 0] = 6 * X[0];
+            A[row, 0] = 6 * _splines[0].x1;
             A[row, 1] = 2;
             b[row] = 0;
 
-            A[row + 1, u - 4] = 6 * X[n - 1];
+            A[row + 1, u - 4] = 6 * _splines[n - 2].x2;
             A[row + 1, u - 3] = 2;
             b[row + 1] = 0;
 
@@ -224,9 +206,29 @@ namespace PQM_V2.Models
 
             Vector<double> coefficients = matA.Solve(vecB);
 
+            for(int i = 0; i < _splines.Count; i++)
+            {
+                for(int j = 0; j < 4; j++)
+                {
+                    _splines[i].coefficients[j] = coefficients[i * 4 + j];
+                }
+                _splines[i].splineType = SplineType.Cubic;
+            }
+        }
+        private void setDerivatives()
+        {
+            double h = 0.1;
+            double f0 = _splines[0].y1;
+            double f1 = _splines[0].interpolate(h);
+            double f2 = _splines[0].interpolate(h * 2);
 
+            double fd1 = (1 / (2 * h)) * (-3 * f0 + 4 * f1 - f2);
+            if (fd1 > 0) fd1 = 0;
+        }
 
-
+        public double interpolate(double x)
+        {
+            return 50;
         }
     }
 
