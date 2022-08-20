@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PQM-V2", "PQM-V2\PQM-V2.csproj", "{69893A26-7474-4EC5-8656-7A221CE617B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PQM-V2.Tests", "PQM-V2.Tests\PQM-V2.Tests.csproj", "{C0861372-DB5A-4D03-B5C5-ECF7C1933AE0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{69893A26-7474-4EC5-8656-7A221CE617B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69893A26-7474-4EC5-8656-7A221CE617B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69893A26-7474-4EC5-8656-7A221CE617B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0861372-DB5A-4D03-B5C5-ECF7C1933AE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0861372-DB5A-4D03-B5C5-ECF7C1933AE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0861372-DB5A-4D03-B5C5-ECF7C1933AE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0861372-DB5A-4D03-B5C5-ECF7C1933AE0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

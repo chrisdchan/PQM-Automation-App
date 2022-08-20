@@ -2,6 +2,7 @@
 using PQM_V2.Commands;
 using PQM_V2.Models;
 using PQM_V2.Stores;
+using PQM_V2.ViewModels.HomeViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,18 +25,17 @@ namespace PQM_V2.ViewModels
         public RelayCommand openFolderDialogCommand { get; private set; }
         public RelayCommand navigateHomeCommand { get; private set; }
 
-        public StartupViewModel(NavigationStore navigationStore, GraphStore graphStore)
+        public StartupViewModel()
         {
+            _navigationStore = (Application.Current as App).navigationStore; 
+            _graphStore = (Application.Current as App).graphStore;
+            
             smallFontSize = 12;
             mediumFontSize = 18;
             largeFontSize = 40;
 
-            _navigationStore = navigationStore;
-            _graphStore = graphStore;
-
             openFileDialogCommand = new RelayCommand(openFileDialog, openFileDialogCanUse);
             openFolderDialogCommand = new RelayCommand(openFolderDialog, openFolderDialogCanUse);
-            navigateHomeCommand = new RelayCommand(navigateHome);
         }
 
         public void openFileDialog(object message)
@@ -47,8 +47,7 @@ namespace PQM_V2.ViewModels
             if (openFileDialog.ShowDialog() == true)
             {
                 _graphStore.graph = new Graph(openFileDialog.FileNames);
-                _navigationStore.selectedViewModel = new HomeViewModel(_navigationStore, _graphStore);
-
+                _navigationStore.selectedViewModel = new HomeViewModel();
             }
         }
         public bool openFileDialogCanUse(object message) { return (string)message == "OpenFileDialog"; }
@@ -57,9 +56,5 @@ namespace PQM_V2.ViewModels
             MessageBox.Show("Opening Folder Dialog");
         }
         public bool openFolderDialogCanUse(object message) {return (string)message == "OpenFolderDialog";}
-        public void navigateHome(object message)
-        {
-            _navigationStore.selectedViewModel = new HomeViewModel(_navigationStore, _graphStore);
-        }
     }
 }

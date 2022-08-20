@@ -11,18 +11,16 @@ using System.Windows.Media;
 
 namespace PQM_V2.Models
 {
-
-
     public class Structure
     {
         private string _filePath;
         private string _metric;
         private bool _invalidReadFlag;
+        private double _maxX;
         private List<Spline> _splines;
 
         public SolidColorBrush color { get; set; }
         public string name { get; set; }
-
         public Structure(string filePath)
         {
             if (!File.Exists(filePath)) throw new FileNotFoundException();
@@ -31,9 +29,11 @@ namespace PQM_V2.Models
             _splines = new List<Spline>();
 
             setSplines();
+            _maxX = _splines[_splines.Count - 1].x2;
             setMetricAndName();
 
             setCoeffients();
+            setAreas();
         }
         private void setSplines()
         {
@@ -67,6 +67,7 @@ namespace PQM_V2.Models
 
                 line = sr.ReadLine();
                 matches = rxExtractY.Matches(line);
+                int numZeros = 0;
                 foreach (Match match in matches)
                 {
                     string value = match.Value.ToString();
@@ -74,11 +75,10 @@ namespace PQM_V2.Models
                     if (double.TryParse(value, out double newVal))
                     {
                         if (newVal < 0) newVal = 0;
+                        if (newVal == 0) numZeros++;
+                        if (numZeros > 2) break;
+
                         newY.Add(newVal);
-                        if (newVal < 0)
-                        {
-                            throw new Exception("Negative Value");
-                        }
                     }
                 }
             }
@@ -94,6 +94,11 @@ namespace PQM_V2.Models
             {
                 newY.RemoveAt(0);
                 newY = normalize(newY);
+            }
+
+            if(newX.Count != newY.Count)
+            {
+                newX = newX.GetRange(0, newY.Count);
             }
 
             for(int i = 0; i < newX.Count - 1; i++)
@@ -225,10 +230,101 @@ namespace PQM_V2.Models
             double fd1 = (1 / (2 * h)) * (-3 * f0 + 4 * f1 - f2);
             if (fd1 > 0) fd1 = 0;
         }
+        private void setAreas()
+        {
+            double totalArea = 0;
+            foreach(Spline spline in _splines)
+            {
+                double area = spline.getTotalArea();
+                spline.aucX1 = totalArea;
+                totalArea += area;
+            }
+        }
+        private int getSplineFromX(double x)
+        {
+            if (x < 0 || _maxX < x) throw new ArgumentOutOfRangeException();
 
+            int start = 0;
+            int end = _splines.Count - 1;
+            int spline = (end - start) / 2;
+
+            while(x < _splines[spline].x1 || _splines[spline].x2 < x)
+            {
+                if(x < _splines[spline].x1)
+                {
+                    end = spline;
+                }
+                else
+                {
+                    start = spline;
+                }
+
+                spline = (end + start) / 2;
+            }
+            return spline;
+        }
+        private int getSplineFromY(double y)
+        {
+            if (y < 0 || y > 100) throw new ArgumentOutOfRangeException();
+            int start = 0;
+            int end = _splines.Count - 1;
+            int spline = (end - start) / 2;
+
+            while(y < Math.Round(_splines[spline].y2, 4) || y > Math.Round(_splines[spline].y1, 4))
+            {
+                if(y < _splines[spline].y2)
+                {
+                    start = spline;
+                }
+                else
+                {
+                    end = spline;
+                }
+                spline = (end + start) / 2;
+            }
+            return spline;
+        }
         public double interpolate(double x)
         {
-            return 50;
+            int spline = getSplineFromX(x);
+            double y = _splines[spline].interpolate(x);
+            return y;
+        }
+        public List<(double, double)> interpolateRange(double xmin, double xmax, int numPoints)
+        {
+            if (xmax > _maxX) xmax = _maxX;
+
+            List<(double, double)> points = new List<(double, double)>();
+            double x = xmin;
+            double y;
+            double dx = (xmax - xmin) / numPoints;
+
+            int spline = 0;
+            while(x < xmax)
+            {
+                while(_splines[spline].x2 < x) spline++;
+                y = _splines[spline].interpolate(x);
+                x += dx;
+                points.Add((x, y));
+            }
+
+            return points;
+        }
+        public double invInterpolate(double y)
+        {
+            int spline = getSplineFromY(y);
+            double x = _splines[spline].invInterpolate(y);
+            return x;
+        }
+        public double aucFromX(double x)
+        {
+            int spline = getSplineFromX(x);
+            return _splines[spline].getAUCFromX(x);
+        }
+        public double aucFromY(double y)
+        {
+            int spline = getSplineFromY(y);
+            return _splines[spline].getAUCFromY(y);
         }
     }
 

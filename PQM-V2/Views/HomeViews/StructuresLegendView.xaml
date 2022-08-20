@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="PQM_V2.Views.HomeViews.StructuresLegendView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PQM_V2.Views.HomeViews" xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:converters="clr-namespace:PQM_V2.Converters"
+             mc:Ignorable="d" 
+             Background="#707070"
+             d:DesignHeight="600" d:DesignWidth="400">
+    <UserControl.Resources>
+        <converters:InverseBooleanConverter x:Key="inverseBooleanConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <ListView Background="#707070" ItemsSource="{Binding LegendItemsList}">
+            <ListView.InputBindings>
+                <MouseBinding Command="{Binding }"></MouseBinding>
+            </ListView.InputBindings>
+            <ListView.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+            </ListView.Resources>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="140px"/>
+                            <ColumnDefinition Width="10px"/>
+                            <ColumnDefinition Width="20px"/>
+                            <ColumnDefinition Width="10px"/>
+                            <ColumnDefinition Width="20px"/>
+                        </Grid.ColumnDefinitions>
+                        <Label FontSize="15"
+                                Grid.Column="0"
+                               Content="{Binding name}" 
+                               Foreground="#ffffff"/>
+                        <Rectangle 
+                            Height="10"
+                            Width="20"
+                            Grid.Column="2"
+                            Fill="{Binding color}"/>
+                        <fa:ImageAwesome 
+                            Icon="Eye" Height="20px" Width="20px"
+                            Grid.Column="4"
+                            HorizontalAlignment="Right"
+                            Foreground="#cccccc"
+                            Visibility="{Binding eye}"/>
+                        <fa:ImageAwesome 
+                            Icon="EyeSlash" Height="20px" Width="20px"
+                            Grid.Column="5"
+                            Foreground="#cccccc"
+                            Visibility="{Binding eyeSlash}">
+                        </fa:ImageAwesome>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</UserControl>

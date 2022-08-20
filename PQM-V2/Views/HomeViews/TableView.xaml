@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="PQM_V2.Views.HomeViews.TableView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PQM_V2.Views.HomeViews"
+             xmlns:homeviewmodel="clr-namespace:PQM_V2.ViewModels.HomeViewModels" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid x:Name="grid" SizeChanged="Grid_SizeChanged">
+        <ListView ItemsSource="{Binding tableRowsList}">
+            <ListView.View>
+                <GridView AllowsColumnReorder="True" x:Name="table">
+                    <GridViewColumn Header="Structure" DisplayMemberBinding="{Binding Path=name}" />
+                    <GridViewColumn Header="100%" DisplayMemberBinding="{Binding Path=area100}" />
+                    <GridViewColumn Header="95%" DisplayMemberBinding="{Binding Path=area95}" />
+                    <GridViewColumn Header="90%" DisplayMemberBinding="{Binding area90}" />
+                    <GridViewColumn Header="50%" DisplayMemberBinding="{Binding area50}" />
+                    <GridViewColumn Header="5%" DisplayMemberBinding="{Binding area5}" />
+                    <GridViewColumn Header="cc" DisplayMemberBinding="{Binding cc}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</UserControl>

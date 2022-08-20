@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\chris\source\repos\PQM-V2\PQM-V2\App.xaml
-5-449257442
+91990143125
 
-22-486624173
-16-620100138
-MainWindow.xaml;Views\GraphView.xaml;Views\HomeView.xaml;Views\StartupView.xaml;Views\StructuresLegendView.xaml;
+31321066288
+172011733521
+MainWindow.xaml;Views\HomeViews\AttributePanelViews\AttributePanelView.xaml;Views\HomeViews\AttributePanelViews\StructureAttributesView.xaml;Views\HomeViews\AttributePanelViews\StructureGraphAttributesView.xaml;Views\HomeViews\GraphView.xaml;Views\HomeViews\HomeView.xaml;Views\HomeViews\TableView.xaml;Views\StartupView.xaml;Views\HomeViews\StructuresLegendView.xaml;
 
 False
 

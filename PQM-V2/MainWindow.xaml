@@ -5,16 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PQM_V2"
         xmlns:viewmodels="clr-namespace:PQM_V2.ViewModels"
+        xmlns:homeviewmodels="clr-namespace:PQM_V2.ViewModels.HomeViewModels"
         xmlns:views="clr-namespace:PQM_V2.Views"
+        xmlns:homeviews="clr-namespace:PQM_V2.Views.HomeViews"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800"
+        Title="PQM Automation" Height="720" Width="1080"
         Name="mainWindow">
     <Window.Resources>
         <DataTemplate DataType="{x:Type viewmodels:StartupViewModel}">
             <views:StartupView/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
-            <views:HomeView/>
+        <DataTemplate DataType="{x:Type homeviewmodels:HomeViewModel}">
+            <homeviews:HomeView/>
         </DataTemplate>
     </Window.Resources>
     <Grid>

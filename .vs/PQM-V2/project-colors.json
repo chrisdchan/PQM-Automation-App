@@ -5,7 +5,12 @@
       "ProjectGuid": "69893a26-7474-4ec5-8656-7a221ce617b6",
       "DisplayName": "PQM-V2",
       "ColorIndex": 0
+    },
+    "c0861372-db5a-4d03-b5c5-ecf7c1933ae0": {
+      "ProjectGuid": "c0861372-db5a-4d03-b5c5-ecf7c1933ae0",
+      "DisplayName": "PQM-V2.Tests",
+      "ColorIndex": 1
     }
   },
-  "NextColorIndex": 1
+  "NextColorIndex": 2
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,6 +11,8 @@ namespace PQM_V2.Models
     public class Spline
     {
         private int _yPrecision = 4;
+        private double _aucX1;
+        private double _area;
         public SplineType splineType { get; set; }
         public double x1 { get; }
         public double y1 { get; }
@@ -17,6 +20,7 @@ namespace PQM_V2.Models
         public double y2 { get; }
         public double delta => (y2 - y1) / (x2 - x1);
         public double h => x2 - x1;
+        public double aucX1 { get => _aucX1; set { _aucX1 = value; } }
 
         public double[] derivatives { get; set; }
         public double[] coefficients { get; set; }
@@ -24,9 +28,12 @@ namespace PQM_V2.Models
         public Spline(double x1, double y1, double x2, double y2)
         {
             this.x1 = x1;
-            this.y1 = y1;
+            this.y1 = Math.Round(y1, 4);
             this.x2 = x2;
-            this.y2 = y2;
+            this.y2 = Math.Round(y2, 4);
+
+            _area = -1;
+            _aucX1 = -1;
 
             splineType = SplineType.None;
             derivatives = new double[2];
@@ -91,32 +98,74 @@ namespace PQM_V2.Models
         }
         public double invInterpolate(double globalY)
         {
-            if (globalY < y1 || globalY > y1) throw new ArgumentOutOfRangeException();
+            if (globalY > y1 || globalY < y2) throw new ArgumentOutOfRangeException();
+            if (splineType == SplineType.None) throw new NotSupportedException();
 
-            double s = x1;
-            double e = x2;
-            double x = (s + e) / 2;
-            double guess = Math.Round(interpolate(x), _yPrecision);
-            double y = Math.Round(globalY, _yPrecision);
+            double a, b, c, d;
+            double x;
 
-            while(guess != y)
+            if(splineType == SplineType.Cubic)
             {
-                if(guess > y)
-                {
-                    s = x;
-                }
-                else
-                {
-                    e = x;
-                }
-                x = (s + e) / 2;
-                guess = Math.Round(interpolate(x), _yPrecision);
+                a = coefficients[0];
+                b = coefficients[1];
+                c = coefficients[2];
+                d = coefficients[3] - globalY;
             }
+            else
+            {
+                throw new NotSupportedException();
+            }
+
+            (double? r1, double? r2, double? r3) = findRoots(a, b, c, d);
+
+            if (isCorrectRoot(r1))
+            {
+                x = r1.Value;
+            }
+            else if(isCorrectRoot(r2))
+            {
+                x = r2.Value;
+            }
+            else if(isCorrectRoot(r3))
+            {
+                x = r3.Value;
+            }
+            else
+            {
+                throw new Exception("Roots unable to be found");
+            }
+
+            if(splineType == SplineType.Monotone)
+            {
+                x = x - x1;
+            }
+
+            x = Math.Round(x, 4);
             return x;
         }
-        public double interpolateArea(double globalX)
+        private Boolean isCorrectRoot(double? rb)
         {
-            if (globalX < x1 || globalX > x2) throw new ArgumentOutOfRangeException();
+            double r;
+            double a = x1;
+            double b = x2;
+
+            if(rb.HasValue)
+            {
+                r = Math.Round(rb.Value, 4);
+            }
+            else
+            {
+                return false;
+            }
+
+            a = Math.Round(a, 4);
+            b = Math.Round(b, 4);
+
+            return (a <= r) && (r <= b);
+        }
+        private double getArea(double globalX1, double globalX2)
+        {
+            if (globalX1 < x1 || globalX2 > x2 || globalX1 > globalX2) throw new ArgumentOutOfRangeException();
 
             double area, xf, xi;
             double a, b, c, d;
@@ -126,8 +175,8 @@ namespace PQM_V2.Models
                 b = coefficients[1];
                 c = coefficients[2];
                 d = coefficients[3];
-                xf = globalX;
-                xi = x1;
+                xf = globalX2;
+                xi = globalX1;
             }
             else if(splineType == SplineType.Monotone)
             {
@@ -135,8 +184,8 @@ namespace PQM_V2.Models
                 b = (-2 * derivatives[0] - derivatives[1] + 3 * delta) / h;
                 c = derivatives[0];
                 d = y1;
-                xf = globalX - x1;
-                xi = 0;
+                xf = globalX2 - x1;
+                xi = globalX1 - x1;
             }
             else
             {
@@ -149,9 +198,73 @@ namespace PQM_V2.Models
             area = A - B;
             return area;
         }
-        public double totalArea()
+        public static (double?, double?, double?) findRoots(double a, double b, double c, double d)
         {
-            return interpolateArea(x2);
+            double? x1 = null;
+            double? x2 = null;
+            double? x3 = null;
+
+            double ONETHIRD = 1.0 / 3.0;
+
+            double p = -b / (3 * a);
+            double q = Math.Pow(p, 3) + (b * c - 3 * a * d) / (6 * Math.Pow(a, 2));
+            double r = c / (3 * a);
+
+            double T = Math.Pow(q, 2) + Math.Pow(r - Math.Pow(p, 2), 3);
+
+            double u, v;
+            if(T >= 0)
+            {
+                double qtu = q + Math.Sqrt(T);
+                double qtv = q - Math.Sqrt(T);
+
+                u = Math.Pow(Math.Abs(qtu), ONETHIRD);
+                v = Math.Pow(Math.Abs(qtv), ONETHIRD);
+
+                u = (qtu < 0)? -u : u;
+                v = (qtv < 0)? -v : v;
+
+                x1 = u + v + p;
+
+                if(Math.Abs(T) < 1e-6)
+                {
+                    x2 = -u + p;
+                    x3 = x2;
+                }
+            }
+            else
+            {
+                double cr = q;
+                double ci = Math.Sqrt(-T);
+
+                double theta = Math.Atan2(ci, cr);
+                double amp = Math.Sqrt(cr * cr + ci * ci);
+
+                double cubedRtAmp = Math.Pow(Math.Abs(amp), ONETHIRD);
+                cubedRtAmp = (amp < 0) ? -cubedRtAmp : cubedRtAmp;
+
+                theta = theta * ONETHIRD;
+
+                x1 = 2 * cubedRtAmp * Math.Cos(theta) + p;
+                x2 = 2 * cubedRtAmp * Math.Cos(theta + 2 * Math.PI / 3) + p;
+                x3 = 2 * cubedRtAmp * Math.Cos(theta + 4 * Math.PI / 3) + p;
+            }
+
+            return (x1, x2, x3);
+        }
+        public double getTotalArea()
+        {
+            return (_area == -1) ? getArea(x1, x2) : _area;
+        }
+        public double getAUCFromX(double globalX)
+        {
+            if (_aucX1 == -1) throw new Exception("Calling AUC before _aucX1 is computed");
+            return _aucX1 + getArea(x1, globalX);
+        }
+        public double getAUCFromY(double globalY)
+        {
+            double x = invInterpolate(globalY);
+            return getAUCFromX(x);
         }
     }
 }

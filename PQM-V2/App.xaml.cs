@@ -15,15 +15,22 @@ namespace PQM_V2
     /// </summary>
     public partial class App : Application
     {
+        public GraphAttributesStore graphAttributesStore { get; set; }
+        public GraphStore graphStore { get; set; }
+        public NavigationStore navigationStore { get; set; }
+        public LayoutStore layoutStore { get; set; }
         protected override void OnStartup(StartupEventArgs e)
         {
-            NavigationStore navigationStore = new NavigationStore();
-            GraphStore graphStore = new GraphStore();
-            navigationStore.selectedViewModel = new StartupViewModel(navigationStore, graphStore);
+            navigationStore = new NavigationStore();
+            graphStore = new GraphStore();
+            graphAttributesStore = new GraphAttributesStore();
+            layoutStore = new LayoutStore();
+
+            navigationStore.selectedViewModel = new StartupViewModel();
             
             MainWindow = new MainWindow()
             {
-                DataContext = new MainViewModel(navigationStore)
+                DataContext = new MainViewModel()
             };
             MainWindow.Show();
             base.OnStartup(e);
