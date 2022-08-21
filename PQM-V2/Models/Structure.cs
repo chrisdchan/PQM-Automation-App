@@ -33,6 +33,7 @@ namespace PQM_V2.Models
             setMetricAndName();
 
             setCoeffients();
+            setHermites();
             setAreas();
         }
         private void setSplines()
@@ -213,22 +214,71 @@ namespace PQM_V2.Models
 
             for(int i = 0; i < _splines.Count; i++)
             {
-                for(int j = 0; j < 4; j++)
-                {
-                    _splines[i].coefficients[j] = coefficients[i * 4 + j];
-                }
-                _splines[i].splineType = SplineType.Cubic;
+                _splines[i].setCubicCoefficients(
+                    coefficients[i * 4],
+                    coefficients[i * 4 + 1],
+                    coefficients[i * 4 + 2],
+                    coefficients[i * 4 + 3]
+                );
             }
         }
-        private void setDerivatives()
+        private void setHermites()
         {
-            double h = 0.1;
-            double f0 = _splines[0].y1;
-            double f1 = _splines[0].interpolate(h);
-            double f2 = _splines[0].interpolate(h * 2);
+            double[,] derivGuesses = new double[_splines.Count, 2];
+            double[,] alphaBeta = new double[_splines.Count, 2];
 
-            double fd1 = (1 / (2 * h)) * (-3 * f0 + 4 * f1 - f2);
-            if (fd1 > 0) fd1 = 0;
+           
+            derivGuesses[0, 0] =  _splines[0].delta * 0.5;
+
+            for(int i = 0; i < _splines.Count-1; i++)
+            {
+                double d = (_splines[i].delta + _splines[i + 1].delta) * 0.5;
+                derivGuesses[i, 1] = d;
+                derivGuesses[i + 1, 0] = d;
+            }
+            derivGuesses[_splines.Count - 1, 1] = _splines[_splines.Count -1].delta * 0.5;
+
+            for(int i = 0; i < _splines.Count; i++)
+            {
+                double alpha, beta, disc;
+
+                if(relativeEq(_splines[i].delta, 0.0))
+                {
+                    derivGuesses[i, 0] = 0.0;
+                    derivGuesses[i, 1] = 0.0;
+
+                    alpha = 0.0;
+                    beta = 0.0;
+                }
+
+                alpha = derivGuesses[i, 0] / _splines[i].delta;
+                beta = derivGuesses[i, 1] / _splines[i].delta;
+
+                disc = alpha * alpha + beta * beta;
+                if(disc > 9.0)
+                {
+                    derivGuesses[i, 0] = (3.0 * _splines[i].delta * alpha) / Math.Sqrt(disc);
+                    derivGuesses[i, 1] = (3.0 * _splines[i].delta * beta) / Math.Sqrt(disc);
+                }
+            }
+
+            for(int i = 0; i < _splines.Count - 1; i++)
+            {
+                if (Math.Abs(derivGuesses[i, 1]) < Math.Abs(derivGuesses[i + 1, 0]))
+                {
+                    derivGuesses[i + 1, 0] = derivGuesses[i, 1];
+                }
+                else
+                {
+                    derivGuesses[i, 1] = derivGuesses[i + 1, 0];
+                }
+            }
+
+            for(int i = 0; i < _splines.Count; i++)
+            {
+                _splines[i].setHermiteCoefficients(derivGuesses[i, 0], derivGuesses[i, 1]);
+            }
+
         }
         private void setAreas()
         {
@@ -325,6 +375,11 @@ namespace PQM_V2.Models
         {
             int spline = getSplineFromY(y);
             return _splines[spline].getAUCFromY(y);
+        }
+
+        private Boolean relativeEq(double a, double b)
+        {
+            return Math.Round(a, 5) == Math.Round(b, 5);
         }
     }
 

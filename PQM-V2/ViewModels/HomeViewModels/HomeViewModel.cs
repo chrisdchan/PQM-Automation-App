@@ -15,7 +15,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
     {
         private readonly NavigationStore _navigationStore;
         private readonly GraphStore _graphStore;
-        private readonly LayoutStore _layoutStore;
+        private LayoutStore _layoutStore;
 
         public Graph graph => _graphStore.graph;
         public RelayCommand navigateStartupCommand { get; private set; }
@@ -26,7 +26,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
         public viewPosition tablePosition => _layoutStore.tablePosition;
         public viewPosition attributesPosition => _layoutStore.attributesPosition;
 
-        public int testRow = 1;
+        public Visibility test;
         public HomeViewModel()
         {
             _navigationStore = (Application.Current as App).navigationStore;
@@ -34,14 +34,23 @@ namespace PQM_V2.ViewModels.HomeViewModels
             _layoutStore = (Application.Current as App).layoutStore;
 
             _graphStore.graphChanged += onGraphChanged;
+            _layoutStore.layoutChanged += onLayoutChanged;
+
+            test = Visibility.Collapsed;
 
             navigateStartupCommand = new RelayCommand(navigateStartup);
             exitApplicationCommand = new RelayCommand(exitApplication);
+
             openFilesCommand = new RelayCommand(openFiles);
         }
         private void onGraphChanged()
         {
             onPropertyChanged(nameof(graph));
+        }
+
+        private void onLayoutChanged()
+        {
+
         }
         private void navigateStartup(object message)
         {

@@ -57,10 +57,10 @@ namespace PQM_V2.Stores
         {
             _backgroundColor = new SolidColorBrush(Colors.White);
             _xmin = 0;
-            _xmax = 100;
+            _xmax = 40;
             _numXAxisTicks = 5;
             _numYAxisTicks = 5;
-            _pointsPerPlot = 100;
+            _pointsPerPlot = 200;
         }
 
         private void onPlotAttributesChanged()

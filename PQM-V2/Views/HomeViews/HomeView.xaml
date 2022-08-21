@@ -57,15 +57,15 @@
                 <MenuItem Header="View" Style="{StaticResource navMenuItem}">
                     <MenuItem Header="Graph Visible" 
                               IsCheckable="true"
-                              IsChecked="{Binding graphPosition.visibility}"
+                              IsChecked="{Binding graphPosition.visibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               StaysOpenOnClick="true"/>
                     <MenuItem Header="Table Visible"
                               IsCheckable="true"
-                              IsChecked="{Binding tablePosition.visibility}"
+                              IsChecked="{Binding tablePosition.visibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               StaysOpenOnClick="true"/>
                     <MenuItem Header="Attribute Panel Visible" 
                               IsCheckable="true"
-                              IsChecked="{Binding attributePosition.visibility}"
+                              IsChecked="{Binding attributePosition.visibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               StaysOpenOnClick="true"/>
                 </MenuItem>
             </Menu>
@@ -82,20 +82,15 @@
             Grid.RowSpan="2">
         </local:StructuresLegendView>
 
-        <local:GraphView Grid.Row="{Binding testRow}" Grid.Column="{Binding testRow}"
-                         Grid.RowSpan="{Binding graphPosition.rowSpan}" Grid.ColumnSpan="{Binding graphPosition.colSpan}"
-                         Visibility="{Binding Path=graphPosition.visibility, Converter={StaticResource BooleanVisibilityConverter}}">
+        <local:GraphView Grid.Row="1" Grid.Column="1" Visibility="Collapsed">
         </local:GraphView>
 
-        <local:TableView Grid.Row="{Binding tablePosition.row}" Grid.Column="{Binding tablePosition.col}"
-                         Grid.RowSpan="{Binding tablePosition.rowSpan}" Grid.ColumnSpan="{Binding tablePosition.colSpan}"
-                         Visibility="{Binding Path=tablePosition.visibility, Converter={StaticResource BooleanVisibilityConverter}}">
+        <local:TableView Grid.Row="2" Grid.Column="1"
+                         Grid.RowSpan="{Binding tablePosition.rowSpan}" Grid.ColumnSpan="{Binding tablePosition.colSpan}">
         </local:TableView>
 
-        <attributePanelViews:AttributePanelView  Grid.Row="{Binding attributesPosition.row}" Grid.Column="{Binding attributesPosition.col}"
-                         Grid.RowSpan="{Binding attributesPosition.rowSpan}" Grid.ColumnSpan="{Binding attributesPosition.colSpan}"
-                         Visibility="{Binding Path=attributesPosition.visibility, Converter={StaticResource BooleanVisibilityConverter}}">
-            </attributePanelViews:AttributePanelView>
+        <attributePanelViews:AttributePanelView Grid.Row="1" Grid.Column="2" Grid.RowSpan="2">
+        </attributePanelViews:AttributePanelView>
 
     </Grid>
 </UserControl>
