@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace PQM_V2.Views.HomeViews.AttributePanelViews
         public StructureAttributesView()
         {
             InitializeComponent();
+            DataContext = new StructureAttributesViewModel();
         }
     }
 }

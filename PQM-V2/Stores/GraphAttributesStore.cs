@@ -60,7 +60,7 @@ namespace PQM_V2.Stores
             _xmax = 40;
             _numXAxisTicks = 5;
             _numYAxisTicks = 5;
-            _pointsPerPlot = 200;
+            _pointsPerPlot = 100;
         }
 
         private void onPlotAttributesChanged()

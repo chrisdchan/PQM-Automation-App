@@ -24,11 +24,9 @@ C:\Users\chris\source\repos\PQM-V2\PQM-V2\bin\Debug\System.ValueTuple.dll
 C:\Users\chris\source\repos\PQM-V2\PQM-V2\bin\Debug\MathNet.Numerics.xml
 C:\Users\chris\source\repos\PQM-V2\PQM-V2\bin\Debug\System.ValueTuple.xml
 C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\HomeViews\GraphView.g.cs
-C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\HomeViews\HomeView.g.cs
 C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\HomeViews\StructuresLegendView.g.cs
 C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\HomeViews\TableView.g.cs
 C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\HomeViews\GraphView.baml
-C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\HomeViews\HomeView.baml
 C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\HomeViews\StructuresLegendView.baml
 C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\HomeViews\TableView.baml
 C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\PQM-V2.csproj.AssemblyReference.cache
@@ -38,3 +36,8 @@ C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\HomeViews\AttributePan
 C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\HomeViews\AttributePanelViews\AttributePanelView.baml
 C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\HomeViews\AttributePanelViews\StructureAttributesView.baml
 C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\HomeViews\AttributePanelViews\StructureGraphAttributesView.baml
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\HomeView.g.cs
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\HomeView.baml
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\bin\Debug\Syncfusion.Licensing.dll
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\bin\Debug\Syncfusion.Shared.WPF.dll
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\bin\Debug\Syncfusion.Shared.WPF.xml

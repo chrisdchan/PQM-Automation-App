@@ -68,7 +68,8 @@
 
         <fa:ImageAwesome Icon="File"
             Grid.Row="2" Grid.Column="3"
-            Margin="20"
+            Margin="20" MouseEnter="ImageAwesome_MouseEnter"
+            MouseLeave="ImageAwesome_MouseLeave"
             Foreground="#ffffff">
             <fa:ImageAwesome.InputBindings>
                 <MouseBinding Command="{Binding openFileDialogCommand}"
@@ -90,7 +91,8 @@
 
         <fa:ImageAwesome Icon="Folder"
             Grid.Row="2" Grid.Column="5"
-            Margin="20"
+            Margin="20" MouseEnter="ImageAwesome_MouseEnter"
+            MouseLeave="ImageAwesome_MouseLeave"
             Foreground="#ffffff">
             <fa:ImageAwesome.InputBindings>
                 <MouseBinding Command="{Binding openFolderDialogCommand}"

@@ -41,6 +41,12 @@
     <Reference Include="MathNet.Numerics, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MathNet.Numerics.5.0.0\lib\net461\MathNet.Numerics.dll</HintPath>
     </Reference>
+    <Reference Include="Syncfusion.Licensing, Version=20.2460.0.45, Culture=neutral, PublicKeyToken=632609b4d040f6b4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Licensing.20.2.0.45\lib\net46\Syncfusion.Licensing.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Shared.WPF, Version=20.2460.0.45, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Shared.WPF.20.2.0.45\lib\net46\Syncfusion.Shared.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Numerics" />
@@ -74,9 +80,12 @@
     <Compile Include="Models\Structure.cs" />
     <Compile Include="Stores\GraphAttributesStore.cs" />
     <Compile Include="Stores\GraphStore.cs" />
-    <Compile Include="Stores\LayoutStore.cs" />
+    <Compile Include="Models\Layout.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
+    <Compile Include="Stores\SelectedStructureStore.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\HomeViewModels\AttributePanelViewModels\AttributePanelViewModel.cs" />
+    <Compile Include="ViewModels\HomeViewModels\AttributePanelViewModels\StructureAttributesViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModels\GraphViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModels\TableViewModel.cs" />
@@ -95,7 +104,7 @@
     <Compile Include="Views\HomeViews\GraphView.xaml.cs">
       <DependentUpon>GraphView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\HomeViews\HomeView.xaml.cs">
+    <Compile Include="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HomeViews\TableView.xaml.cs">
@@ -135,7 +144,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\HomeViews\HomeView.xaml">
+    <Page Include="Views\HomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

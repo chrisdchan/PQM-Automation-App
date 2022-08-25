@@ -10,49 +10,36 @@
              d:DesignHeight="600" d:DesignWidth="400">
     <UserControl.Resources>
         <converters:InverseBooleanConverter x:Key="inverseBooleanConverter"/>
+        <DataTemplate x:Key="myListViewItemTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="140px"/>
+                    <ColumnDefinition Width="10px"/>
+                    <ColumnDefinition Width="20px"/>
+                    <ColumnDefinition Width="10px"/>
+                    <ColumnDefinition Width="100px"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="{Binding name}" Foreground="#ffffff" FontSize="15">
+                </Label>
+                <Rectangle Grid.Column="2" Fill="{Binding color}" Height="10" Width="20"/>
+                <fa:ImageAwesome Grid.Column="4" Foreground="#cccccc" HorizontalAlignment="Right" Height="20px" Icon="Eye" Visibility="{Binding eye}" Width="20px"/>
+                <fa:ImageAwesome Grid.Column="5" Foreground="#cccccc" Height="20px" Icon="EyeSlash" Visibility="{Binding eyeSlash}" Width="20px"/>
+                <Grid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Show"/>
+                        <MenuItem Header="Hide"/>
+                        <MenuItem Header="Isolate"/>
+                        <MenuItem Header="Delete"/>
+                        <MenuItem Header="Select"/>
+                    </ContextMenu>
+                </Grid.ContextMenu>
+            </Grid>
+        </DataTemplate>
     </UserControl.Resources>
     <Grid>
-        <ListView Background="#707070" ItemsSource="{Binding LegendItemsList}">
-            <ListView.InputBindings>
-                <MouseBinding Command="{Binding }"></MouseBinding>
-            </ListView.InputBindings>
-            <ListView.Resources>
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
-            </ListView.Resources>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="140px"/>
-                            <ColumnDefinition Width="10px"/>
-                            <ColumnDefinition Width="20px"/>
-                            <ColumnDefinition Width="10px"/>
-                            <ColumnDefinition Width="20px"/>
-                        </Grid.ColumnDefinitions>
-                        <Label FontSize="15"
-                                Grid.Column="0"
-                               Content="{Binding name}" 
-                               Foreground="#ffffff"/>
-                        <Rectangle 
-                            Height="10"
-                            Width="20"
-                            Grid.Column="2"
-                            Fill="{Binding color}"/>
-                        <fa:ImageAwesome 
-                            Icon="Eye" Height="20px" Width="20px"
-                            Grid.Column="4"
-                            HorizontalAlignment="Right"
-                            Foreground="#cccccc"
-                            Visibility="{Binding eye}"/>
-                        <fa:ImageAwesome 
-                            Icon="EyeSlash" Height="20px" Width="20px"
-                            Grid.Column="5"
-                            Foreground="#cccccc"
-                            Visibility="{Binding eyeSlash}">
-                        </fa:ImageAwesome>
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
+        <ListView ItemTemplate="{DynamicResource myListViewItemTemplate}" 
+                  Style="{DynamicResource myListViewStyle}" Background="#707070" 
+                  ItemsSource="{Binding LegendItemsList}">
         </ListView>
     </Grid>
 </UserControl>

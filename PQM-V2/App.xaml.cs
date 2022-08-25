@@ -18,13 +18,13 @@ namespace PQM_V2
         public GraphAttributesStore graphAttributesStore { get; set; }
         public GraphStore graphStore { get; set; }
         public NavigationStore navigationStore { get; set; }
-        public LayoutStore layoutStore { get; set; }
+        public SelectedStructureStore selectedStructureStore { get; set; }
         protected override void OnStartup(StartupEventArgs e)
         {
             navigationStore = new NavigationStore();
             graphStore = new GraphStore();
             graphAttributesStore = new GraphAttributesStore();
-            layoutStore = new LayoutStore();
+            selectedStructureStore = new SelectedStructureStore();
 
             navigationStore.selectedViewModel = new StartupViewModel();
             

@@ -3,10 +3,112 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:PQM_V2.Views.HomeViews.AttributePanelViews"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:local="clr-namespace:PQM_V2.Views.HomeViews.AttributePanelViews" xmlns:fa="http://schemas.fontawesome.io/icons/" 
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="1080" d:DesignWidth="400">
+    <UserControl.Resources>
+
+        <Style x:Key="headerSP" TargetType="{x:Type StackPanel}">
+            <Setter Property="Margin" Value="0, 10, 0, 20"/>
+            <Setter Property="Orientation" Value="Horizontal"/>
+        </Style>
+        <Style x:Key="attribSP" TargetType="{x:Type StackPanel}">
+            <Setter Property="Margin" Value="0, 5, 0, 5"/>
+            <Setter Property="Orientation" Value="Horizontal"/>
+        </Style>
+        
+        <Style x:Key="headerTextBlockLabel" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="TextAlignment" Value="Right"/>
+            <Setter Property="Margin" Value="0, 0, 10, 0"/>
+        </Style>
+
+        <Style x:Key="headerTextBox" TargetType="{x:Type TextBox}">
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Height" Value="30"/>
+        </Style>
+
+        <Style x:Key="attribTextBlockLabel" TargetType="{x:Type TextBlock}">
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="TextAlignment" Value="Right"/>
+            <Setter Property="Margin" Value="0, 0, 10, 0"/>
+        </Style>
+
+        <Style x:Key="attribTextBlockValue" TargetType="{x:Type TextBlock}">
+            <Setter Property="Padding" Value="10, 0, 0, 0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Background" Value="#808080"/>
+        </Style>
+
+    </UserControl.Resources>
     <Grid>
-            
+        <StackPanel>
+            <TextBlock Foreground="White"
+                        Margin="0, 30, 0, 0"
+                       Height="40" FontSize="20"
+                       HorizontalAlignment="Center">Selected Structure</TextBlock>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                        Margin="0, 0, 0, 10">
+                <fa:ImageAwesome Icon="ArrowLeft" Foreground="White" Height="20" Width="20"/>
+                <TextBlock Margin="20, 0, 20, 0"
+                           Text="{Binding structureName}"
+                           Foreground="White"/>
+                <Rectangle Width="30" Height="20" 
+                            Margin="0, 0, 20, 10"
+                           Fill="{Binding structureColor}"/>
+                <fa:ImageAwesome Icon="ArrowRight" Foreground="White" Height="20" Width="20"/>
+            </StackPanel>
+            <StackPanel Style="{StaticResource headerSP}">
+                <TextBlock Style="{StaticResource headerTextBlockLabel}">Interpolate X:</TextBlock>
+                <TextBox Style="{StaticResource headerTextBox}" 
+                         Text="{Binding Path=interpolateX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+            <StackPanel Style="{StaticResource attribSP}">
+                <TextBlock Style="{StaticResource attribTextBlockLabel}">Y: </TextBlock>
+                <TextBlock Style="{StaticResource attribTextBlockValue}" 
+                           Text="{Binding yFromX}"/>
+            </StackPanel>
+            <StackPanel Style="{StaticResource attribSP}">
+                <TextBlock Style="{StaticResource attribTextBlockLabel}">dy: </TextBlock>
+                <TextBlock Style="{StaticResource attribTextBlockValue}"
+                           Text="{Binding dyFromX}"/>
+            </StackPanel>
+            <StackPanel Style="{StaticResource attribSP}">
+                <TextBlock Style="{StaticResource attribTextBlockLabel}">AUC: </TextBlock>
+                <TextBlock Style="{StaticResource attribTextBlockValue}"
+                            Text="{Binding AUCFromX}"/>
+            </StackPanel>
+            <StackPanel Style="{StaticResource headerSP}">
+                <TextBlock Style="{StaticResource headerTextBlockLabel}">Interpolate Y:</TextBlock>
+                <TextBox Style="{StaticResource headerTextBox}"
+                         Text="{Binding Path=interpolateY, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+            <StackPanel Style="{StaticResource attribSP}">
+                <TextBlock Style="{StaticResource attribTextBlockLabel}">X: </TextBlock>
+                <TextBlock Style="{StaticResource attribTextBlockValue}"
+                           Text="{Binding xFromY}"/>
+            </StackPanel>
+            <StackPanel Style="{StaticResource attribSP}">
+                <TextBlock Style="{StaticResource attribTextBlockLabel}">AUC: </TextBlock>
+                <TextBlock Style="{StaticResource attribTextBlockValue}"
+                           Text="{Binding AUCFromY}"/>
+            </StackPanel>
+            <StackPanel Style="{StaticResource headerSP}" Margin="0, 30, 0, 0">
+                <TextBlock Style="{StaticResource headerTextBlockLabel}">Set Color</TextBlock>
+            </StackPanel>
+            <StackPanel Style="{StaticResource headerSP}" Margin="0, 30, 0, 0">
+                <TextBlock Style="{StaticResource headerTextBlockLabel}">Set Thickness</TextBlock>
+                <TextBox Width="150" Text="{Binding lineThickness}"/>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </UserControl>

@@ -3,10 +3,84 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:PQM_V2.Views.HomeViews.AttributePanelViews"
+             xmlns:local="clr-namespace:PQM_V2.Views.HomeViews.AttributePanelViews" 
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="1080" d:DesignWidth="400">
+    <UserControl.Resources>
+        <Style x:Key="headerSP" TargetType="{x:Type StackPanel}">
+            <Setter Property="Margin" Value="0, 15, 0, 10"/>
+            <Setter Property="Orientation" Value="Horizontal"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="attribSP" TargetType="{x:Type StackPanel}">
+            <Setter Property="Margin" Value="0, 5, 0, 5"/>
+            <Setter Property="Orientation" Value="Horizontal"/>
+        </Style>
+        <Style x:Key="headerTextBlockLabel" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0, 0, 10, 0"/>
+        </Style>
+        <Style x:Key="attribTextBlockLabel" TargetType="{x:Type TextBlock}">
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="22"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="TextAlignment" Value="Right"/>
+            <Setter Property="Margin" Value="0, 0, 10, 0"/>
+        </Style>
+        <Style x:Key="attribTextBox" TargetType="{x:Type TextBox}">
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="22"/>
+            <Setter Property="Background" Value="White"/>
+        </Style>
+               
+    </UserControl.Resources>
     <Grid>
-            
+        <StackPanel>
+            <StackPanel Style="{StaticResource headerSP}">
+                <TextBlock Style="{StaticResource headerTextBlockLabel}">Domain</TextBlock>
+            </StackPanel>
+            <StackPanel Style="{StaticResource attribSP}">
+                <TextBlock Style="{StaticResource attribTextBlockLabel}">X Min</TextBlock>
+                <TextBox Style="{StaticResource attribTextBox}"/>
+            </StackPanel>
+            <StackPanel Style="{StaticResource attribSP}">
+                <TextBlock Style="{StaticResource attribTextBlockLabel}">X Max</TextBlock>
+                <TextBox Style="{StaticResource attribTextBox}"/>
+            </StackPanel>
+
+            <StackPanel Style="{StaticResource headerSP}">
+                <TextBlock Style="{StaticResource headerTextBlockLabel}">Graph Attributes</TextBlock>
+            </StackPanel>
+            <StackPanel Style="{StaticResource attribSP}">
+                <TextBlock Style="{StaticResource attribTextBlockLabel}">Number of X Ticks</TextBlock>
+                <TextBox Style="{StaticResource attribTextBox}"/>
+            </StackPanel>
+            <StackPanel Style="{StaticResource attribSP}">
+                <TextBlock Style="{StaticResource attribTextBlockLabel}">Number of Y Ticks</TextBlock>
+                <TextBox Style="{StaticResource attribTextBox}"/>
+            </StackPanel>
+            <StackPanel Style="{StaticResource attribSP}">
+                <TextBlock Style="{StaticResource attribTextBlockLabel}">Points Per Plot</TextBlock>
+                <TextBox Style="{StaticResource attribTextBox}"/>
+            </StackPanel>
+            <StackPanel Style="{StaticResource attribSP}">
+                <TextBlock Style="{StaticResource attribTextBlockLabel}">Plot line Thickness</TextBlock>
+                <TextBox Style="{StaticResource attribTextBox}"/>
+            </StackPanel>
+
+            <StackPanel Style="{StaticResource headerSP}">
+                <TextBlock Style="{StaticResource headerTextBlockLabel}">Graph Style</TextBlock>
+            </StackPanel>
+            <StackPanel Style="{StaticResource attribSP}">
+                <TextBlock Style="{StaticResource attribTextBlockLabel}">Background</TextBlock>
+            </StackPanel>
+            <StackPanel Style="{StaticResource attribSP}">
+                <TextBlock Style="{StaticResource attribTextBlockLabel}">Axis Color</TextBlock>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </UserControl>

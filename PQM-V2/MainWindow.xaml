@@ -9,14 +9,14 @@
         xmlns:views="clr-namespace:PQM_V2.Views"
         xmlns:homeviews="clr-namespace:PQM_V2.Views.HomeViews"
         mc:Ignorable="d"
-        Title="PQM Automation" Height="720" Width="1080"
+        Title="PQM Automation" Height="1080" Width="1920"
         Name="mainWindow">
     <Window.Resources>
         <DataTemplate DataType="{x:Type viewmodels:StartupViewModel}">
             <views:StartupView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type homeviewmodels:HomeViewModel}">
-            <homeviews:HomeView/>
+            <views:HomeView/>
         </DataTemplate>
     </Window.Resources>
     <Grid>

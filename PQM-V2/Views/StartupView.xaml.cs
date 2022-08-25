@@ -22,15 +22,32 @@ namespace PQM_V2.Views
     /// </summary>
     public partial class StartupView : UserControl
     {
+
+        private SolidColorBrush _hoverColor;
+        private SolidColorBrush _nonHoverColor;
         public StartupView()
         {
             InitializeComponent();
+            _hoverColor = new SolidColorBrush(Color.FromRgb(231, 231, 231));
+            _nonHoverColor = new SolidColorBrush(Colors.White);
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             this.Focusable = true;
             Keyboard.Focus(this);
+        }
+
+        private void ImageAwesome_MouseEnter(object sender, MouseEventArgs e)
+        {
+            FontAwesome.WPF.ImageAwesome image = sender as FontAwesome.WPF.ImageAwesome;
+            image.Foreground = _hoverColor;
+        }
+
+        private void ImageAwesome_MouseLeave(object sender, MouseEventArgs e)
+        {
+            FontAwesome.WPF.ImageAwesome image = sender as FontAwesome.WPF.ImageAwesome;
+            image.Foreground = _nonHoverColor;
         }
     }
 }

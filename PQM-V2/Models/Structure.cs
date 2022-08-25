@@ -21,6 +21,7 @@ namespace PQM_V2.Models
 
         public SolidColorBrush color { get; set; }
         public string name { get; set; }
+        public double maxX => _maxX;
         public Structure(string filePath)
         {
             if (!File.Exists(filePath)) throw new FileNotFoundException();
@@ -339,6 +340,13 @@ namespace PQM_V2.Models
             int spline = getSplineFromX(x);
             double y = _splines[spline].interpolate(x);
             return y;
+        }
+
+        public double interpolateDerivative(double x)
+        {
+            int spline = getSplineFromX(x);
+            double dy = _splines[spline].interpolateDerivative(x);
+            return dy;
         }
         public List<(double, double)> interpolateRange(double xmin, double xmax, int numPoints)
         {
