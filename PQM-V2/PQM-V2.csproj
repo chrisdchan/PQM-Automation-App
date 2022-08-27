@@ -86,6 +86,7 @@
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModels\AttributePanelViewModels\AttributePanelViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModels\AttributePanelViewModels\StructureAttributesViewModel.cs" />
+    <Compile Include="ViewModels\HomeViewModels\AttributePanelViewModels\StructureGraphAttributesViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModels\GraphViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModels\TableViewModel.cs" />

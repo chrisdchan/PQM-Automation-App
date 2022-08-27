@@ -12,12 +12,13 @@ namespace PQM_V2.Stores
         public event Action plotAttributesChanged;
         public event Action backgroundcolorChanged;
         public event Action axesStructureChanged;
+        public event Action graphAttributesChanged;
 
         private double _xmin;
         private double _xmax;
         private int _pointsPerPlot;
-        private double _numXAxisTicks;
-        private double _numYAxisTicks;
+        private int _numXAxisTicks;
+        private int _numYAxisTicks;
         private SolidColorBrush _backgroundColor;
 
         public double xmin
@@ -36,12 +37,12 @@ namespace PQM_V2.Stores
             set { _pointsPerPlot = value; onPlotAttributesChanged(); }
         }
 
-        public double numXAxisTicks
+        public int numXAxisTicks
         {
             get => _numXAxisTicks;
             set { _numXAxisTicks = value; onAxesStructureChanged(); }
         }
-        public double numYAxisTicks
+        public int numYAxisTicks
         {
             get => _numYAxisTicks;
             set { _numYAxisTicks = value; onAxesStructureChanged(); }
@@ -77,5 +78,7 @@ namespace PQM_V2.Stores
         {
             backgroundcolorChanged?.Invoke();
         }
+
+
     }
 }

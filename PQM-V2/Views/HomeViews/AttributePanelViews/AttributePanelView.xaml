@@ -6,12 +6,36 @@
              xmlns:local="clr-namespace:PQM_V2.Views.HomeViews.AttributePanelViews"
              mc:Ignorable="d"  Background="#707070"
              d:DesignHeight="1080" d:DesignWidth="500">
+    <UserControl.Resources>
+        <Style x:Key="expander" TargetType="{x:Type Expander}">
+            <Setter Property="HeaderTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <TextBlock FontSize="20" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Expander}}"
+                                   Text="{Binding}">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#808080"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ExpandDirection" Value="Down"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <StackPanel>
-            <Expander ExpandDirection="Down" Header="Structure Attributes">
+            <Expander Style="{StaticResource expander}" Header="Structure Attributes">
                 <local:StructureAttributesView></local:StructureAttributesView>
             </Expander>
-            <Expander ExpandDirection="Down" Header="Graph Properties">
+            <Expander Style="{StaticResource expander}" Header="Graph Properties">
                 <local:StructureGraphAttributesView></local:StructureGraphAttributesView>
             </Expander>
         </StackPanel>

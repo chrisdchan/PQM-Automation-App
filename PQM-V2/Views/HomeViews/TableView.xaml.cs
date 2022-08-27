@@ -29,7 +29,7 @@ namespace PQM_V2.Views.HomeViews
             DataContext = new TableViewModel();
 
             _resizeTimer = new DispatcherTimer();
-            _resizeTimer.Interval = TimeSpan.FromMilliseconds(50);
+            _resizeTimer.Interval = TimeSpan.FromMilliseconds(100);
             _resizeTimer.IsEnabled = false;
             _resizeTimer.Tick += onResize;
         }

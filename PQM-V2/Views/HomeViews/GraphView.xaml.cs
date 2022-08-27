@@ -37,6 +37,9 @@ namespace PQM_V2.Views.HomeViews
 
         private SolidColorBrush BLACK = new SolidColorBrush(Colors.Black);
 
+        private (double left, double top, double right, double bottom) borders;
+        private (Func<double, double> x, Func<double, double> y) map;
+
         public GraphView()
         {
             InitializeComponent();
@@ -53,7 +56,7 @@ namespace PQM_V2.Views.HomeViews
 
 
             _resizeTimer = new DispatcherTimer();
-            _resizeTimer.Interval = TimeSpan.FromMilliseconds(10);
+            _resizeTimer.Interval = TimeSpan.FromMilliseconds(100);
             _resizeTimer.IsEnabled = false;
             _resizeTimer.Tick += onResize;
 
@@ -69,9 +72,12 @@ namespace PQM_V2.Views.HomeViews
         /* --------------------------------------------------------------------------------------------*/
         private void initStructureCanvases()
         {
+            ScaleTransform graphLayoutTransform = new ScaleTransform(1, -1);
+
             for(int i = 0; i < _graphStore.graph.structures.Count; i++)
             {
                 Canvas structureCanvas = new Canvas();
+                structureCanvas.LayoutTransform = graphLayoutTransform;
                 _structureCanvases.Add(structureCanvas);
                 grid.Children.Add(structureCanvas);
             }
@@ -79,27 +85,6 @@ namespace PQM_V2.Views.HomeViews
 
         /* On Updates */
         /* --------------------------------------------------------------------------------------------*/
-        private void applyResizeTransforms()
-        {
-            double width = grid.ActualWidth;
-            double height = grid.ActualHeight;
-            double domain = _graphAttributesStore.xmax - _graphAttributesStore.xmin;
-
-            TransformGroup graphRenderTransform = new TransformGroup();
-            graphRenderTransform.Children.Add(new ScaleTransform(0.7, 0.7));
-            graphRenderTransform.Children.Add(new TranslateTransform(width * 0.15, height * 0.15));
-
-            ScaleTransform graphLayoutTransform = new ScaleTransform(width / domain, -height / 100);
-
-            _axesCanvas.RenderTransform = graphRenderTransform;
-            _axesCanvas.LayoutTransform = graphLayoutTransform;
-
-            foreach(Canvas canvas in _structureCanvases)
-            {
-                canvas.RenderTransform = graphRenderTransform;
-                canvas.LayoutTransform = graphLayoutTransform;
-            }
-        }
         private void applyDomainSizeChangeTransformations()
         {
             double width = grid.ActualWidth;
@@ -215,7 +200,6 @@ namespace PQM_V2.Views.HomeViews
             clearAllCanvases();
             _structureCanvases.Clear();
             initStructureCanvases();
-            applyResizeTransforms();
             setStructureCanvases();
             setAxesCanvas();
         }
@@ -240,8 +224,15 @@ namespace PQM_V2.Views.HomeViews
         private void onResize(object sender, EventArgs e)
         {
             _resizeTimer.IsEnabled = false;
+
+            borders = (
+                left: _axesCanvas.ActualWidth * 0.1,
+                top: _axesCanvas.ActualHeight * 0.1,
+                right: _axesCanvas.ActualWidth * 0.9,
+                bottom: _axesCanvas.ActualHeight * 0.1
+                );
+
             textCanvas.Visibility = Visibility.Visible;
-            applyResizeTransforms();
             setStructureCanvases();
             setAxesCanvas();
         }

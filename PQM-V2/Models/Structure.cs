@@ -33,7 +33,6 @@ namespace PQM_V2.Models
             _maxX = _splines[_splines.Count - 1].x2;
             setMetricAndName();
 
-            setCoeffients();
             setHermites();
             setAreas();
         }
@@ -141,93 +140,9 @@ namespace PQM_V2.Models
                 name = last;
             }
         }
-        private void setCoeffients()
-        {
-            int n = _splines.Count + 1;
-            int u = 4 * n - 4;
-
-            double[,] A = new double[u, u];
-            double[] b = new double[u];
-
-            int row = 0;
-
-            for (int i = 0; i < u; i++)
-            {
-                for (int j = 0; j < u; j++)
-                {
-                    A[i, j] = 0;
-                }
-                b[i] = 0;
-            }
-
-            for(int i = 0; i < _splines.Count; i++)
-            {
-                double x1 = _splines[i].x1;
-                double x2 = _splines[i].x2;
-
-                A[row, i * 4] = Math.Pow(x1, 3);
-                A[row, i * 4 + 1] = Math.Pow(x1, 2);
-                A[row, i * 4 + 2] = x1;
-                A[row, i * 4 + 3] = 1;
-                b[row] = _splines[i].y1;
-
-                A[row + 1, i * 4] = Math.Pow(x2, 3);
-                A[row + 1, i * 4 + 1] = Math.Pow(x2, 2);
-                A[row + 1, i * 4 + 2] = x2;
-                A[row + 1, i * 4 + 3] = 1;
-                b[row + 1] = _splines[i].y2;
-
-                row += 2;
-            }
-
-            for (int i = 1; i < n - 1; i++)
-            {
-                double x1 = _splines[i].x1;
-                A[row, i * 4 - 4] = 3 * Math.Pow(x1, 2);
-                A[row, i * 4 - 3] = 2 * x1;
-                A[row, i * 4 - 2] = 1;
-                A[row, i * 4] = -3 * Math.Pow(x1, 2);
-                A[row, i * 4 + 1] = -2 * x1;
-                A[row, i * 4 + 2] = -1;
-                b[row] = 0;
-
-                A[row + 1, i * 4 - 4] = 6 * x1;
-                A[row + 1, i * 4 - 3] = 2;
-                A[row + 1, i * 4] = -6 * x1;
-                A[row + 1, i * 4 + 1] = -2;
-                b[row + 1] = 0;
-
-                row += 2;
-            }
-
-            A[row, 0] = 6 * _splines[0].x1;
-            A[row, 1] = 2;
-            b[row] = 0;
-
-            A[row + 1, u - 4] = 6 * _splines[n - 2].x2;
-            A[row + 1, u - 3] = 2;
-            b[row + 1] = 0;
-
-            Matrix<double> matA = Matrix<double>.Build.DenseOfArray(A);
-            Vector<double> vecB = Vector<double>.Build.DenseOfArray(b);
-
-            Vector<double> coefficients = matA.Solve(vecB);
-
-            for(int i = 0; i < _splines.Count; i++)
-            {
-                _splines[i].setCubicCoefficients(
-                    coefficients[i * 4],
-                    coefficients[i * 4 + 1],
-                    coefficients[i * 4 + 2],
-                    coefficients[i * 4 + 3]
-                );
-            }
-        }
         private void setHermites()
         {
             double[,] derivGuesses = new double[_splines.Count, 2];
-            double[,] alphaBeta = new double[_splines.Count, 2];
-
            
             derivGuesses[0, 0] =  _splines[0].delta * 0.5;
 
@@ -279,7 +194,6 @@ namespace PQM_V2.Models
             {
                 _splines[i].setHermiteCoefficients(derivGuesses[i, 0], derivGuesses[i, 1]);
             }
-
         }
         private void setAreas()
         {
@@ -341,7 +255,6 @@ namespace PQM_V2.Models
             double y = _splines[spline].interpolate(x);
             return y;
         }
-
         public double interpolateDerivative(double x)
         {
             int spline = getSplineFromX(x);

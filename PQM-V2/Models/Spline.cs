@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PQM_V2.Models
 {
-    public enum SplineType { None, Cubic, Monotone }
+    public enum SplineType { None, Monotone }
     public class Spline
     {
         private int _yPrecision = 4;
@@ -21,10 +21,7 @@ namespace PQM_V2.Models
         public double delta { get; }
         public double h { get; }
         public double aucX1 { get => _aucX1; set { _aucX1 = value; } }
-        public double[] derivatives { get; set; }
         private (double a, double b, double c, double d) hermite { get; set; }
-        private (double a, double b, double c, double d) cubic { get; set; }
-
         public Spline(double x1, double y1, double x2, double y2)
         {
             this.x1 = x1;
@@ -44,7 +41,6 @@ namespace PQM_V2.Models
         /*
          * Initialization from Structure
          */
-
         public void setHermiteCoefficients(double d1, double d2)
         {
             double a = (d1 + d2 - 2 * delta) / (h * h);
@@ -59,11 +55,6 @@ namespace PQM_V2.Models
 
             hermite = (i, j, k, l);
             splineType = SplineType.Monotone;
-        }
-        public void setCubicCoefficients(double a, double b, double c, double d)
-        {
-            cubic = (a, b, c, d);
-            splineType = SplineType.Cubic;
         }
         public double getTotalArea()
         {
@@ -147,8 +138,7 @@ namespace PQM_V2.Models
          */
         private (double, double, double, double) getCoefficients()
         {
-            if (splineType == SplineType.Cubic) return cubic;
-            else if (splineType == SplineType.Monotone) return hermite;
+            if (splineType == SplineType.Monotone) return hermite;
             else throw new NotSupportedException();
         }
         private Boolean isCorrectRoot(double? rb)

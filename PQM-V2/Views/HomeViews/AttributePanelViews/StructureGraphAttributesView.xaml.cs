@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -23,6 +24,7 @@ namespace PQM_V2.Views.HomeViews.AttributePanelViews
         public StructureGraphAttributesView()
         {
             InitializeComponent();
+            DataContext = new StructureGraphAttributesViewModel();
         }
     }
 }

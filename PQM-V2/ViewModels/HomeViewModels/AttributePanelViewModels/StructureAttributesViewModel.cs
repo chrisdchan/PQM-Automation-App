@@ -81,12 +81,13 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             if (_interpolateX < 0 || _currentStructure.maxX < _interpolateX)
             {
                 _interpolateX = 0;
-                onPropertyChanged(nameof(interpolateX));
-                return;
             }
-            yFromX = _currentStructure.interpolate(_interpolateX);
-            dyFromX = _currentStructure.interpolateDerivative(_interpolateX);
-            AUCFromX = _currentStructure.aucFromX(_interpolateX);
+            else
+            {
+                yFromX = _currentStructure.interpolate(_interpolateX);
+                dyFromX = _currentStructure.interpolateDerivative(_interpolateX);
+                AUCFromX = _currentStructure.aucFromX(_interpolateX);
+            }
         }
         private void setFromY()
         {
