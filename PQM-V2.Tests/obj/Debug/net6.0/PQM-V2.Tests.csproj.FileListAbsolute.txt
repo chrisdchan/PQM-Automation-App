@@ -93,12 +93,12 @@ C:\Users\chris\source\repos\PQM-V2\PQM-V2.Tests\bin\Debug\net6.0\zh-Hant\Microso
 C:\Users\chris\source\repos\PQM-V2\PQM-V2.Tests\bin\Debug\net6.0\zh-Hant\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
 C:\Users\chris\source\repos\PQM-V2\PQM-V2.Tests\bin\Debug\net6.0\zh-Hant\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
 C:\Users\chris\source\repos\PQM-V2\PQM-V2.Tests\bin\Debug\net6.0\PQM-V2.exe
-C:\Users\chris\source\repos\PQM-V2\PQM-V2.Tests\bin\Debug\net6.0\MathNet.Numerics.dll
 C:\Users\chris\source\repos\PQM-V2\PQM-V2.Tests\bin\Debug\net6.0\PQM-V2.pdb
 C:\Users\chris\source\repos\PQM-V2\PQM-V2.Tests\bin\Debug\net6.0\PQM-V2.exe.config
-C:\Users\chris\source\repos\PQM-V2\PQM-V2.Tests\bin\Debug\net6.0\MathNet.Numerics.xml
 C:\Users\chris\source\repos\PQM-V2\PQM-V2.Tests\obj\Debug\net6.0\PQM-V2.Tests.csproj.CopyComplete
 C:\Users\chris\source\repos\PQM-V2\PQM-V2.Tests\obj\Debug\net6.0\PQM-V2.Tests.dll
 C:\Users\chris\source\repos\PQM-V2\PQM-V2.Tests\obj\Debug\net6.0\ref\PQM-V2.Tests.dll
 C:\Users\chris\source\repos\PQM-V2\PQM-V2.Tests\obj\Debug\net6.0\PQM-V2.Tests.pdb
 C:\Users\chris\source\repos\PQM-V2\PQM-V2.Tests\obj\Debug\net6.0\PQM-V2.Tests.genruntimeconfig.cache
+C:\Users\chris\source\repos\PQM-V2\PQM-V2.Tests\bin\Debug\net6.0\FontAwesome.WPF.dll
+C:\Users\chris\source\repos\PQM-V2\PQM-V2.Tests\bin\Debug\net6.0\FontAwesome.WPF.xml

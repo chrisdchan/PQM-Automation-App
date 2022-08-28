@@ -36,7 +36,7 @@
                 <local:StructureAttributesView></local:StructureAttributesView>
             </Expander>
             <Expander Style="{StaticResource expander}" Header="Graph Properties">
-                <local:StructureGraphAttributesView></local:StructureGraphAttributesView>
+                <local:GraphAttributesView></local:GraphAttributesView>
             </Expander>
         </StackPanel>
     </Grid>

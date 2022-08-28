@@ -43,6 +43,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
 
         private void loadGraph()
         {
+            _legendItemsList.Clear();
             foreach(Structure structure in _graphStore.graph.structures)
             {
                 addStructure(structure);

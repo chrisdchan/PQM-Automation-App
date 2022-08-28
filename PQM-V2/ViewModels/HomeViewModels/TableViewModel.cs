@@ -42,6 +42,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
 
         private void loadGraph()
         {
+            _tableRowsList.Clear();
             foreach(Structure structure in _graphStore.graph.structures)
             {
                 addRow(structure);

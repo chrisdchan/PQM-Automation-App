@@ -65,6 +65,21 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=4.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.4.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=4.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.4.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=4.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.4.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=4.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.4.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=4.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.4.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -86,7 +101,7 @@
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModels\AttributePanelViewModels\AttributePanelViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModels\AttributePanelViewModels\StructureAttributesViewModel.cs" />
-    <Compile Include="ViewModels\HomeViewModels\AttributePanelViewModels\StructureGraphAttributesViewModel.cs" />
+    <Compile Include="ViewModels\HomeViewModels\AttributePanelViewModels\GraphAttributesViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModels\GraphViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModels\TableViewModel.cs" />
@@ -99,8 +114,8 @@
     <Compile Include="Views\HomeViews\AttributePanelViews\StructureAttributesView.xaml.cs">
       <DependentUpon>StructureAttributesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\HomeViews\AttributePanelViews\StructureGraphAttributesView.xaml.cs">
-      <DependentUpon>StructureGraphAttributesView.xaml</DependentUpon>
+    <Compile Include="Views\HomeViews\AttributePanelViews\GraphAttributesView.xaml.cs">
+      <DependentUpon>GraphAttributesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HomeViews\GraphView.xaml.cs">
       <DependentUpon>GraphView.xaml</DependentUpon>
@@ -137,7 +152,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\HomeViews\AttributePanelViews\StructureGraphAttributesView.xaml">
+    <Page Include="Views\HomeViews\AttributePanelViews\GraphAttributesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

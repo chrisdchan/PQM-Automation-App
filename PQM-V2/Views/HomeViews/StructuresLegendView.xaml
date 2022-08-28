@@ -11,35 +11,31 @@
     <UserControl.Resources>
         <converters:InverseBooleanConverter x:Key="inverseBooleanConverter"/>
         <DataTemplate x:Key="myListViewItemTemplate">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="140px"/>
-                    <ColumnDefinition Width="10px"/>
-                    <ColumnDefinition Width="20px"/>
-                    <ColumnDefinition Width="10px"/>
-                    <ColumnDefinition Width="100px"/>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Content="{Binding name}" Foreground="#ffffff" FontSize="15">
-                </Label>
-                <Rectangle Grid.Column="2" Fill="{Binding color}" Height="10" Width="20"/>
-                <fa:ImageAwesome Grid.Column="4" Foreground="#cccccc" HorizontalAlignment="Right" Height="20px" Icon="Eye" Visibility="{Binding eye}" Width="20px"/>
-                <fa:ImageAwesome Grid.Column="5" Foreground="#cccccc" Height="20px" Icon="EyeSlash" Visibility="{Binding eyeSlash}" Width="20px"/>
-                <Grid.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="Show"/>
-                        <MenuItem Header="Hide"/>
-                        <MenuItem Header="Isolate"/>
-                        <MenuItem Header="Delete"/>
-                        <MenuItem Header="Select"/>
-                    </ContextMenu>
-                </Grid.ContextMenu>
-            </Grid>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding name}" Foreground="#ffffff" FontSize="15" Width="100" Margin="5, 0, 5, 0"/>
+                <Rectangle Fill="{Binding color}" Height="10" Width="30" Margin="5, 0, 5, 0"/>
+                <fa:ImageAwesome Grid.Column="2" Foreground="#cccccc" 
+                                 Margin="5, 0, 5, 0"
+                                 Height="20px" Icon="Eye" Visibility="{Binding eye}" Width="20px"/>
+                <fa:ImageAwesome Grid.Column="3" Foreground="#cccccc" 
+                                 Margin="5, 0, 5, 0"
+                                 Height="20px" Icon="EyeSlash" Visibility="{Binding eyeSlash}" Width="20px"/>
+            </StackPanel>
         </DataTemplate>
     </UserControl.Resources>
     <Grid>
         <ListView ItemTemplate="{DynamicResource myListViewItemTemplate}" 
                   Style="{DynamicResource myListViewStyle}" Background="#707070" 
                   ItemsSource="{Binding LegendItemsList}">
+            <ListView.ContextMenu>
+                    <ContextMenu Placement="MousePoint">
+                        <MenuItem Header="Show"/>
+                        <MenuItem Header="Hide"/>
+                        <MenuItem Header="Isolate"/>
+                        <MenuItem Header="Delete"/>
+                        <MenuItem Header="Select"/>
+                    </ContextMenu>
+            </ListView.ContextMenu>
         </ListView>
     </Grid>
 </UserControl>

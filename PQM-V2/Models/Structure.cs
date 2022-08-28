@@ -22,6 +22,7 @@ namespace PQM_V2.Models
         public SolidColorBrush color { get; set; }
         public string name { get; set; }
         public double maxX => _maxX;
+        public string metric => _metric;
         public Structure(string filePath)
         {
             if (!File.Exists(filePath)) throw new FileNotFoundException();

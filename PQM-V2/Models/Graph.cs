@@ -11,15 +11,30 @@ namespace PQM_V2.Models
     public class Graph
     {
         private string[] _filepaths;
+        private string _title;
+        private double _xmax;
+        private string _yaxisName;
+        private string _xaxisName;
+        private bool _multipleMetricsFlag;
         public List<Structure> structures { get; set; }
+
+        public string title => _title;
+        public string xaxisName => _xaxisName;
+        public string yaxisName => _yaxisName;
+        public bool multipleMetricsFlag => _multipleMetricsFlag;
+        public double xmax => _xmax;
 
         public Graph(string[] filepaths)
         {
             _filepaths = filepaths;
             structures = new List<Structure>();
 
+            _multipleMetricsFlag = false;
+
             setStructures();
+            setXmax();
             setColors();
+            setGraphTitles();
         }
 
         private void setStructures()
@@ -28,6 +43,17 @@ namespace PQM_V2.Models
             {
                 if(File.Exists(filepath))
                     structures.Add(new Structure(filepath));
+            }
+        }
+        private void setXmax()
+        {
+            _xmax = double.MinValue;
+            foreach(Structure structure in structures)
+            {
+                if(_xmax < structure.maxX)
+                {
+                    _xmax = structure.maxX;
+                }
             }
         }
         private void setColors()
@@ -83,8 +109,47 @@ namespace PQM_V2.Models
             return new SolidColorBrush(Color.FromArgb(255, (byte)R, (byte)G, (byte)B));
 
         }
+        private void setGraphTitles()
+        {
+            string metric = null;
+            foreach(Structure structure in structures)
+            {
+                if(metric == null)
+                {
+                    metric = structure.metric;
+                }
+                else if(metric != structure.metric)
+                {
+                    _multipleMetricsFlag = true;
+                }
+            }
+            metric = metricToFullName(metric);
 
+            _title = metric;
+            _yaxisName = "Normalized Percent Volumne (%)";
+            _xaxisName = metric + " (A/m^2)";
+        }
+        private string metricToFullName(string metric)
+        {
+            string res;
+            if(metric == "CD")
+            {
+                res = "Current Density";
+            }
+            else if(metric == "SAR")
+            {
+                res = "Specific Absorbance Rate";
+            }
+            else if(metric == "E-field")
+            {
+                res = "Electric Field Density";
+            }
+            else
+            {
+                throw new ArgumentException("Not a valid metric");
+            }
 
-
+            return res;
+        }
     }
 }

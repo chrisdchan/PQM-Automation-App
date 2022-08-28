@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:PQM_V2.Views.HomeViews.AttributePanelViews" xmlns:fa="http://schemas.fontawesome.io/icons/" 
-             mc:Ignorable="d" 
+             mc:Ignorable="d" Background="#707070"
              d:DesignHeight="1080" d:DesignWidth="400">
     <UserControl.Resources>
 

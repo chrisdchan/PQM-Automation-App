@@ -7,32 +7,5 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid x:Name="grid" SizeChanged="grid_SizeChanged">
-        <Canvas Background="#ffffff" x:Name="textCanvas">
-            <TextBlock 
-                Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"
-                Margin="0, 20, 0, 0"
-                TextAlignment="Center"
-                FontSize="20"
-                Text="Title Here">
-            </TextBlock>
-            <TextBlock 
-                Width="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"
-                Height="30"
-                Canvas.Bottom="0"
-                Canvas.Left="10"
-                TextAlignment="Center"
-                Text="Y Axis">
-                <TextBlock.LayoutTransform>
-                    <RotateTransform Angle="270"/>
-                </TextBlock.LayoutTransform>
-            </TextBlock>
-            <TextBlock 
-                Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"
-                Canvas.Bottom="10"
-                Margin="0, 20, 0, 0"
-                TextAlignment="Center"
-                Text="Title Here">
-            </TextBlock>
-        </Canvas>
     </Grid>
 </UserControl>

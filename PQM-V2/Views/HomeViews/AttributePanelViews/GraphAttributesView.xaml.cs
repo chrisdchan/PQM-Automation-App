@@ -19,12 +19,12 @@ namespace PQM_V2.Views.HomeViews.AttributePanelViews
     /// <summary>
     /// Interaction logic for StructureGraphAttributesView.xaml
     /// </summary>
-    public partial class StructureGraphAttributesView : UserControl
+    public partial class GraphAttributesView : UserControl
     {
-        public StructureGraphAttributesView()
+        public GraphAttributesView()
         {
             InitializeComponent();
-            DataContext = new StructureGraphAttributesViewModel();
+            DataContext = new GraphAttributesViewModel();
         }
     }
 }

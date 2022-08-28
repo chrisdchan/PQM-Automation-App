@@ -1,8 +1,9 @@
-﻿<UserControl x:Class="PQM_V2.Views.HomeViews.AttributePanelViews.StructureGraphAttributesView"
+﻿<UserControl x:Class="PQM_V2.Views.HomeViews.AttributePanelViews.GraphAttributesView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:xtck="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:local="clr-namespace:PQM_V2.Views.HomeViews.AttributePanelViews" 
              mc:Ignorable="d"  Background="#707070"
              d:DesignHeight="1080" d:DesignWidth="400">
@@ -63,6 +64,10 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
+        <Style x:Key="colorPicker" TargetType="{x:Type xtck:ColorPicker}">
+            <Setter Property="Width" Value="100"/>
+        </Style>
                
     </UserControl.Resources>
     <Grid>
@@ -73,16 +78,17 @@
             <StackPanel Style="{StaticResource attribSP}">
                 <TextBlock Style="{StaticResource attribTextBlockLabel}">X Min</TextBlock>
                 <TextBox Style="{StaticResource attribTextBox}"
-                         Text="{Binding Path=xmin, Mode=OneWay}"/>
+                         Text="{Binding Path=xmin, Mode=TwoWay}"/>
                 <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
             </StackPanel>
             <StackPanel Style="{StaticResource attribSP}">
                 <TextBlock Style="{StaticResource attribTextBlockLabel}">X Max</TextBlock>
                 <TextBox Style="{StaticResource attribTextBox}"
-                         Text="{Binding Path=xmax, Mode=OneWay}"/>
+                         Text="{Binding Path=xmax, Mode=TwoWay}"/>
                 <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
             </StackPanel>
-            <Button Style="{StaticResource updateButton}" Content="Update Domain"/>
+            <Button Style="{StaticResource updateButton}" Content="Update Domain"
+                    Command="{Binding updateDomainCommand}"/>
 
             <StackPanel Style="{StaticResource headerSP}">
                 <TextBlock Style="{StaticResource headerTextBlockLabel}">Graph Attributes</TextBlock>
@@ -90,19 +96,19 @@
             <StackPanel Style="{StaticResource attribSP}">
                 <TextBlock Style="{StaticResource attribTextBlockLabel}">Number of X Ticks</TextBlock>
                 <TextBox Style="{StaticResource attribTextBox}"
-                         Text="{Binding Path=numXAxisTicks, Mode=OneWay}"/>
+                         Text="{Binding Path=numXAxisTicks, Mode=TwoWay}"/>
                 <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
             </StackPanel>
             <StackPanel Style="{StaticResource attribSP}">
                 <TextBlock Style="{StaticResource attribTextBlockLabel}">Number of Y Ticks</TextBlock>
                 <TextBox Style="{StaticResource attribTextBox}"
-                         Text="{Binding Path=numYAxisTicks, Mode=OneWay}"/>
+                         Text="{Binding Path=numYAxisTicks, Mode=TwoWay}"/>
                 <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
             </StackPanel>
             <StackPanel Style="{StaticResource attribSP}">
                 <TextBlock Style="{StaticResource attribTextBlockLabel}">Points Per Plot</TextBlock>
                 <TextBox Style="{StaticResource attribTextBox}"
-                         Text="{Binding Path=pointsPerPlot, Mode=OneWay}"/>
+                         Text="{Binding Path=pointsPerPlot, Mode=TwoWay}"/>
                 <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
             </StackPanel>
             <StackPanel Style="{StaticResource attribSP}">
@@ -110,17 +116,27 @@
                 <TextBox Style="{StaticResource attribTextBox}"/>
                 <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
             </StackPanel>
-            <Button Style="{StaticResource updateButton}" Content="Update Graph"/>
+            <Button Style="{StaticResource updateButton}" Content="Update Graph"
+                    Command="{Binding updateGraphAttributesCommand}"/>
 
             <StackPanel Style="{StaticResource headerSP}">
                 <TextBlock Style="{StaticResource headerTextBlockLabel}">Graph Style</TextBlock>
             </StackPanel>
             <StackPanel Style="{StaticResource attribSP}">
                 <TextBlock Style="{StaticResource attribTextBlockLabel}">Background</TextBlock>
+                <xtck:ColorPicker Style="{StaticResource colorPicker}" 
+                                  SelectedColor="{Binding backgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
             </StackPanel>
             <StackPanel Style="{StaticResource attribSP}">
                 <TextBlock Style="{StaticResource attribTextBlockLabel}">Axis Color</TextBlock>
+                <xtck:ColorPicker Style="{StaticResource colorPicker}" 
+                                  SelectedColor="{Binding axisColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                </xtck:ColorPicker>
+                <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
             </StackPanel>
+            <Button Style="{StaticResource updateButton}" Content="Update Style"
+                    Command="{Binding updateStyleCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>
