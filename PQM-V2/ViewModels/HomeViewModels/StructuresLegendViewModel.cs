@@ -12,27 +12,19 @@ using System.Windows.Media;
 
 namespace PQM_V2.ViewModels.HomeViewModels
 {
-    public class LegendItemViewModel
-    {
-        public string name { get; set; }
-        public SolidColorBrush color { get; set; }
-        public Visibility eye { get; set; }
-        public Visibility eyeSlash { get; set; }
-    }
-
     public class StructuresLegendViewModel
     {
         private readonly GraphStore _graphStore;
 
-        private readonly ObservableCollection<LegendItemViewModel> _legendItemsList;
-        public ObservableCollection<LegendItemViewModel> LegendItemsList => _legendItemsList;
+        private readonly ObservableCollection<Structure> _structureList;
+        public ObservableCollection<Structure> structureList => _structureList;
 
-        private RelayCommand changeVisibilityCommand; 
+        public RelayCommand changeVisibilityCommand { get; private set; }
 
         public StructuresLegendViewModel()
         {
             _graphStore = (Application.Current as App).graphStore;
-            _legendItemsList = new ObservableCollection<LegendItemViewModel>();
+            _structureList = new ObservableCollection<Structure>();
 
             loadGraph();
 
@@ -43,7 +35,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
 
         private void loadGraph()
         {
-            _legendItemsList.Clear();
+            _structureList.Clear();
             foreach(Structure structure in _graphStore.graph.structures)
             {
                 addStructure(structure);
@@ -51,20 +43,14 @@ namespace PQM_V2.ViewModels.HomeViewModels
         }
         private void addStructure(Structure structure)
         {
-            LegendItemViewModel itemViewModel = new LegendItemViewModel
-            {
-                name = structure.name,
-                color = structure.color,
-                eye = Visibility.Visible,
-                eyeSlash = Visibility.Hidden
-            };
-            _legendItemsList.Add(itemViewModel);
+            _structureList.Add(structure);
         }
 
-        private void changeVisibility(object message)
+        private void changeVisibility(object param)
         {
-            
+
         }
+
     }
 
 

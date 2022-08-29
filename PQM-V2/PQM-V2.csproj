@@ -88,7 +88,9 @@
     </ApplicationDefinition>
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Converters\BooleanForegroundConverter.cs" />
     <Compile Include="Converters\BooleanVisibilityConverter.cs" />
+    <Compile Include="Converters\CombiningConverter.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Models\Graph.cs" />
     <Compile Include="Models\Spline.cs" />

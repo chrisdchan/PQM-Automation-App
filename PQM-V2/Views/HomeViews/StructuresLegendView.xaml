@@ -10,32 +10,57 @@
              d:DesignHeight="600" d:DesignWidth="400">
     <UserControl.Resources>
         <converters:InverseBooleanConverter x:Key="inverseBooleanConverter"/>
+        <converters:BooleanVisibilityConverter x:Key="booleanVisibilityConverter"/>
+        <converters:BooleanForegroundConverter x:Key="booleanForegroundConverter"/>
+        <converters:CombiningConverter x:Key="notBooleanForegroundConverter"
+                                       Converter1="{StaticResource inverseBooleanConverter}"
+                                       Converter2="{StaticResource booleanForegroundConverter}"/>
+        <converters:CombiningConverter x:Key="notBooleanVisibilityConverter"
+                                       Converter1="{StaticResource inverseBooleanConverter}"
+                                       Converter2="{StaticResource booleanVisibilityConverter}"/>
+        <Style x:Key="faButton" TargetType="Button">
+            <Setter Property="Width" Value="20"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="Transparent">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <DataTemplate x:Key="myListViewItemTemplate">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding name}" Foreground="#ffffff" FontSize="15" Width="100" Margin="5, 0, 5, 0"/>
+            <StackPanel Orientation="Horizontal" Margin="0" Background="#707070"
+                        Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}}">
+                <TextBlock Text="{Binding name}" Foreground="#ffffff" FontSize="15" Width="150" Margin="5, 0, 5, 0"/>
                 <Rectangle Fill="{Binding color}" Height="10" Width="30" Margin="5, 0, 5, 0"/>
-                <fa:ImageAwesome Grid.Column="2" Foreground="#cccccc" 
-                                 Margin="5, 0, 5, 0"
-                                 Height="20px" Icon="Eye" Visibility="{Binding eye}" Width="20px"/>
-                <fa:ImageAwesome Grid.Column="3" Foreground="#cccccc" 
-                                 Margin="5, 0, 5, 0"
-                                 Height="20px" Icon="EyeSlash" Visibility="{Binding eyeSlash}" Width="20px"/>
+                <Button Style="{StaticResource faButton}" 
+                        Visibility="{Binding visible, Converter={StaticResource booleanVisibilityConverter}}">
+                    <fa:ImageAwesome Foreground="White" Icon="Eye"/>
+                </Button>
+                <Button Style="{StaticResource faButton}" Visibility="{Binding visible, Converter={StaticResource notBooleanVisibilityConverter}}">
+                    <fa:ImageAwesome Foreground="White" Icon="EyeSlash"/>
+                </Button>
+                <StackPanel.ContextMenu>
+                    <ContextMenu Placement="MousePoint">
+                        <MenuItem Header="Show" 
+                                  Foreground="{Binding Path=visible, Converter={StaticResource notBooleanForegroundConverter}}" />
+                        <MenuItem Header="Hide"
+                                  Foreground="{Binding Path=visible, Converter={StaticResource booleanForegroundConverter} }"/>
+                        <MenuItem Header="Isolate"/>
+                        <MenuItem Header="Delete"/>
+                        <MenuItem Header="Select"/>
+                    </ContextMenu>
+                </StackPanel.ContextMenu>
             </StackPanel>
         </DataTemplate>
     </UserControl.Resources>
     <Grid>
         <ListView ItemTemplate="{DynamicResource myListViewItemTemplate}" 
-                  Style="{DynamicResource myListViewStyle}" Background="#707070" 
-                  ItemsSource="{Binding LegendItemsList}">
-            <ListView.ContextMenu>
-                    <ContextMenu Placement="MousePoint">
-                        <MenuItem Header="Show"/>
-                        <MenuItem Header="Hide"/>
-                        <MenuItem Header="Isolate"/>
-                        <MenuItem Header="Delete"/>
-                        <MenuItem Header="Select"/>
-                    </ContextMenu>
-            </ListView.ContextMenu>
+                  Background="#707070" 
+                  ItemsSource="{Binding structureList}">
         </ListView>
     </Grid>
 </UserControl>

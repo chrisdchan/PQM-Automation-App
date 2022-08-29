@@ -269,8 +269,11 @@ namespace PQM_V2.Views.HomeViews
             for(int i = 0; i < graph.structures.Count; i++)
             {
                 Structure structure = graph.structures[i];
-                Canvas canvas = _structureCanvases[i];
-                setStructureCanvas(canvas, structure);
+                if(structure.visible)
+                {
+                    Canvas canvas = _structureCanvases[i];
+                    setStructureCanvas(canvas, structure);
+                }
             }
         }
         private void setStructureCanvas(Canvas canvas, Structure structure)
