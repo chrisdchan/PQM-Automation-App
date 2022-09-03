@@ -27,5 +27,10 @@ namespace PQM_V2.Views.HomeViews
             InitializeComponent();
             DataContext = new StructuresLegendViewModel();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

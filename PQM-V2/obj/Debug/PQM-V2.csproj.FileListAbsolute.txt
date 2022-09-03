@@ -58,3 +58,16 @@ C:\Users\chris\source\repos\PQM-V2\PQM-V2\bin\Debug\ro\Xceed.Wpf.AvalonDock.reso
 C:\Users\chris\source\repos\PQM-V2\PQM-V2\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
 C:\Users\chris\source\repos\PQM-V2\PQM-V2\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
 C:\Users\chris\source\repos\PQM-V2\PQM-V2\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\PQM-V2_Content.g.cs
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\bin\Debug\runtimes\win-x86\native\WebView2Loader.dll
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\bin\Debug\runtimes\win-x64\native\WebView2Loader.dll
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\bin\Debug\runtimes\win-arm64\native\WebView2Loader.dll
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\bin\Debug\Microsoft.Web.WebView2.Core.dll
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\bin\Debug\Microsoft.Web.WebView2.WinForms.dll
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\bin\Debug\Microsoft.Web.WebView2.Wpf.dll
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\bin\Debug\Microsoft.Web.WebView2.Core.xml
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\bin\Debug\Microsoft.Web.WebView2.WinForms.xml
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\bin\Debug\Microsoft.Web.WebView2.Wpf.xml
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\bin\Debug\Microsoft.Xaml.Behaviors.dll
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\bin\Debug\Microsoft.Xaml.Behaviors.pdb
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\bin\Debug\Microsoft.Xaml.Behaviors.xml

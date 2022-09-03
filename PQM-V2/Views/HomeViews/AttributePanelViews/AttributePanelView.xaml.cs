@@ -20,9 +20,30 @@ namespace PQM_V2.Views.HomeViews.AttributePanelViews
     /// </summary>
     public partial class AttributePanelView : UserControl
     {
+        private Boolean enableExpanding;
         public AttributePanelView()
         {
             InitializeComponent();
+            enableExpanding = true;
+        }
+
+        private void Expander_Expanded(object sender, RoutedEventArgs e)
+        {
+            if(enableExpanding)
+            {
+                enableExpanding = false;
+                closeAllExpanders();
+                (sender as Expander).IsExpanded = true;
+                enableExpanding = true;
+            }
+        }
+
+        private void closeAllExpanders()
+        {
+            foreach(Expander expander in stackPanel.Children)
+            {
+                expander.IsExpanded = false;
+            }
         }
     }
 }

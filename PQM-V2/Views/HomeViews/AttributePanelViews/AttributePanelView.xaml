@@ -31,11 +31,13 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <StackPanel>
-            <Expander Style="{StaticResource expander}" Header="Structure Attributes">
+        <StackPanel x:Name="stackPanel">
+            <Expander Style="{StaticResource expander}" Header="Structure Attributes"
+                      Expanded="Expander_Expanded">
                 <local:StructureAttributesView></local:StructureAttributesView>
             </Expander>
-            <Expander Style="{StaticResource expander}" Header="Graph Properties">
+            <Expander Style="{StaticResource expander}" Header="Graph Properties"
+                      Expanded="Expander_Expanded">
                 <local:GraphAttributesView></local:GraphAttributesView>
             </Expander>
         </StackPanel>
