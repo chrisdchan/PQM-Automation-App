@@ -1,7 +1,4 @@
-﻿using PQM_V2.Models;
-using PQM_V2.ViewModels;
-using PQM_V2.ViewModels.HomeViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,17 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PQM_V2.Views.HomeViews
+namespace PQM_V2.Views.HomeViews.AttributePanelViews
 {
     /// <summary>
-    /// Interaction logic for StructuresLegendView.xaml
+    /// Interaction logic for AxisTitlesView.xaml
     /// </summary>
-    public partial class StructuresLegendView : UserControl
+    public partial class AxisTitlesView : UserControl
     {
-        public StructuresLegendView()
+        public AxisTitlesView()
         {
             InitializeComponent();
-            DataContext = new StructuresLegendViewModel();
         }
     }
 }

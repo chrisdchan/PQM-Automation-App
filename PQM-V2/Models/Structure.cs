@@ -24,6 +24,7 @@ namespace PQM_V2.Models
         public bool visible { get; set; }
         public double maxX => _maxX;
         public string metric => _metric;
+        public int index { get; set; }
         public Structure(string filePath)
         {
             if (!File.Exists(filePath)) throw new FileNotFoundException();
@@ -213,7 +214,7 @@ namespace PQM_V2.Models
             if (x < 0 || _maxX < x) throw new ArgumentOutOfRangeException();
 
             int start = 0;
-            int end = _splines.Count - 1;
+            int end = _splines.Count;
             int spline = (end - start) / 2;
 
             while(x < _splines[spline].x1 || _splines[spline].x2 < x)
@@ -278,8 +279,8 @@ namespace PQM_V2.Models
             {
                 while(_splines[spline].x2 < x) spline++;
                 y = _splines[spline].interpolate(x);
-                x += dx;
                 points.Add((x, y));
+                x += dx;
             }
 
             return points;

@@ -39,10 +39,17 @@ namespace PQM_V2.Models
 
         private void setStructures()
         {
+            int index = 0;
             foreach(string filepath in _filepaths)
             {
                 if(File.Exists(filepath))
-                    structures.Add(new Structure(filepath));
+                {
+                    Structure structure = new Structure(filepath);
+                    structures.Add(structure);
+                    structure.index = index;
+                    index++;
+                }
+
             }
         }
         private void setXmax()

@@ -28,6 +28,11 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         private double _dyFromY;
         private double _AUCFromY;
 
+        private bool _showInterpolateXError;
+        private string _interpolateXError;
+        private bool _showInterpolateYError;
+        private string _interpolateYError;
+
         private SolidColorBrush _color;
         private double _lineThickness;
 
@@ -59,6 +64,18 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         public double AUCFromY{ 
             get => _AUCFromY;
             set { _AUCFromY = value; onPropertyChanged(nameof(AUCFromY)); }}
+        public bool showInterpolateXError{ 
+            get => _showInterpolateXError;
+            set { _showInterpolateXError = value; onPropertyChanged(nameof(showInterpolateXError)); }}
+        public bool showInterpolateYError{ 
+            get => _showInterpolateYError;
+            set { _showInterpolateYError = value; onPropertyChanged(nameof(showInterpolateYError)); }}
+        public string interpolateXError{ 
+            get => _interpolateXError;
+            set { _interpolateXError = value; onPropertyChanged(nameof(interpolateXError)); }}
+        public string interpolateYError{ 
+            get => _interpolateYError;
+            set { _interpolateYError = value; onPropertyChanged(nameof(interpolateYError)); }}
 
         public SolidColorBrush color{ 
             get => _color;
@@ -78,12 +95,21 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
 
         private void setFromX()
         {
-            if (_interpolateX < 0 || _currentStructure.maxX < _interpolateX)
+            showInterpolateXError = true;
+            yFromX = double.NaN;
+            dyFromX = double.NaN;
+            AUCFromX = double.NaN;
+            if (_interpolateX < 0)
             {
-                _interpolateX = 0;
+                interpolateXError = "Value cannot be less than 0";
+            }
+            else if(_currentStructure.maxX < _interpolateX)
+            {
+                interpolateXError = String.Format("Value cannot be greater than {0}", _currentStructure.maxX);
             }
             else
             {
+                showInterpolateXError = false;
                 yFromX = _currentStructure.interpolate(_interpolateX);
                 dyFromX = _currentStructure.interpolateDerivative(_interpolateX);
                 AUCFromX = _currentStructure.aucFromX(_interpolateX);
@@ -91,9 +117,27 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         }
         private void setFromY()
         {
-            xFromY = _currentStructure.interpolate(_interpolateY);
-            dyFromY = _currentStructure.interpolateDerivative(_interpolateY);
-            AUCFromY = _currentStructure.aucFromY(_interpolateY);
+            showInterpolateYError = true;
+            xFromY = double.NaN;
+            dyFromY = double.NaN;
+            AUCFromY = double.NaN;
+
+            if(_interpolateY < 0)
+            {
+                interpolateYError = "Value cannot be less than 0";
+            }
+            else if(_interpolateY > 100)
+            {
+                interpolateYError = "Value cannot be greater than 100";
+            }
+            else
+            {
+                showInterpolateYError= false;
+                xFromY = _currentStructure.interpolate(_interpolateY);
+                dyFromY = _currentStructure.interpolateDerivative(_interpolateY);
+                AUCFromY = _currentStructure.aucFromY(_interpolateY);
+            }
+
         }
     }
 }

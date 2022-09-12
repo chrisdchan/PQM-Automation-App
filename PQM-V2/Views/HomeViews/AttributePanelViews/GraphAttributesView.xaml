@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:xtck="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:local="clr-namespace:PQM_V2.Views.HomeViews.AttributePanelViews" 
+             xmlns:converters="clr-namespace:PQM_V2.Converters"
              mc:Ignorable="d"  Background="#707070"
              d:DesignHeight="1080" d:DesignWidth="400">
     <UserControl.Resources>
@@ -68,13 +69,24 @@
         <Style x:Key="colorPicker" TargetType="{x:Type xtck:ColorPicker}">
             <Setter Property="Width" Value="100"/>
         </Style>
-               
+
+        <Style x:Key="errorMessage" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="#FFB3B3"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+        <converters:BooleanVisibilityConverter x:Key="booleanVisibilityConverter"/>
+
     </UserControl.Resources>
     <Grid>
         <StackPanel>
             <StackPanel Style="{StaticResource headerSP}">
                 <TextBlock Style="{StaticResource headerTextBlockLabel}">Domain</TextBlock>
             </StackPanel>
+
+            <TextBlock Style="{StaticResource errorMessage}"
+                       Visibility="{Binding showDomainError, Converter={StaticResource booleanVisibilityConverter}}"
+                       Text="{Binding domainError}"/>
             <StackPanel Style="{StaticResource attribSP}">
                 <TextBlock Style="{StaticResource attribTextBlockLabel}">X Min</TextBlock>
                 <TextBox Style="{StaticResource attribTextBox}"
@@ -87,6 +99,7 @@
                          Text="{Binding Path=xmax, Mode=TwoWay}"/>
                 <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
             </StackPanel>
+
             <Button Style="{StaticResource updateButton}" Content="Update Domain"
                     Command="{Binding updateDomainCommand}"/>
 

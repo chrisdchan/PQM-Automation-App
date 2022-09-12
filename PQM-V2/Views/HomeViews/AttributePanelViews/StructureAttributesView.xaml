@@ -3,11 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converter="clr-namespace:PQM_V2.Converters"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:PQM_V2.Views.HomeViews.AttributePanelViews" xmlns:fa="http://schemas.fontawesome.io/icons/" 
              mc:Ignorable="d" Background="#707070"
              d:DesignHeight="1080" d:DesignWidth="400">
     <UserControl.Resources>
+        <converter:BooleanVisibilityConverter x:Key="booleanVisibilityConverter"/>
 
         <Style x:Key="headerSP" TargetType="{x:Type StackPanel}">
             <Setter Property="Margin" Value="0, 10, 0, 20"/>
@@ -49,6 +51,11 @@
             <Setter Property="Background" Value="#808080"/>
         </Style>
 
+        <Style x:Key="errorMessage" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="#FFB3B3"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
     </UserControl.Resources>
     <Grid>
         <StackPanel>
@@ -72,6 +79,8 @@
                 <TextBox Style="{StaticResource headerTextBox}" 
                          Text="{Binding Path=interpolateX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
+            <TextBlock Style="{StaticResource errorMessage}" Text="{Binding interpolateXError}"
+                       Visibility="{Binding showInterpolateXError, Converter={StaticResource booleanVisibilityConverter}}"/>
             <StackPanel Style="{StaticResource attribSP}">
                 <TextBlock Style="{StaticResource attribTextBlockLabel}">Y: </TextBlock>
                 <TextBlock Style="{StaticResource attribTextBlockValue}" 
@@ -86,21 +95,26 @@
                 <TextBlock Style="{StaticResource attribTextBlockLabel}">AUC: </TextBlock>
                 <TextBlock Style="{StaticResource attribTextBlockValue}"
                             Text="{Binding AUCFromX}"/>
+                <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
             </StackPanel>
             <StackPanel Style="{StaticResource headerSP}">
                 <TextBlock Style="{StaticResource headerTextBlockLabel}">Interpolate Y:</TextBlock>
                 <TextBox Style="{StaticResource headerTextBox}"
                          Text="{Binding Path=interpolateY, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
+            <TextBlock Style="{StaticResource errorMessage}" Text="{Binding interpolateYError}"
+                       Visibility="{Binding showInterpolateYError, Converter={StaticResource booleanVisibilityConverter}}"/>
             <StackPanel Style="{StaticResource attribSP}">
                 <TextBlock Style="{StaticResource attribTextBlockLabel}">X: </TextBlock>
                 <TextBlock Style="{StaticResource attribTextBlockValue}"
                            Text="{Binding xFromY}"/>
+                <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
             </StackPanel>
             <StackPanel Style="{StaticResource attribSP}">
                 <TextBlock Style="{StaticResource attribTextBlockLabel}">AUC: </TextBlock>
                 <TextBlock Style="{StaticResource attribTextBlockValue}"
                            Text="{Binding AUCFromY}"/>
+                <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
             </StackPanel>
             <StackPanel Style="{StaticResource headerSP}" Margin="0, 30, 0, 0">
                 <TextBlock Style="{StaticResource headerTextBlockLabel}">Set Color</TextBlock>

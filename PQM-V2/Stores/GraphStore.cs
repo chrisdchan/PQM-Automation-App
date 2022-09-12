@@ -10,6 +10,7 @@ namespace PQM_V2.Stores
     public class GraphStore
     {
         public event Action graphChanged;
+        public event Action graphUpdated;
 
         private Graph _graph;
         public Graph graph
@@ -24,6 +25,11 @@ namespace PQM_V2.Stores
         private void onGraphChanged()
         {
             graphChanged?.Invoke();
+        }
+
+        public void onGraphUpdated()
+        {
+            graphUpdated?.Invoke();
         }
 
     }

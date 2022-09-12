@@ -71,3 +71,9 @@ C:\Users\chris\source\repos\PQM-V2\PQM-V2\bin\Debug\Microsoft.Web.WebView2.Wpf.x
 C:\Users\chris\source\repos\PQM-V2\PQM-V2\bin\Debug\Microsoft.Xaml.Behaviors.dll
 C:\Users\chris\source\repos\PQM-V2\PQM-V2\bin\Debug\Microsoft.Xaml.Behaviors.pdb
 C:\Users\chris\source\repos\PQM-V2\PQM-V2\bin\Debug\Microsoft.Xaml.Behaviors.xml
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\HomeViews\AttributePanelViews\AxisTitlesView.g.cs
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\HomeViews\AttributePanelViews\GraphTitleView.g.cs
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\HomeViews\AttributePanelViews\LegendAttributesView.g.cs
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\HomeViews\AttributePanelViews\AxisTitlesView.baml
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\HomeViews\AttributePanelViews\GraphTitleView.baml
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\HomeViews\AttributePanelViews\LegendAttributesView.baml

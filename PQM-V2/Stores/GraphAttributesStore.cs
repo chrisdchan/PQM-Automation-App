@@ -34,7 +34,6 @@ namespace PQM_V2.Stores
             get => _pointsPerPlot;
             set { _pointsPerPlot = value;  }
         }
-
         public int numXAxisTicks
         {
             get => _numXAxisTicks;
@@ -67,12 +66,9 @@ namespace PQM_V2.Stores
             _numYAxisTicks = 5;
             _pointsPerPlot = 100;
         }
-
         public void onGraphAttributesChanged()
         {
             graphAttributesChanged?.Invoke();
         }
-
-
     }
 }

@@ -58,7 +58,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
                 area90 = Math.Round( structure.aucFromY(90), 2),
                 area50 = Math.Round( structure.aucFromY(50), 2),
                 area5 = Math.Round( structure.aucFromY(5), 2),
-                cc = 30,
+                cc = Math.Round( structure.interpolate(0.03), 2)
             };
             _tableRowsList.Add(row);
         }

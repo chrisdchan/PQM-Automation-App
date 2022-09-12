@@ -129,6 +129,15 @@
     <Compile Include="Views\HomeViews\AttributePanelViews\AttributePanelView.xaml.cs">
       <DependentUpon>AttributePanelView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\HomeViews\AttributePanelViews\AxisTitlesView.xaml.cs">
+      <DependentUpon>AxisTitlesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HomeViews\AttributePanelViews\GraphTitleView.xaml.cs">
+      <DependentUpon>GraphTitleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HomeViews\AttributePanelViews\LegendAttributesView.xaml.cs">
+      <DependentUpon>LegendAttributesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HomeViews\AttributePanelViews\StructureAttributesView.xaml.cs">
       <DependentUpon>StructureAttributesView.xaml</DependentUpon>
     </Compile>
@@ -163,6 +172,18 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\HomeViews\AttributePanelViews\AttributePanelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HomeViews\AttributePanelViews\AxisTitlesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HomeViews\AttributePanelViews\GraphTitleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HomeViews\AttributePanelViews\LegendAttributesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

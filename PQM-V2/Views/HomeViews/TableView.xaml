@@ -17,7 +17,7 @@
                     <GridViewColumn Header="90%" DisplayMemberBinding="{Binding area90}" />
                     <GridViewColumn Header="50%" DisplayMemberBinding="{Binding area50}" />
                     <GridViewColumn Header="5%" DisplayMemberBinding="{Binding area5}" />
-                    <GridViewColumn Header="cc" DisplayMemberBinding="{Binding cc}" />
+                    <GridViewColumn Header="0.03 cc" DisplayMemberBinding="{Binding cc}" />
                 </GridView>
             </ListView.View>
         </ListView>

@@ -50,6 +50,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
             init();
 
             _graphAttributesStore.graphAttributesChanged += update;
+            _graphStore.graphUpdated += update;
             _graphStore.graphChanged += init;
         }
         // Main Function call
@@ -63,6 +64,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
         }
         private void update()
         {
+            clearAllCanvases();
             Canvas canvas = _canvasStore.canvas;
              _borders = (
                 left: canvas.ActualWidth * 0.15,
@@ -265,13 +267,17 @@ namespace PQM_V2.ViewModels.HomeViewModels
             for(int i = 0; i < graph.structures.Count; i++)
             {
                 Structure structure = graph.structures[i];
-                if(structure.visible)
+                if(structure.visible && isStructureInDomain(structure))
                 {
                     Canvas canvas = _structureCanvases[i];
                     setCanvasHeightWidth(canvas);
                     setStructureCanvas(canvas, structure);
                 }
             }
+        }
+        private bool isStructureInDomain(Structure structure) // Helper to setStructureCanvases
+        {
+            return _graphAttributesStore.xmin < structure.maxX;
         }
         private void setStructureCanvas(Canvas canvas, Structure structure)
         {

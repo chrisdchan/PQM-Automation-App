@@ -12,7 +12,7 @@ using System.Windows.Media;
 
 namespace PQM_V2.ViewModels.HomeViewModels
 {
-    public class StructuresLegendViewModel
+    public class StructuresLegendViewModel : BaseViewModel
     {
         private readonly GraphStore _graphStore;
 
@@ -31,6 +31,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
             changeVisibilityCommand = new RelayCommand(changeVisibility);
 
             _graphStore.graphChanged += loadGraph;
+            _graphStore.graphUpdated += loadGraph;
         }
 
         private void loadGraph()
@@ -48,7 +49,14 @@ namespace PQM_V2.ViewModels.HomeViewModels
 
         private void changeVisibility(object param)
         {
-
+            if(param != null)
+            {
+                int index = (int)param;
+                Structure structure = _graphStore.graph.structures[index];
+                structure.visible = !structure.visible;
+                _graphStore.onGraphUpdated();
+                onPropertyChanged(nameof(structureList));
+            }
         }
 
     }

@@ -23,6 +23,8 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         private string _backgroundColor;
         private string _axisColor;
 
+        private bool _showDomainError;
+        private string _domainError;
 
         public double xmin { get => _xmin; 
             set { 
@@ -55,6 +57,16 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
                 onPropertyChanged(nameof(axisColor));
             } }
 
+        public bool showDomainError { get => _showDomainError;
+            set { _showDomainError = value;
+                onPropertyChanged(nameof(showDomainError));
+            }}
+
+        public string domainError { get => _domainError;
+            set { _domainError = value;
+                onPropertyChanged(nameof(domainError));
+            }}
+
         public string backgroundColorString { get; set; }
 
         public RelayCommand updateDomainCommand { get; private set; }
@@ -74,18 +86,33 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             backgroundColor = _graphAttributesStore.backgroundColor.ToString();
             axisColor = _graphAttributesStore.axisColor.ToString();
 
+            _showDomainError = false;
+            _domainError = string.Format("Value cannot be greater than max value {0}", _graphStore.graph.xmax);
+
             updateDomainCommand = new RelayCommand(updateDomain);
             updateGraphAttributesCommand = new RelayCommand(updateGraphAttributes);
             updateStyleCommand = new RelayCommand(updateStyle);
         }
         private void updateDomain(object _)
         {
-            if(_xmin < 0 || _graphStore.graph.xmax < _xmax)
+            showDomainError = true;
+
+            if(_xmin < 0)
             {
-                throw new ArgumentOutOfRangeException();
+                domainError = "Value cannot be less than 0";
+
+            }
+            else if (_graphStore.graph.xmax < _xmax)
+            {
+                domainError = String.Format("Value cannot be greater than {0}", _graphStore.graph.xmax);
+            }
+            else if(_xmin > _xmax)
+            {
+                domainError = "Xmin cannot be greater than Xmax";
             }
             else
             {
+                showDomainError = false;
                 _graphAttributesStore.xmin = _xmin;
                 _graphAttributesStore.xmax = _xmax;
                 _graphAttributesStore.onGraphAttributesChanged();
