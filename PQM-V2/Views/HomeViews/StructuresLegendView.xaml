@@ -32,6 +32,14 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="stackPanel" TargetType="StackPanel">
+            <Setter Property="Background" Value="#707070"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#808080"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
     <Grid>
     <!--
@@ -44,7 +52,7 @@
         <ItemsControl ItemsSource="{Binding structureList}" x:Name="structureListItemsControl">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Margin="0" Background="#707070"
+                    <StackPanel Orientation="Horizontal" Margin="0" Style="{StaticResource stackPanel}"
                                 Tag="{Binding index}"
                                 Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}}">
                         <TextBlock Text="{Binding name}" Foreground="#ffffff" FontSize="15" Width="150" Margin="5, 0, 5, 0"/>
