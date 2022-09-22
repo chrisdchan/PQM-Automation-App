@@ -19,6 +19,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
         private GraphAttributesStore _graphAttributesStore;
         private GraphStore _graphStore;
         private CanvasStore _canvasStore;
+        private LegendSettingsStore _legendSettingsStore;
 
         private Canvas _axesCanvas;
         private Canvas _textCanvas;
@@ -39,6 +40,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
             _graphAttributesStore = (Application.Current as App).graphAttributesStore;
             _graphStore = (Application.Current as App).graphStore;
             _canvasStore = (Application.Current as App).canvasStore;
+            _legendSettingsStore = (Application.Current as App).legendSettingsStore;
 
             _yaxisRenderTransform = new TransformGroup();
             _yaxisRenderTransform.Children.Add(new ScaleTransform(1, -1));
@@ -236,30 +238,47 @@ namespace PQM_V2.ViewModels.HomeViewModels
             _legendCanvas.Children.Clear();
             setCanvasHeightWidth(_legendCanvas);
 
+            double width = calculateLegendLabelWidth();
+
             StackPanel stackPanel = new StackPanel();
             foreach(Structure structure in _graphStore.graph.structures)
             {
                 StackPanel horizontalSP = new StackPanel();
                 horizontalSP.Orientation = Orientation.Horizontal;
 
-                Label label = new Label();
-                label.Width = 100;
-                label.Height = 25;
-                label.Foreground = _graphAttributesStore.axisColor;
-                label.Content = structure.name;
-                horizontalSP.Children.Add(label);
-
                 Rectangle rectangle = new Rectangle();
                 rectangle.Fill = structure.color;
-                rectangle.Width = 25;
+                rectangle.Width = 10;
                 rectangle.Height = 15;
                 horizontalSP.Children.Add(rectangle);
+
+                Label label = new Label();
+                label.Height = 25;
+                label.FontSize = _legendSettingsStore.fontSize;
+                label.Foreground = _graphAttributesStore.axisColor;
+                label.Content = structure.name;
+                label.Width = width;
+                horizontalSP.Children.Add(label);
 
                 stackPanel.Children.Add(horizontalSP);
             }
             _legendCanvas.Children.Add(stackPanel);
             Canvas.SetLeft(stackPanel, (_borders.right + _canvasStore.canvas.ActualWidth) / 2.0 - 125.0 / 2.0);
             Canvas.SetTop(stackPanel, (_borders.top - _borders.bottom) / 2.0);
+        }
+        private double calculateLegendLabelWidth()
+        {
+            double minWidth = 0;
+            foreach(Structure structure in _graphStore.graph.structures)
+            {
+                int n = structure.name.Length;
+                double width = n * _legendSettingsStore.fontSize * 0.55;
+                if(width > minWidth)
+                {
+                    minWidth = width;
+                }
+            }
+            return minWidth;
         }
         private void setStructureCanvases() // Helper to update
         {
@@ -291,7 +310,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
             double x1, x2, y1, y2;
             double mx1, mx2, my1, my2;
 
-            for(int i = 0; i < numPoints - 1; i++)
+            for(int i = 0; i < points.Count - 1; i++)
             {
                 x1 = points[i].x;
                 y1 = points[i].y;
@@ -310,9 +329,9 @@ namespace PQM_V2.ViewModels.HomeViewModels
         }
         private void clearAllCanvases() // Helper to update
         {
-            _axesCanvas.Children.Clear();
             _textCanvas.Children.Clear();
             _legendCanvas.Children.Clear();
+            _axesCanvas.Children.Clear();
             foreach (Canvas canvas in _structureCanvases) canvas.Children.Clear();
         }
         private Line getLine(double x1, double y1, double x2, double y2, SolidColorBrush color)

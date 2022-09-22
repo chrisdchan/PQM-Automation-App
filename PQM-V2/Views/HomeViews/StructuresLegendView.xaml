@@ -72,12 +72,15 @@
                         <StackPanel.ContextMenu>
                             <ContextMenu Placement="MousePoint">
                                 <MenuItem Header="Show" 
-                                          Command="{Binding changeVisibilityCommand}"
+                                          Command="{Binding ElementName=structureListItemsControl, Path=DataContext.changeVisibilityCommand}"
+                                          CommandParameter="{Binding Path=Tag, RelativeSource={RelativeSource AncestorType={x:Type StackPanel}}}"
                                           Foreground="{Binding Path=visible, Converter={StaticResource notBooleanForegroundConverter}}" />
                                 <MenuItem Header="Hide"
-                                          Command="{Binding changeVisibilityCommand}"
+                                          Command="{Binding Path=DataContext.changeVisibilityCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                          CommandParameter="{Binding Path=Tag, RelativeSource={RelativeSource AncestorType={x:Type StackPanel}}}"
                                           Foreground="{Binding Path=visible, Converter={StaticResource booleanForegroundConverter} }"/>
-                                <MenuItem Header="Isolate"/>
+                                <MenuItem Header="Isolate"
+                                          Command="{Binding ElementName=structureListItemsControlm, Path=DataContext.isloateCommand}"/>
                                 <MenuItem Header="Delete"/>
                                 <MenuItem Header="Select"/>
                             </ContextMenu>

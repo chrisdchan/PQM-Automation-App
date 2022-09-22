@@ -114,6 +114,7 @@
     <Compile Include="Stores\GraphAttributesStore.cs" />
     <Compile Include="Stores\GraphStore.cs" />
     <Compile Include="Models\Layout.cs" />
+    <Compile Include="Stores\LegendSettingsStore.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="Stores\SelectedStructureStore.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
@@ -172,6 +173,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\HomeViews\AttributePanelViews\AttributePanelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HomeViews\AttributePanelViews\AttributeStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

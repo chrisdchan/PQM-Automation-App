@@ -147,7 +147,7 @@ namespace PQM_V2.Models
             {
                 res = "Specific Absorbance Rate";
             }
-            else if(metric == "E-field")
+            else if(metric == "E-field" || metric == "E-Field")
             {
                 res = "Electric Field Density";
             }
@@ -157,6 +157,22 @@ namespace PQM_V2.Models
             }
 
             return res;
+        }
+
+        public void isolate(int ind)
+        {
+            if (ind < 0 || ind > structures.Count) throw new Exception("Index out of range");
+            for(int i = 0; i < structures.Count; i++)
+            {
+                if(i != ind)
+                {
+                    structures[i].visible = false;
+                }
+                else
+                {
+                    structures[i].visible = true;
+                }
+            }
         }
     }
 }

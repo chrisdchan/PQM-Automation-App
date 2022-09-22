@@ -5,11 +5,13 @@ using PQM_V2.Stores;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace PQM_V2.ViewModels.HomeViewModels
 {
@@ -17,6 +19,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
     {
         private readonly NavigationStore _navigationStore;
         private readonly GraphStore _graphStore;
+        private readonly CanvasStore _canvasStore;
 
         private bool _graphVisible;
         private bool _tableVisible;
@@ -26,7 +29,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
         public RelayCommand navigateStartupCommand { get; private set; }
         public RelayCommand exitApplicationCommand { get; private set; }
         public RelayCommand openFilesCommand { get; private set; }
-
+        public RelayCommand exportGraphCommand { get; private set; }
         public bool graphVisible
         {
             get => _graphVisible;
@@ -65,6 +68,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
         {
             _navigationStore = (Application.Current as App).navigationStore;
             _graphStore = (Application.Current as App).graphStore;
+            _canvasStore = (Application.Current as App).canvasStore;
 
             _graphVisible = true;
             _tableVisible = true;
@@ -75,6 +79,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
             navigateStartupCommand = new RelayCommand(navigateStartup);
             exitApplicationCommand = new RelayCommand(exitApplication);
             openFilesCommand = new RelayCommand(openFiles);
+            exportGraphCommand = new RelayCommand(exportGraph);
 
             _graphStore.graphChanged += onGraphChanged;
         }
@@ -98,6 +103,36 @@ namespace PQM_V2.ViewModels.HomeViewModels
         private void exitApplication(object message)
         {
             System.Windows.Application.Current.Shutdown();
+        }
+        private void exportGraph(object message)
+        {
+            Canvas canvas = _canvasStore.canvas;
+            Rect rect = new Rect(canvas.RenderSize);
+           RenderTargetBitmap rtb = new RenderTargetBitmap((int)rect.Right,
+             (int)rect.Bottom, 96d, 96d, System.Windows.Media.PixelFormats.Default);
+            rtb.Render(canvas);
+            //endcode as PNG
+            BitmapEncoder pngEncoder = new PngBitmapEncoder();
+            pngEncoder.Frames.Add(BitmapFrame.Create(rtb));
+
+            //save to memory stream
+            System.IO.MemoryStream ms = new System.IO.MemoryStream();
+
+            pngEncoder.Save(ms);
+            ms.Close();
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.DefaultExt = ".png";
+            saveFileDialog.Filter = "png files (*.png)|*.png";
+            bool? result = saveFileDialog.ShowDialog();
+            if(result.HasValue && result.Value)
+            {
+                System.IO.File.WriteAllBytes(saveFileDialog.FileName, ms.ToArray());
+            }
+            else
+            {
+                (Application.Current as App).displayMessage("Error saving file");
+            }
         }
 
         /*

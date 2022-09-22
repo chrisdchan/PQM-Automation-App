@@ -272,10 +272,10 @@ namespace PQM_V2.Models
             List<(double, double)> points = new List<(double, double)>();
             double x = xmin;
             double y;
-            double dx = (xmax - xmin) / numPoints;
+            double dx = (xmax - xmin) / (numPoints - 1);
 
             int spline = 0;
-            while(x < xmax)
+            while(x <= xmax)
             {
                 while(_splines[spline].x2 < x) spline++;
                 y = _splines[spline].interpolate(x);

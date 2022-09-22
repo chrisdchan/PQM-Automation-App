@@ -77,3 +77,4 @@ C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\HomeViews\AttributePan
 C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\HomeViews\AttributePanelViews\AxisTitlesView.baml
 C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\HomeViews\AttributePanelViews\GraphTitleView.baml
 C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\HomeViews\AttributePanelViews\LegendAttributesView.baml
+C:\Users\chris\source\repos\PQM-V2\PQM-V2\obj\Debug\Views\HomeViews\AttributePanelViews\AttributeStyles.baml

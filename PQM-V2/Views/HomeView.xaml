@@ -75,8 +75,8 @@
             </Menu>
             <Menu>
                 <MenuItem Header="Export" Style="{StaticResource navMenuItem}">
-                    <MenuItem Header="Export Preferences"/>
-                    <MenuItem Header="As .png"/>
+                    <MenuItem Header="As .png"
+                              Command="{Binding exportGraphCommand}"/>
                 </MenuItem>
             </Menu>
         </StackPanel>

@@ -40,6 +40,9 @@
                       Expanded="Expander_Expanded">
                 <local:GraphAttributesView></local:GraphAttributesView>
             </Expander>
+            <Expander Style="{StaticResource expander}" Header="Legend Settings">
+                <local:LegendAttributesView></local:LegendAttributesView>
+            </Expander>
         </StackPanel>
     </Grid>
 </UserControl>

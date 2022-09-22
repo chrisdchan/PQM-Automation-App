@@ -19,6 +19,7 @@ namespace PQM_V2
         public GraphStore graphStore { get; set; }
         public NavigationStore navigationStore { get; set; }
         public CanvasStore canvasStore { get; set; }
+        public LegendSettingsStore legendSettingsStore { get; set; }
         public SelectedStructureStore selectedStructureStore { get; set; }
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -26,6 +27,7 @@ namespace PQM_V2
             graphStore = new GraphStore();
             graphAttributesStore = new GraphAttributesStore();
             selectedStructureStore = new SelectedStructureStore();
+            legendSettingsStore = new LegendSettingsStore();
             canvasStore = new CanvasStore();
 
             navigationStore.selectedViewModel = new StartupViewModel();
@@ -36,6 +38,11 @@ namespace PQM_V2
             };
             MainWindow.Show();
             base.OnStartup(e);
+        }
+
+        public void displayMessage(string msg)
+        {
+            MessageBox.Show(msg);
         }
     }
 }

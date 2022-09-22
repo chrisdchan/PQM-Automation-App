@@ -20,6 +20,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
         public ObservableCollection<Structure> structureList => _structureList;
 
         public RelayCommand changeVisibilityCommand { get; private set; }
+        public RelayCommand isolateCommand { get; private set; }
 
         public StructuresLegendViewModel()
         {
@@ -29,6 +30,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
             loadGraph();
 
             changeVisibilityCommand = new RelayCommand(changeVisibility);
+            isolateCommand = new RelayCommand(isolate);
 
             _graphStore.graphChanged += loadGraph;
             _graphStore.graphUpdated += loadGraph;
@@ -54,6 +56,16 @@ namespace PQM_V2.ViewModels.HomeViewModels
                 int index = (int)param;
                 Structure structure = _graphStore.graph.structures[index];
                 structure.visible = !structure.visible;
+                _graphStore.onGraphUpdated();
+                onPropertyChanged(nameof(structureList));
+            }
+        }
+        private void isolate(object param)
+        {
+            if(param != null)
+            {
+                int index = (int)param;
+                _graphStore.graph.isolate(index);
                 _graphStore.onGraphUpdated();
                 onPropertyChanged(nameof(structureList));
             }

@@ -102,3 +102,6 @@ C:\Users\chris\source\repos\PQM-V2\PQM-V2.Tests\obj\Debug\net6.0\PQM-V2.Tests.pd
 C:\Users\chris\source\repos\PQM-V2\PQM-V2.Tests\obj\Debug\net6.0\PQM-V2.Tests.genruntimeconfig.cache
 C:\Users\chris\source\repos\PQM-V2\PQM-V2.Tests\bin\Debug\net6.0\FontAwesome.WPF.dll
 C:\Users\chris\source\repos\PQM-V2\PQM-V2.Tests\bin\Debug\net6.0\FontAwesome.WPF.xml
+C:\Users\chris\source\repos\PQM-V2\PQM-V2.Tests\bin\Debug\net6.0\runtimes\win-x86\native\WebView2Loader.dll
+C:\Users\chris\source\repos\PQM-V2\PQM-V2.Tests\bin\Debug\net6.0\runtimes\win-x64\native\WebView2Loader.dll
+C:\Users\chris\source\repos\PQM-V2\PQM-V2.Tests\bin\Debug\net6.0\runtimes\win-arm64\native\WebView2Loader.dll
