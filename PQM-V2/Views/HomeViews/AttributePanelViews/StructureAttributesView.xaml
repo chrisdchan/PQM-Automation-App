@@ -9,39 +9,12 @@
              mc:Ignorable="d" Background="#707070"
              d:DesignHeight="1080" d:DesignWidth="400">
     <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="AttributeStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
         <converter:BooleanVisibilityConverter x:Key="booleanVisibilityConverter"/>
-
-        <Style x:Key="headerSP" TargetType="{x:Type StackPanel}">
-            <Setter Property="Margin" Value="0, 10, 0, 20"/>
-            <Setter Property="Orientation" Value="Horizontal"/>
-        </Style>
-        <Style x:Key="attribSP" TargetType="{x:Type StackPanel}">
-            <Setter Property="Margin" Value="0, 5, 0, 5"/>
-            <Setter Property="Orientation" Value="Horizontal"/>
-        </Style>
         
-        <Style x:Key="headerTextBlockLabel" TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="Width" Value="150"/>
-            <Setter Property="TextAlignment" Value="Right"/>
-            <Setter Property="Margin" Value="0, 0, 10, 0"/>
-        </Style>
-
-        <Style x:Key="headerTextBox" TargetType="{x:Type TextBox}">
-            <Setter Property="Width" Value="200"/>
-            <Setter Property="Height" Value="30"/>
-        </Style>
-
-        <Style x:Key="attribTextBlockLabel" TargetType="{x:Type TextBlock}">
-            <Setter Property="Width" Value="150"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="TextAlignment" Value="Right"/>
-            <Setter Property="Margin" Value="0, 0, 10, 0"/>
-        </Style>
-
         <Style x:Key="attribTextBlockValue" TargetType="{x:Type TextBlock}">
             <Setter Property="Padding" Value="10, 0, 0, 0"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
@@ -55,6 +28,7 @@
             <Setter Property="Foreground" Value="#FFB3B3"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
         </Style>
+        </ResourceDictionary>
 
     </UserControl.Resources>
     <Grid>
@@ -75,9 +49,10 @@
                 <fa:ImageAwesome Icon="ArrowRight" Foreground="White" Height="20" Width="20"/>
             </StackPanel>
             <StackPanel Style="{StaticResource headerSP}">
-                <TextBlock Style="{StaticResource headerTextBlockLabel}">Interpolate X:</TextBlock>
-                <TextBox Style="{StaticResource headerTextBox}" 
+                <TextBlock Style="{StaticResource attribTextBlockLabel}">Interpolate X:</TextBlock>
+                <TextBox Style="{StaticResource attribTextBox}" 
                          Text="{Binding Path=interpolateX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
             </StackPanel>
             <TextBlock Style="{StaticResource errorMessage}" Text="{Binding interpolateXError}"
                        Visibility="{Binding showInterpolateXError, Converter={StaticResource booleanVisibilityConverter}}"/>
@@ -85,11 +60,13 @@
                 <TextBlock Style="{StaticResource attribTextBlockLabel}">Y: </TextBlock>
                 <TextBlock Style="{StaticResource attribTextBlockValue}" 
                            Text="{Binding yFromX}"/>
+                <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
             </StackPanel>
             <StackPanel Style="{StaticResource attribSP}">
                 <TextBlock Style="{StaticResource attribTextBlockLabel}">dy: </TextBlock>
                 <TextBlock Style="{StaticResource attribTextBlockValue}"
                            Text="{Binding dyFromX}"/>
+                <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
             </StackPanel>
             <StackPanel Style="{StaticResource attribSP}">
                 <TextBlock Style="{StaticResource attribTextBlockLabel}">AUC: </TextBlock>
@@ -98,9 +75,10 @@
                 <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
             </StackPanel>
             <StackPanel Style="{StaticResource headerSP}">
-                <TextBlock Style="{StaticResource headerTextBlockLabel}">Interpolate Y:</TextBlock>
-                <TextBox Style="{StaticResource headerTextBox}"
+                <TextBlock Style="{StaticResource attribTextBlockLabel}">Interpolate Y:</TextBlock>
+                <TextBox Style="{StaticResource attribTextBox}"
                          Text="{Binding Path=interpolateY, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
             </StackPanel>
             <TextBlock Style="{StaticResource errorMessage}" Text="{Binding interpolateYError}"
                        Visibility="{Binding showInterpolateYError, Converter={StaticResource booleanVisibilityConverter}}"/>
@@ -120,8 +98,9 @@
                 <TextBlock Style="{StaticResource headerTextBlockLabel}">Set Color</TextBlock>
             </StackPanel>
             <StackPanel Style="{StaticResource headerSP}" Margin="0, 30, 0, 0">
-                <TextBlock Style="{StaticResource headerTextBlockLabel}">Set Thickness</TextBlock>
+                <TextBlock Style="{StaticResource attribTextBlockLabel}">Set Thickness</TextBlock>
                 <TextBox Width="150" Text="{Binding lineThickness}"/>
+                <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
             </StackPanel>
         </StackPanel>
     </Grid>

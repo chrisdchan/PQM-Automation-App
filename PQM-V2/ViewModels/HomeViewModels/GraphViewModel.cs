@@ -63,6 +63,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
                 y: (y) => y * _ratio.y + _borders.bottom);
 
             initCanvases();
+            update();
         }
         private void update()
         {
@@ -85,6 +86,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
         }
         private void initCanvases() // Helper to init
         {
+            _canvasStore.canvas.Children.Clear();
             _textCanvas = new Canvas();
             _textCanvas.LayoutTransform = new ScaleTransform(1, -1);
             _textCanvas.Background = Brushes.Black;

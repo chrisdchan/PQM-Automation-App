@@ -133,9 +133,9 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             else
             {
                 showInterpolateYError= false;
-                xFromY = _currentStructure.interpolate(_interpolateY);
-                dyFromY = _currentStructure.interpolateDerivative(_interpolateY);
-                AUCFromY = _currentStructure.aucFromY(_interpolateY);
+                xFromY = _currentStructure.invInterpolate(_interpolateY);
+                dyFromY = _currentStructure.interpolateDerivative(xFromY);
+                AUCFromY = _currentStructure.aucFromX(xFromY);
             }
 
         }
