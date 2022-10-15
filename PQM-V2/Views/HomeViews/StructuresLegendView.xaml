@@ -69,6 +69,8 @@
                                 Visibility="{Binding visible, Converter={StaticResource notBooleanVisibilityConverter}}">
                             <fa:ImageAwesome Foreground="White" Icon="EyeSlash"/>
                         </Button>
+                        <fa:ImageAwesome Foreground="blue" Icon="Check" Width="15" Height="15" Margin="10, 0, 5, 0"
+                                         Visibility="{Binding selected, Converter={StaticResource booleanVisibilityConverter}}"/>
                         <StackPanel.ContextMenu>
                             <ContextMenu Placement="MousePoint">
                                 <MenuItem Header="Show" 
@@ -85,6 +87,12 @@
                                 <MenuItem Header="Select"/>
                             </ContextMenu>
                         </StackPanel.ContextMenu>
+                        <StackPanel.InputBindings>
+                            <MouseBinding Command="{Binding ElementName=structureListItemsControl, Path=DataContext.selectStructureCommand}"
+                                          CommandParameter="{Binding Path=index}"
+                                          MouseAction="LeftClick">
+                            </MouseBinding>
+                        </StackPanel.InputBindings>
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

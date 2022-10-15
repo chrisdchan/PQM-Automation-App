@@ -20,8 +20,11 @@ namespace PQM_V2.Models
         private List<Spline> _splines;
 
         public SolidColorBrush color { get; set; }
+
+        public double lineThickness { get; set; }
         public string name { get; set; }
         public bool visible { get; set; }
+        public bool selected { get; set; }
         public double maxX => _maxX;
         public string metric => _metric;
         public int index { get; set; }
@@ -31,6 +34,8 @@ namespace PQM_V2.Models
 
             _filePath = filePath;
             visible = true;
+            selected = false;
+            lineThickness = 1;
             _splines = new List<Spline>();
 
             setSplines();

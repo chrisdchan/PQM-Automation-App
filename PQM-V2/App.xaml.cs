@@ -20,13 +20,11 @@ namespace PQM_V2
         public NavigationStore navigationStore { get; set; }
         public CanvasStore canvasStore { get; set; }
         public LegendSettingsStore legendSettingsStore { get; set; }
-        public SelectedStructureStore selectedStructureStore { get; set; }
         protected override void OnStartup(StartupEventArgs e)
         {
             navigationStore = new NavigationStore();
             graphStore = new GraphStore();
             graphAttributesStore = new GraphAttributesStore();
-            selectedStructureStore = new SelectedStructureStore();
             legendSettingsStore = new LegendSettingsStore();
             canvasStore = new CanvasStore();
 

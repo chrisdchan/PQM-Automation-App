@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:converter="clr-namespace:PQM_V2.Converters"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
-             xmlns:local="clr-namespace:PQM_V2.Views.HomeViews.AttributePanelViews" xmlns:fa="http://schemas.fontawesome.io/icons/" 
+             xmlns:local="clr-namespace:PQM_V2.Views.HomeViews.AttributePanelViews" xmlns:fa="http://schemas.fontawesome.io/icons/" xmlns:xtck="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" Background="#707070"
              d:DesignHeight="1080" d:DesignWidth="400">
     <UserControl.Resources>
@@ -41,11 +41,11 @@
                         Margin="0, 0, 0, 10">
                 <fa:ImageAwesome Icon="ArrowLeft" Foreground="White" Height="20" Width="20"/>
                 <TextBlock Margin="20, 0, 20, 0"
-                           Text="{Binding structureName}"
+                           Text="{Binding selectedStructure.name}"
                            Foreground="White"/>
                 <Rectangle Width="30" Height="20" 
                             Margin="0, 0, 20, 10"
-                           Fill="{Binding structureColor}"/>
+                           Fill="{Binding selectedStructure.color}"/>
                 <fa:ImageAwesome Icon="ArrowRight" Foreground="White" Height="20" Width="20"/>
             </StackPanel>
             <StackPanel Style="{StaticResource headerSP}">
@@ -94,14 +94,23 @@
                            Text="{Binding AUCFromY}"/>
                 <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
             </StackPanel>
-            <StackPanel Style="{StaticResource headerSP}" Margin="0, 30, 0, 0">
-                <TextBlock Style="{StaticResource headerTextBlockLabel}">Set Color</TextBlock>
+            <StackPanel Style="{StaticResource headerSP}" >
+                <TextBlock Style="{StaticResource headerTextBlockLabel}">Color and Thickness</TextBlock>
             </StackPanel>
-            <StackPanel Style="{StaticResource headerSP}" Margin="0, 30, 0, 0">
-                <TextBlock Style="{StaticResource attribTextBlockLabel}">Set Thickness</TextBlock>
-                <TextBox Width="150" Text="{Binding lineThickness}"/>
+            <StackPanel Style="{StaticResource headerSP}" >
+                <TextBlock Style="{StaticResource attribTextBlockLabel}">Set Color</TextBlock>
+                <xtck:ColorPicker Style="{StaticResource colorPicker}" 
+                                  SelectedColor="{Binding color, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                </xtck:ColorPicker>
                 <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
             </StackPanel>
+            <StackPanel Style="{StaticResource attribSP}" >
+                <TextBlock Style="{StaticResource attribTextBlockLabel}">Set Thickness</TextBlock>
+                <TextBox Style="{StaticResource attribTextBox}" Text="{Binding lineThickness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+            </StackPanel>
+            <Button Style="{StaticResource updateButton}" Content="Update Style"
+                    Command="{Binding updateStyleCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>

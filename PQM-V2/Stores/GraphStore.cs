@@ -11,6 +11,7 @@ namespace PQM_V2.Stores
     {
         public event Action graphChanged;
         public event Action graphUpdated;
+        public event Action selectedStructureChanged;
 
         private Graph _graph;
         public Graph graph
@@ -30,6 +31,11 @@ namespace PQM_V2.Stores
         public void onGraphUpdated()
         {
             graphUpdated?.Invoke();
+        }
+
+        public void onSelectedStructureChanged()
+        {
+            selectedStructureChanged?.Invoke();
         }
 
     }

@@ -17,7 +17,7 @@ namespace PQM_V2.Models
         private string _xaxisName;
         private bool _multipleMetricsFlag;
         public List<Structure> structures { get; set; }
-
+        public Structure selectedStructure { get; set; }
         public string title => _title;
         public string xaxisName => _xaxisName;
         public string yaxisName => _yaxisName;
@@ -28,6 +28,7 @@ namespace PQM_V2.Models
         {
             _filepaths = filepaths;
             structures = new List<Structure>();
+            selectedStructure = null;
 
             _multipleMetricsFlag = false;
 
@@ -49,8 +50,16 @@ namespace PQM_V2.Models
                     structure.index = index;
                     index++;
                 }
-
             }
+        }
+        public void selectStructure(int index)
+        {
+            if(selectedStructure != null)
+            {
+                selectedStructure.selected = false;
+            }
+            selectedStructure = structures[index];
+            selectedStructure.selected = true;
         }
         private void setXmax()
         {

@@ -116,7 +116,6 @@
     <Compile Include="Models\Layout.cs" />
     <Compile Include="Stores\LegendSettingsStore.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
-    <Compile Include="Stores\SelectedStructureStore.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModels\AttributePanelViewModels\AttributePanelViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModels\AttributePanelViewModels\StructureAttributesViewModel.cs" />

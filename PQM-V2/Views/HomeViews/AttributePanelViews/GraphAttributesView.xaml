@@ -71,7 +71,7 @@
                     Command="{Binding updateGraphAttributesCommand}"/>
 
             <StackPanel Style="{StaticResource headerSP}">
-                <TextBlock Style="{StaticResource attribTextBlockLabel}">Graph Style</TextBlock>
+                <TextBlock Style="{StaticResource headerTextBlockLabel}">Graph Style</TextBlock>
             </StackPanel>
             <StackPanel Style="{StaticResource attribSP}">
                 <TextBlock Style="{StaticResource attribTextBlockLabel}">Background</TextBlock>

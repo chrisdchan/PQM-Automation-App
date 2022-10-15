@@ -1,4 +1,5 @@
-﻿using PQM_V2.Models;
+﻿using PQM_V2.Commands;
+using PQM_V2.Models;
 using PQM_V2.Stores;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,8 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
     public class StructureAttributesViewModel : BaseViewModel
     {
         private GraphStore _graphStore;
-        private SelectedStructureStore _selectedStructureStore;
-
         private Graph _graph => _graphStore.graph;
-        private Structure _currentStructure;
+        private Structure _selectedStructure;
 
         private double _interpolateX;
         private double _yFromX;
@@ -33,11 +32,15 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         private bool _showInterpolateYError;
         private string _interpolateYError;
 
-        private SolidColorBrush _color;
+        private string _color;
         private double _lineThickness;
 
-        public string structureName => _currentStructure.name;
-        public SolidColorBrush structureColor => _currentStructure.color;
+        public RelayCommand updateStyleCommand { get; set; }
+
+        public Structure selectedStructure {
+            get => _selectedStructure;
+            set { _selectedStructure = value; onPropertyChanged(nameof(selectedStructure)); }
+        }
 
         public double interpolateX {
             get => _interpolateX;
@@ -77,20 +80,28 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             get => _interpolateYError;
             set { _interpolateYError = value; onPropertyChanged(nameof(interpolateYError)); }}
 
-        public SolidColorBrush color{ 
+        public string color{ 
             get => _color;
-            set { _color = value; }}
+            set { _color = value; onPropertyChanged(nameof(color)); }}
         public double lineThickness{ 
             get => _lineThickness;
-            set { _lineThickness = value; }}
-        
+            set { _lineThickness = value; onPropertyChanged(nameof(lineThickness)); }}
 
         public StructureAttributesViewModel()
         {
             _graphStore = (Application.Current as App).graphStore;
-            _selectedStructureStore = (Application.Current as App).selectedStructureStore;
+            _selectedStructure = _graph.selectedStructure;
 
-            _currentStructure = _graph.structures[0];
+            _graphStore.selectedStructureChanged += onSelectedStructureChanged;
+
+            updateStyleCommand = new RelayCommand(updateStyle);
+        }
+
+        private void onSelectedStructureChanged()
+        {
+            selectedStructure = _graph.selectedStructure;
+            lineThickness = selectedStructure.lineThickness;
+            color = selectedStructure.color.ToString();
         }
 
         private void setFromX()
@@ -99,20 +110,24 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             yFromX = double.NaN;
             dyFromX = double.NaN;
             AUCFromX = double.NaN;
-            if (_interpolateX < 0)
+            if(_selectedStructure == null)
+            {
+                interpolateXError = "No Structure Selected";
+            }
+            else if (_interpolateX < 0)
             {
                 interpolateXError = "Value cannot be less than 0";
             }
-            else if(_currentStructure.maxX < _interpolateX)
+            else if(_selectedStructure.maxX < _interpolateX)
             {
-                interpolateXError = String.Format("Value cannot be greater than {0}", _currentStructure.maxX);
+                interpolateXError = String.Format("Value cannot be greater than {0}", _selectedStructure.maxX);
             }
             else
             {
                 showInterpolateXError = false;
-                yFromX = _currentStructure.interpolate(_interpolateX);
-                dyFromX = _currentStructure.interpolateDerivative(_interpolateX);
-                AUCFromX = _currentStructure.aucFromX(_interpolateX);
+                yFromX = _selectedStructure.interpolate(_interpolateX);
+                dyFromX = _selectedStructure.interpolateDerivative(_interpolateX);
+                AUCFromX = _selectedStructure.aucFromX(_interpolateX);
             }
         }
         private void setFromY()
@@ -122,7 +137,11 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             dyFromY = double.NaN;
             AUCFromY = double.NaN;
 
-            if(_interpolateY < 0)
+            if(_selectedStructure == null)
+            {
+                interpolateYError = "No Structure Selected";
+            }
+            else if(_interpolateY < 0)
             {
                 interpolateYError = "Value cannot be less than 0";
             }
@@ -133,11 +152,23 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             else
             {
                 showInterpolateYError= false;
-                xFromY = _currentStructure.invInterpolate(_interpolateY);
-                dyFromY = _currentStructure.interpolateDerivative(xFromY);
-                AUCFromY = _currentStructure.aucFromX(xFromY);
+                xFromY = _selectedStructure.invInterpolate(_interpolateY);
+                dyFromY = _selectedStructure.interpolateDerivative(xFromY);
+                AUCFromY = _selectedStructure.aucFromX(xFromY);
             }
 
+        }
+
+        private void updateStyle(object _)
+        {
+            if(_selectedStructure != null)
+            {
+                selectedStructure.color = new SolidColorBrush((Color)ColorConverter.ConvertFromString(color));
+                selectedStructure.lineThickness = lineThickness;
+
+                _graphStore.onGraphUpdated();
+                onPropertyChanged(nameof(selectedStructure));
+            }
         }
     }
 }

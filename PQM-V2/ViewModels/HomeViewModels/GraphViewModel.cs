@@ -325,7 +325,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
                 my2 = _map.y(y2);
                 
 
-                Line line = getLine(mx1, my1, mx2, my2, structure.color);
+                Line line = getLine(mx1, my1, mx2, my2, structure);
                 canvas.Children.Add(line);
             }
         }
@@ -345,6 +345,18 @@ namespace PQM_V2.ViewModels.HomeViewModels
             line.Y2 = y2;
             line.StrokeThickness = 1;
             line.Stroke = color;
+            return line;
+        }
+
+        private Line getLine(double x1, double y1, double x2, double y2, Structure structure)
+        {
+            Line line = new Line();
+            line.X1 = x1;
+            line.Y1 = y1;
+            line.X2 = x2;
+            line.Y2 = y2;
+            line.StrokeThickness = structure.lineThickness;
+            line.Stroke = structure.color;
             return line;
         }
         private void setCanvasHeightWidth(Canvas canvas) // Helper to set<Name>Canvas()
