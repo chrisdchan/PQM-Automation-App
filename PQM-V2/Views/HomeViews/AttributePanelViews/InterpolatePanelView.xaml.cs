@@ -1,11 +1,11 @@
-﻿using System;
+﻿using PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -17,14 +17,14 @@ using System.Windows.Shapes;
 namespace PQM_V2.Views.HomeViews.AttributePanelViews
 {
     /// <summary>
-    /// Interaction logic for StructureGraphAttributesView.xaml
+    /// Interaction logic for InterpolatePanelView.xaml
     /// </summary>
-    public partial class GraphAttributesView : UserControl
+    public partial class InterpolatePanelView : UserControl
     {
-        public GraphAttributesView()
+        public InterpolatePanelView()
         {
             InitializeComponent();
-            DataContext = new GraphAttributesViewModel();
+            DataContext = new InterpolatePanelViewModel();
         }
     }
 }

@@ -64,7 +64,6 @@ namespace PQM_V2.Views.HomeViews
             {
                 viewModel.resizeStartCommand.Execute(null);
             }
-
         }
     }
 }

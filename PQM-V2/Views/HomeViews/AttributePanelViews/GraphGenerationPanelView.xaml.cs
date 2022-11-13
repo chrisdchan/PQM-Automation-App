@@ -17,14 +17,14 @@ using System.Windows.Shapes;
 namespace PQM_V2.Views.HomeViews.AttributePanelViews
 {
     /// <summary>
-    /// Interaction logic for StructureAttributesView.xaml
+    /// Interaction logic for GraphGenerationPanelView.xaml
     /// </summary>
-    public partial class StructureAttributesView : UserControl
+    public partial class GraphGenerationPanelView : UserControl
     {
-        public StructureAttributesView()
+        public GraphGenerationPanelView()
         {
             InitializeComponent();
-            DataContext = new StructureAttributesViewModel();
+            DataContext = new GraphGenerationViewModel();
         }
     }
 }

@@ -15,18 +15,17 @@ namespace PQM_V2
     /// </summary>
     public partial class App : Application
     {
-        public GraphAttributesStore graphAttributesStore { get; set; }
+        public GraphCustomizeStore graphCustomizeStore { get; set; }
         public GraphStore graphStore { get; set; }
         public NavigationStore navigationStore { get; set; }
         public CanvasStore canvasStore { get; set; }
-        public LegendSettingsStore legendSettingsStore { get; set; }
         protected override void OnStartup(StartupEventArgs e)
         {
             navigationStore = new NavigationStore();
             graphStore = new GraphStore();
-            graphAttributesStore = new GraphAttributesStore();
-            legendSettingsStore = new LegendSettingsStore();
             canvasStore = new CanvasStore();
+
+            graphCustomizeStore = new GraphCustomizeStore();
 
             navigationStore.selectedViewModel = new StartupViewModel();
             

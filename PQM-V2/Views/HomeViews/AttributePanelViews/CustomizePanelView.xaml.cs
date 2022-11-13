@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,13 +17,14 @@ using System.Windows.Shapes;
 namespace PQM_V2.Views.HomeViews.AttributePanelViews
 {
     /// <summary>
-    /// Interaction logic for LegendAttributesView.xaml
+    /// Interaction logic for CustomizePanelView.xaml
     /// </summary>
-    public partial class LegendAttributesView : UserControl
+    public partial class CustomizePanelView : UserControl
     {
-        public LegendAttributesView()
+        public CustomizePanelView()
         {
             InitializeComponent();
+            DataContext = new CustomizePanelViewModel();
         }
     }
 }

@@ -3,11 +3,9 @@
 FC:\Users\chris\source\repos\PQM-V2\PQM-V2\MainWindow.xaml;;
 FC:\Users\chris\source\repos\PQM-V2\PQM-V2\Views\HomeViews\AttributePanelViews\AttributePanelView.xaml;;
 FC:\Users\chris\source\repos\PQM-V2\PQM-V2\Views\HomeViews\AttributePanelViews\AttributeStyles.xaml;;
-FC:\Users\chris\source\repos\PQM-V2\PQM-V2\Views\HomeViews\AttributePanelViews\AxisTitlesView.xaml;;
-FC:\Users\chris\source\repos\PQM-V2\PQM-V2\Views\HomeViews\AttributePanelViews\GraphTitleView.xaml;;
-FC:\Users\chris\source\repos\PQM-V2\PQM-V2\Views\HomeViews\AttributePanelViews\LegendAttributesView.xaml;;
-FC:\Users\chris\source\repos\PQM-V2\PQM-V2\Views\HomeViews\AttributePanelViews\StructureAttributesView.xaml;;
-FC:\Users\chris\source\repos\PQM-V2\PQM-V2\Views\HomeViews\AttributePanelViews\GraphAttributesView.xaml;;
+FC:\Users\chris\source\repos\PQM-V2\PQM-V2\Views\HomeViews\AttributePanelViews\CustomizePanelView.xaml;;
+FC:\Users\chris\source\repos\PQM-V2\PQM-V2\Views\HomeViews\AttributePanelViews\GraphGenerationPanelView.xaml;;
+FC:\Users\chris\source\repos\PQM-V2\PQM-V2\Views\HomeViews\AttributePanelViews\InterpolatePanelView.xaml;;
 FC:\Users\chris\source\repos\PQM-V2\PQM-V2\Views\HomeViews\GraphView.xaml;;
 FC:\Users\chris\source\repos\PQM-V2\PQM-V2\Views\HomeView.xaml;;
 FC:\Users\chris\source\repos\PQM-V2\PQM-V2\Views\HomeViews\TableView.xaml;;

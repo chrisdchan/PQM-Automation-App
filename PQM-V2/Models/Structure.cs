@@ -272,6 +272,7 @@ namespace PQM_V2.Models
         }
         public List<(double, double)> interpolateRange(double xmin, double xmax, int numPoints)
         {
+            if (xmin >= xmax) throw new Exception("invalid xmin and xmax");
             if (xmax > _maxX) xmax = _maxX;
 
             List<(double, double)> points = new List<(double, double)>();

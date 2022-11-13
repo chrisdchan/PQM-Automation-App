@@ -1,0 +1,153 @@
+﻿<UserControl x:Class="PQM_V2.Views.HomeViews.AttributePanelViews.CustomizePanelView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PQM_V2.Views.HomeViews.AttributePanelViews" xmlns:xtck="http://schemas.xceed.com/wpf/xaml/toolkit"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="400">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="AttributeStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel>
+            <Expander Style="{StaticResource indentedExpander}" Header="Title Settings">
+                <StackPanel>
+                <StackPanel Style="{StaticResource attribSP}">
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}">Left Offset</TextBlock>
+                    <TextBox Style="{StaticResource attribTextBox}"
+                             Text="{Binding Path=titleLeftOffset, Mode=TwoWay}"/>
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+                </StackPanel>
+                <StackPanel Style="{StaticResource attribSP}">
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}">Top Offset</TextBlock>
+                    <TextBox Style="{StaticResource attribTextBox}"
+                             Text="{Binding Path=titleTopOffset, Mode=TwoWay}"/>
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+                </StackPanel>
+                <StackPanel Style="{StaticResource attribSP}">
+                        <TextBlock Style="{StaticResource attribTextBlockLabel}">Font Size</TextBlock>
+                    <TextBox Style="{StaticResource attribTextBox}"
+                             Text="{Binding Path=titleFontSize, Mode=TwoWay}"/>
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+                </StackPanel>
+                <Button Style="{StaticResource updateButton}" Content="Update Style"
+                        Command="{Binding updateTitleSettingsCommand}"/>
+                </StackPanel>
+            </Expander>
+            <Expander Style="{StaticResource indentedExpander}" Header="Axis Settings">
+                <StackPanel>
+                <StackPanel Style="{StaticResource attribSP}">
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}">Number of X Ticks</TextBlock>
+                    <TextBox Style="{StaticResource attribTextBox}"
+                             Text="{Binding Path=numXAxisTicks, Mode=TwoWay}"/>
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+                </StackPanel>
+                <StackPanel Style="{StaticResource attribSP}">
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}">Number of Y Ticks</TextBlock>
+                    <TextBox Style="{StaticResource attribTextBox}"
+                             Text="{Binding Path=numYAxisTicks, Mode=TwoWay}"/>
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+                </StackPanel>
+                <StackPanel Style="{StaticResource attribSP}">
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}">Points Per Plot</TextBlock>
+                    <TextBox Style="{StaticResource attribTextBox}"
+                             Text="{Binding Path=numPoints, Mode=TwoWay}"/>
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+                </StackPanel>
+                <StackPanel Style="{StaticResource attribSP}">
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}">Axis Tick Font Size</TextBlock>
+                    <TextBox Style="{StaticResource attribTextBox}"
+                             Text="{Binding Path=axesTickFontSize, Mode=TwoWay}"/>
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+                </StackPanel>
+                <StackPanel Style="{StaticResource attribSP}">
+                        <TextBlock Style="{StaticResource attribTextBlockLabel}">Axis Thickness</TextBlock>
+                    <TextBox Style="{StaticResource attribTextBox}"
+                             Text="{Binding Path=axesThickness, Mode=TwoWay}"/>
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+                </StackPanel>
+                <Button Style="{StaticResource updateButton}" Content="Update Graph"
+                        Command="{Binding updateAxisSettingsCommand}"/>
+                </StackPanel>
+            </Expander>
+            <Expander Style="{StaticResource indentedExpander}" Header="Axis Title Settings">
+                <StackPanel>
+                <StackPanel Style="{StaticResource attribSP}">
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}">X Axis Left Offset</TextBlock>
+                    <TextBox Style="{StaticResource attribTextBox}"
+                             Text="{Binding Path=xAxisTitleLeftOffset, Mode=TwoWay}"/>
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+                </StackPanel>
+                <StackPanel Style="{StaticResource attribSP}">
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}">X Axis Top Offset</TextBlock>
+                    <TextBox Style="{StaticResource attribTextBox}"
+                             Text="{Binding Path=xAxisTitleTopOffset, Mode=TwoWay}"/>
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+                </StackPanel>
+                <StackPanel Style="{StaticResource attribSP}">
+                        <TextBlock Style="{StaticResource attribTextBlockLabel}">X Axis Font Size</TextBlock>
+                    <TextBox Style="{StaticResource attribTextBox}"
+                             Text="{Binding Path=xAxisTitleFontSize, Mode=TwoWay}"/>
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+                </StackPanel>
+                <StackPanel Style="{StaticResource attribSP}">
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}"> Y Axis Left Offset</TextBlock>
+                    <TextBox Style="{StaticResource attribTextBox}"
+                             Text="{Binding Path=yAxisTitleLeftOffset, Mode=TwoWay}"/>
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+                </StackPanel>
+                <StackPanel Style="{StaticResource attribSP}">
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}">Y Axis Top Offset</TextBlock>
+                    <TextBox Style="{StaticResource attribTextBox}"
+                             Text="{Binding Path=yAxisTitleTopOffset, Mode=TwoWay}"/>
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+                </StackPanel>
+                <StackPanel Style="{StaticResource attribSP}">
+                        <TextBlock Style="{StaticResource attribTextBlockLabel}">Y Axis Font Size</TextBlock>
+                    <TextBox Style="{StaticResource attribTextBox}"
+                             Text="{Binding Path=yAxisTitleFontSize, Mode=TwoWay}"/>
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+                </StackPanel>
+                <Button Style="{StaticResource updateButton}" Content="Update Style"
+                        Command="{Binding updateAxisTitleSettingsCommand}"/>
+                </StackPanel>
+            </Expander>
+            <Expander Style="{StaticResource indentedExpander}" Header="Legend Settings">
+                <StackPanel>
+                    <StackPanel Style="{StaticResource attribSP}">
+                        <TextBlock Style="{StaticResource attribTextBlockLabel}">Font Size</TextBlock>
+                        <TextBox Style="{StaticResource attribTextBox}"
+                                 Text="{Binding Path=legendFontSize, Mode=TwoWay}"/>
+                        <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+                    </StackPanel>
+                    <Button Style="{StaticResource updateButton}" Content="Update Legend"
+                            Command="{Binding updateLegendSettings}"/>
+                </StackPanel>
+            </Expander>
+            <Expander Style="{StaticResource indentedExpander}" Header="Graph Color Settings">
+                <StackPanel>
+                <StackPanel Style="{StaticResource attribSP}">
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}">Background</TextBlock>
+                    <xtck:ColorPicker Style="{StaticResource colorPicker}" 
+                                      SelectedColor="{Binding backgroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+                </StackPanel>
+                <StackPanel Style="{StaticResource attribSP}">
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}">Axis Color</TextBlock>
+                    <xtck:ColorPicker Style="{StaticResource colorPicker}" 
+                                      SelectedColor="{Binding foregroundColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    </xtck:ColorPicker>
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+                </StackPanel>
+                <Button Style="{StaticResource updateButton}" Content="Update Style"
+                        Command="{Binding updateGraphColorSettingsCommand}"/>
+                </StackPanel>
+            </Expander>
+        </StackPanel>
+    </Grid>
+</UserControl>

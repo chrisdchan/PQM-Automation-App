@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="PQM_V2.Views.HomeViews.AttributePanelViews.GraphGenerationPanelView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PQM_V2.Views.HomeViews.AttributePanelViews"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="AttributeStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel>
+            <StackPanel Style="{StaticResource headerSP}">
+                <TextBlock Style="{StaticResource headerTextBlockLabel}">Domain</TextBlock>
+            </StackPanel>
+            <TextBlock Style="{StaticResource errorMessage}"
+                       Visibility="{Binding showDomainError, Converter={StaticResource booleanVisibilityConverter}}"
+                       Text="{Binding domainError}"/>
+            <StackPanel Style="{StaticResource attribSP}">
+                <TextBlock Style="{StaticResource attribTextBlockLabel}">X Min</TextBlock>
+                <TextBox Style="{StaticResource attribTextBox}"
+                         Text="{Binding Path=xmin, Mode=TwoWay}"/>
+                <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+            </StackPanel>
+            <StackPanel Style="{StaticResource attribSP}">
+                <TextBlock Style="{StaticResource attribTextBlockLabel}">X Max</TextBlock>
+                <TextBox Style="{StaticResource attribTextBox}"
+                         Text="{Binding Path=xmax, Mode=TwoWay}"/>
+                <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+            </StackPanel>
+            <Button Style="{StaticResource updateButton}" Content="Update Domain"
+                    Command="{Binding updateDomainCommand}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

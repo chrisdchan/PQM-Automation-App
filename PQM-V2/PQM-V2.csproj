@@ -112,14 +112,16 @@
     <Compile Include="Models\Structure.cs" />
     <Compile Include="Stores\CanvasStore.cs" />
     <Compile Include="Stores\GraphAttributesStore.cs" />
+    <Compile Include="Stores\GraphCustomizeStore.cs" />
     <Compile Include="Stores\GraphStore.cs" />
     <Compile Include="Models\Layout.cs" />
     <Compile Include="Stores\LegendSettingsStore.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModels\AttributePanelViewModels\AttributePanelViewModel.cs" />
-    <Compile Include="ViewModels\HomeViewModels\AttributePanelViewModels\StructureAttributesViewModel.cs" />
-    <Compile Include="ViewModels\HomeViewModels\AttributePanelViewModels\GraphAttributesViewModel.cs" />
+    <Compile Include="ViewModels\HomeViewModels\AttributePanelViewModels\CustomizePanelViewModel.cs" />
+    <Compile Include="ViewModels\HomeViewModels\AttributePanelViewModels\GraphGenerationViewModel.cs" />
+    <Compile Include="ViewModels\HomeViewModels\AttributePanelViewModels\InterpolatePanelViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModels\GraphViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModels\TableViewModel.cs" />
@@ -129,20 +131,14 @@
     <Compile Include="Views\HomeViews\AttributePanelViews\AttributePanelView.xaml.cs">
       <DependentUpon>AttributePanelView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\HomeViews\AttributePanelViews\AxisTitlesView.xaml.cs">
-      <DependentUpon>AxisTitlesView.xaml</DependentUpon>
+    <Compile Include="Views\HomeViews\AttributePanelViews\CustomizePanelView.xaml.cs">
+      <DependentUpon>CustomizePanelView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\HomeViews\AttributePanelViews\GraphTitleView.xaml.cs">
-      <DependentUpon>GraphTitleView.xaml</DependentUpon>
+    <Compile Include="Views\HomeViews\AttributePanelViews\GraphGenerationPanelView.xaml.cs">
+      <DependentUpon>GraphGenerationPanelView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\HomeViews\AttributePanelViews\LegendAttributesView.xaml.cs">
-      <DependentUpon>LegendAttributesView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\HomeViews\AttributePanelViews\StructureAttributesView.xaml.cs">
-      <DependentUpon>StructureAttributesView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\HomeViews\AttributePanelViews\GraphAttributesView.xaml.cs">
-      <DependentUpon>GraphAttributesView.xaml</DependentUpon>
+    <Compile Include="Views\HomeViews\AttributePanelViews\InterpolatePanelView.xaml.cs">
+      <DependentUpon>InterpolatePanelView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HomeViews\GraphView.xaml.cs">
       <DependentUpon>GraphView.xaml</DependentUpon>
@@ -179,23 +175,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\HomeViews\AttributePanelViews\AxisTitlesView.xaml">
+    <Page Include="Views\HomeViews\AttributePanelViews\CustomizePanelView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\HomeViews\AttributePanelViews\GraphTitleView.xaml">
+    <Page Include="Views\HomeViews\AttributePanelViews\GraphGenerationPanelView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\HomeViews\AttributePanelViews\LegendAttributesView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\HomeViews\AttributePanelViews\StructureAttributesView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\HomeViews\AttributePanelViews\GraphAttributesView.xaml">
+    <Page Include="Views\HomeViews\AttributePanelViews\InterpolatePanelView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -7,74 +7,22 @@
              mc:Ignorable="d"  Background="#707070"
              d:DesignHeight="1080" d:DesignWidth="500">
     <UserControl.Resources>
-        <Style x:Key="expander" TargetType="{x:Type Expander}">
-            <Setter Property="HeaderTemplate">
-                <Setter.Value>
-                    <DataTemplate>
-                        <TextBlock FontSize="20" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Expander}}"
-                                   Text="{Binding}">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock">
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#808080"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
-                    </DataTemplate>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="ExpandDirection" Value="Down"/>
-            <Setter Property="Foreground" Value="White"/>
-        </Style>
-        <Style x:Key="indentedExpander" TargetType="{x:Type Expander}">
-            <Setter Property="HeaderTemplate">
-                <Setter.Value>
-                    <DataTemplate>
-                        <TextBlock FontSize="20" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Expander}}"
-                                   Text="{Binding}">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock">
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#808080"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
-                    </DataTemplate>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="ExpandDirection" Value="Down"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Margin" Value="20, 0, 0, 0"/>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="AttributeStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
         <StackPanel x:Name="stackPanel">
             <Expander Style="{StaticResource expander}" Header="Graph">
-                <local:GraphAttributesView></local:GraphAttributesView>
+                <local:GraphGenerationPanelView></local:GraphGenerationPanelView>
             </Expander>
             <Expander Style="{StaticResource expander}" Header="Interpolate">
-                <local:StructureAttributesView></local:StructureAttributesView>
+                <local:InterpolatePanelView></local:InterpolatePanelView>
             </Expander>
             <Expander Style="{StaticResource expander}" Header="Customize">
-                <StackPanel>
-                    <Expander Style="{StaticResource indentedExpander}" Header="Axes">
-                    </Expander>
-                    <Expander Style="{StaticResource indentedExpander}" Header="Legend">
-                        <local:LegendAttributesView></local:LegendAttributesView>
-                    </Expander>
-                    <Expander Style="{StaticResource indentedExpander}" Header="Structure">
-                    </Expander>
-                    <Expander Style="{StaticResource indentedExpander}" Header="Titles">
-                    </Expander>
-                    <Expander Style="{StaticResource indentedExpander}" Header="Colors">
-                    </Expander>
-                </StackPanel>
+                <local:CustomizePanelView></local:CustomizePanelView>
             </Expander>
         </StackPanel>
     </Grid>

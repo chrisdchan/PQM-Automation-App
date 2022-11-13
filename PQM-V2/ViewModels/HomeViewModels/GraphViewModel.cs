@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Threading;
@@ -16,31 +17,31 @@ namespace PQM_V2.ViewModels.HomeViewModels
 {
     public class GraphViewModel
     {
-        private GraphAttributesStore _graphAttributesStore;
+        private GraphCustomizeStore _graphCustomizeStore;
         private GraphStore _graphStore;
         private CanvasStore _canvasStore;
-        private LegendSettingsStore _legendSettingsStore;
 
         private Canvas _axesCanvas;
         private Canvas _textCanvas;
         private Canvas _legendCanvas;
         private List<Canvas> _structureCanvases;
 
+        private Label _probeLabel;
+
         private TransformGroup _yaxisRenderTransform;
 
         private (double left, double top, double right, double bottom) _borders;
         private (double x, double y) _ratio;
         private (Func<double, double> x, Func<double, double> y) _map;
+        private (Func<double, double> x, Func<double, double> y) _invMap;
 
         public RelayCommand resizeEndCommand { get; set; }
         public RelayCommand resizeStartCommand { get; set; }
-
         public GraphViewModel()
         {
-            _graphAttributesStore = (Application.Current as App).graphAttributesStore;
+            _graphCustomizeStore = (Application.Current as App).graphCustomizeStore;
             _graphStore = (Application.Current as App).graphStore;
             _canvasStore = (Application.Current as App).canvasStore;
-            _legendSettingsStore = (Application.Current as App).legendSettingsStore;
 
             _yaxisRenderTransform = new TransformGroup();
             _yaxisRenderTransform.Children.Add(new ScaleTransform(1, -1));
@@ -51,7 +52,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
 
             init();
 
-            _graphAttributesStore.graphAttributesChanged += update;
+            _graphCustomizeStore.graphCustomizeChanged += update;
             _graphStore.graphUpdated += update;
             _graphStore.graphChanged += init;
         }
@@ -59,8 +60,12 @@ namespace PQM_V2.ViewModels.HomeViewModels
         private void init()
         {
             _map = (
-                x: (x) => (x - _graphAttributesStore.xmin) * _ratio.x + _borders.left,
+                x: (x) => (x - _graphCustomizeStore.xmin) * _ratio.x + _borders.left,
                 y: (y) => y * _ratio.y + _borders.bottom);
+
+            _invMap = (
+                x: (x) => (x - _borders.left) / _ratio.x + _graphCustomizeStore.xmin,
+                y: (y) => (y - _borders.bottom) / _ratio.y);
 
             initCanvases();
             update();
@@ -76,7 +81,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
                 bottom: canvas.ActualHeight * 0.15 );
 
             _ratio = (
-                x: (_borders.right - _borders.left) / (_graphAttributesStore.xmax - _graphAttributesStore.xmin),
+                x: (_borders.right - _borders.left) / (_graphCustomizeStore.xmax - _graphCustomizeStore.xmin),
                 y: (_borders.top - _borders.bottom) / 100);
 
             setAxesCanvas();
@@ -89,7 +94,6 @@ namespace PQM_V2.ViewModels.HomeViewModels
             _canvasStore.canvas.Children.Clear();
             _textCanvas = new Canvas();
             _textCanvas.LayoutTransform = new ScaleTransform(1, -1);
-            _textCanvas.Background = Brushes.Black;
             _canvasStore.canvas.Children.Add(_textCanvas);
 
             initStructureCanvases();
@@ -101,6 +105,8 @@ namespace PQM_V2.ViewModels.HomeViewModels
             Grid.SetZIndex(_axesCanvas, 1);
             _axesCanvas.LayoutTransform = new ScaleTransform(1, -1);
             _canvasStore.canvas.Children.Add(_axesCanvas);
+
+            _canvasStore.canvas.MouseDown += updateProbeLabel;
         }
         private void initStructureCanvases() // Helper to init/initCanvases
         {
@@ -117,10 +123,12 @@ namespace PQM_V2.ViewModels.HomeViewModels
         {
             _axesCanvas.Children.Clear();
             setCanvasHeightWidth(_axesCanvas);
-            SolidColorBrush color = _graphAttributesStore.axisColor;
+            SolidColorBrush color = toBrush(_graphCustomizeStore.foregroundColor);
 
             Line xaxis = getLine(_borders.left, _borders.bottom, _borders.right, _borders.bottom, color);
             Line yaxis = getLine(_borders.left, _borders.bottom, _borders.left, _borders.top, color);
+            xaxis.StrokeThickness = _graphCustomizeStore.axesThickness;
+            yaxis.StrokeThickness = _graphCustomizeStore.axesThickness;
 
             double xTickLength = 10;
             double yTickLength = 10;
@@ -129,8 +137,8 @@ namespace PQM_V2.ViewModels.HomeViewModels
             _axesCanvas.Children.Add(yaxis);
 
             double x = _borders.left;
-            double dx = (_borders.right - _borders.left) / (_graphAttributesStore.numXAxisTicks - 1);
-            for(int i = 0; i < _graphAttributesStore.numXAxisTicks; i++)
+            double dx = (_borders.right - _borders.left) / (_graphCustomizeStore.numXAxisTicks - 1);
+            for(int i = 0; i < _graphCustomizeStore.numXAxisTicks; i++)
             {
                 Line tick = getLine(x, _borders.bottom, x, _borders.bottom - xTickLength, color);
                 _axesCanvas.Children.Add(tick);
@@ -138,32 +146,39 @@ namespace PQM_V2.ViewModels.HomeViewModels
             }
 
             double y = _borders.bottom;
-            double dy = (_borders.top - _borders.bottom) / (_graphAttributesStore.numYAxisTicks - 1);
-            for(int i = 0; i < _graphAttributesStore.numYAxisTicks; i++)
+            double dy = (_borders.top - _borders.bottom) / (_graphCustomizeStore.numYAxisTicks - 1);
+            for(int i = 0; i < _graphCustomizeStore.numYAxisTicks; i++)
             {
                 Line tick = getLine(_borders.left, y, _borders.left - yTickLength, y, color);
                 _axesCanvas.Children.Add(tick);
                 y += dy;
             }
+
+            _probeLabel = new Label();
+            _probeLabel.Content = "X: 20 Y: 9";
+            _axesCanvas.Children.Add(_probeLabel);
+            Canvas.SetLeft(_probeLabel, 0);
+            Canvas.SetTop(_probeLabel, 0);
+
         }
         private void setTextCanvas() // Helper to update
         {
             _textCanvas.Children.Clear();
             setCanvasHeightWidth(_textCanvas);
-            _textCanvas.Background = _graphAttributesStore.backgroundColor;
+            _textCanvas.Background = toBrush(_graphCustomizeStore.backgroundColor);
 
             double titleWidth = 300;
 
             TextBlock title = new TextBlock();
             title.Text = _graphStore.graph.title;
-            title.FontSize = 25;
+            title.FontSize = _graphCustomizeStore.titleFontSize;
             title.RenderTransform = new ScaleTransform(1, -1);
             title.Width = titleWidth;
-            title.Foreground = _graphAttributesStore.axisColor;
+            title.Foreground = toBrush(_graphCustomizeStore.foregroundColor);
             title.TextAlignment = TextAlignment.Center;
             _textCanvas.Children.Add(title);
-            Canvas.SetLeft(title, (_borders.right + _borders.left) / 2.0 - titleWidth / 2.0);
-            Canvas.SetTop(title, _borders.top + 50);
+            Canvas.SetLeft(title, (_borders.right + _borders.left) / 2.0 - titleWidth / 2.0 + _graphCustomizeStore.titleLeftOffset);
+            Canvas.SetTop(title, _borders.top + 50 + _graphCustomizeStore.titleTopOffset);
 
 
             double axisTitleHeight = 20;
@@ -171,40 +186,40 @@ namespace PQM_V2.ViewModels.HomeViewModels
 
             TextBlock xaxis = new TextBlock();
             xaxis.Text = _graphStore.graph.xaxisName;
-            xaxis.FontSize = 18;
+            xaxis.FontSize = _graphCustomizeStore.xAxisTitleFontSize;
             xaxis.Width = axisTitleWidth;
             xaxis.RenderTransform = new ScaleTransform(1, -1);
-            xaxis.Foreground = _graphAttributesStore.axisColor;
+            xaxis.Foreground = toBrush(_graphCustomizeStore.foregroundColor);
             xaxis.TextAlignment = TextAlignment.Center;
             _textCanvas.Children.Add(xaxis);
-            Canvas.SetLeft(xaxis, (_borders.left + _borders.right) / 2.0 - axisTitleWidth / 2.0);
-            Canvas.SetTop(xaxis, _borders.bottom - 55);
+            Canvas.SetLeft(xaxis, (_borders.left + _borders.right) / 2.0 - axisTitleWidth / 2.0 + _graphCustomizeStore.xAxisTitleLeftOffset);
+            Canvas.SetTop(xaxis, _borders.bottom - 55 + _graphCustomizeStore.xAxisTitleTopOffset);
 
             TextBlock yaxis = new TextBlock();
             yaxis.Text = _graphStore.graph.yaxisName;
-            yaxis.FontSize = 18;
+            yaxis.FontSize = _graphCustomizeStore.yAxisTitleFontSize;
             yaxis.Width = axisTitleWidth;
             yaxis.RenderTransform = _yaxisRenderTransform;
-            yaxis.Foreground = _graphAttributesStore.axisColor;
+            yaxis.Foreground = toBrush(_graphCustomizeStore.foregroundColor);
             yaxis.TextAlignment = TextAlignment.Center;
             _textCanvas.Children.Add(yaxis);
-            Canvas.SetLeft(yaxis, _borders.left - 100);
-            Canvas.SetTop(yaxis, (_borders.top + _borders.bottom) / 2.0 - axisTitleWidth / 2.0);
+            Canvas.SetLeft(yaxis, _borders.left - 100 + _graphCustomizeStore.yAxisTitleLeftOffset);
+            Canvas.SetTop(yaxis, (_borders.top + _borders.bottom) / 2.0 - axisTitleWidth / 2.0 + _graphCustomizeStore.yAxisTitleTopOffset);
 
             double width = 40;
             double height = 30;
             double fontSize = 12;
 
-            double x = _graphAttributesStore.xmin;
-            double dx = (_graphAttributesStore.xmax - _graphAttributesStore.xmin) / (_graphAttributesStore.numXAxisTicks - 1);
+            double x = _graphCustomizeStore.xmin;
+            double dx = (_graphCustomizeStore.xmax - _graphCustomizeStore.xmin) / (_graphCustomizeStore.numXAxisTicks - 1);
 
-            for(int i = 0; i < _graphAttributesStore.numXAxisTicks; i++)
+            for(int i = 0; i < _graphCustomizeStore.numXAxisTicks; i++)
             {
                 TextBlock textBlock = new TextBlock();
                 textBlock.Width = width;
                 textBlock.Height = height;
                 textBlock.FontSize = fontSize;
-                textBlock.Foreground = _graphAttributesStore.axisColor;
+                textBlock.Foreground = toBrush(_graphCustomizeStore.foregroundColor);
                 textBlock.TextAlignment = TextAlignment.Center;
                 textBlock.RenderTransform = new ScaleTransform(1, -1);
                 textBlock.Text = Math.Round(x, 2).ToString();
@@ -216,16 +231,16 @@ namespace PQM_V2.ViewModels.HomeViewModels
             }
 
             double y = 0;
-            double dy = 100.0 / (_graphAttributesStore.numYAxisTicks - 1);
+            double dy = 100.0 / (_graphCustomizeStore.numYAxisTicks - 1);
 
-            for(int i = 0; i < _graphAttributesStore.numYAxisTicks; i++)
+            for(int i = 0; i < _graphCustomizeStore.numYAxisTicks; i++)
             {
                 TextBlock textBlock = new TextBlock();
                 textBlock.Width = width;
                 textBlock.Height = height;
                 textBlock.TextAlignment = TextAlignment.Right;
                 textBlock.FontSize = fontSize;
-                textBlock.Foreground = _graphAttributesStore.axisColor;
+                textBlock.Foreground = toBrush(_graphCustomizeStore.foregroundColor);
                 textBlock.RenderTransform = new ScaleTransform(1, -1);
                 textBlock.Text = Math.Round(y, 2).ToString();
 
@@ -256,8 +271,8 @@ namespace PQM_V2.ViewModels.HomeViewModels
 
                 Label label = new Label();
                 label.Height = 25;
-                label.FontSize = _legendSettingsStore.fontSize;
-                label.Foreground = _graphAttributesStore.axisColor;
+                label.FontSize = _graphCustomizeStore.legendFontSize;
+                label.Foreground = toBrush(_graphCustomizeStore.foregroundColor);
                 label.Content = structure.name;
                 label.Width = width;
                 horizontalSP.Children.Add(label);
@@ -274,7 +289,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
             foreach(Structure structure in _graphStore.graph.structures)
             {
                 int n = structure.name.Length;
-                double width = n * _legendSettingsStore.fontSize * 0.55;
+                double width = n * _graphCustomizeStore.legendFontSize * 0.55;
                 if(width > minWidth)
                 {
                     minWidth = width;
@@ -298,14 +313,14 @@ namespace PQM_V2.ViewModels.HomeViewModels
         }
         private bool isStructureInDomain(Structure structure) // Helper to setStructureCanvases
         {
-            return _graphAttributesStore.xmin < structure.maxX;
+            return _graphCustomizeStore.xmin < structure.maxX;
         }
         private void setStructureCanvas(Canvas canvas, Structure structure)
         {
             canvas.Children.Clear();
-            double xmin = _graphAttributesStore.xmin;
-            double xmax = _graphAttributesStore.xmax;
-            int numPoints = _graphAttributesStore.pointsPerPlot;
+            double xmin = _graphCustomizeStore.xmin;
+            double xmax = _graphCustomizeStore.xmax;
+            int numPoints = _graphCustomizeStore.numPoints;
 
             List<(double x, double y)> points = structure.interpolateRange(xmin, xmax, numPoints);
 
@@ -366,6 +381,11 @@ namespace PQM_V2.ViewModels.HomeViewModels
 
         }
 
+        private SolidColorBrush toBrush(string hex_code)
+        {
+            return (SolidColorBrush)new BrushConverter().ConvertFromString(hex_code);
+        }
+
         // Commands
         private void resizeEnd(object _)
         {
@@ -374,6 +394,14 @@ namespace PQM_V2.ViewModels.HomeViewModels
         private void resizeStart(object _)
         {
             clearAllCanvases();
+        }
+
+        private void updateProbeLabel(object sender, MouseEventArgs e)
+        {
+            Point p = e.GetPosition(_axesCanvas as IInputElement);
+            double x = _invMap.x(p.X);
+            double y = _invMap.y(p.Y);
+
         }
     }
 }

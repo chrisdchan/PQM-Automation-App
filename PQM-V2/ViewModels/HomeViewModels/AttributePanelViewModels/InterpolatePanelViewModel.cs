@@ -11,7 +11,7 @@ using System.Windows.Media;
 
 namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
 {
-    public class StructureAttributesViewModel : BaseViewModel
+    public class InterpolatePanelViewModel : BaseViewModel
     {
         private GraphStore _graphStore;
         private Graph _graph => _graphStore.graph;
@@ -37,57 +37,86 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
 
         public RelayCommand updateStyleCommand { get; set; }
 
-        public Structure selectedStructure {
+        public Structure selectedStructure
+        {
             get => _selectedStructure;
             set { _selectedStructure = value; onPropertyChanged(nameof(selectedStructure)); }
         }
 
-        public double interpolateX {
+        public double interpolateX
+        {
             get => _interpolateX;
-            set { _interpolateX = value; setFromX(); }}
-        public double yFromX {
+            set { _interpolateX = value; setFromX(); }
+        }
+        public double yFromX
+        {
             get => _yFromX;
-            set { _yFromX = value; onPropertyChanged(nameof(yFromX)); }}
-        public double dyFromX {
+            set { _yFromX = value; onPropertyChanged(nameof(yFromX)); }
+        }
+        public double dyFromX
+        {
             get => _dyFromX;
-            set { _dyFromX = value; onPropertyChanged(nameof(dyFromX)); }}
-        public double AUCFromX{ 
+            set { _dyFromX = value; onPropertyChanged(nameof(dyFromX)); }
+        }
+        public double AUCFromX
+        {
             get => _AUCFromX;
-            set { _AUCFromX = value; onPropertyChanged(nameof(AUCFromX)); }}
+            set { _AUCFromX = value; onPropertyChanged(nameof(AUCFromX)); }
+        }
 
-        public double interpolateY {
+        public double interpolateY
+        {
             get => _interpolateY;
-            set { _interpolateY = value; setFromY(); }}
-        public double xFromY {
+            set { _interpolateY = value; setFromY(); }
+        }
+        public double xFromY
+        {
             get => _xFromY;
-            set { _xFromY = value; onPropertyChanged(nameof(xFromY)); }}
-        public double dyFromY {
+            set { _xFromY = value; onPropertyChanged(nameof(xFromY)); }
+        }
+        public double dyFromY
+        {
             get => _dyFromY;
-            set { _dyFromY = value; onPropertyChanged(nameof(dyFromY)); }}
-        public double AUCFromY{ 
+            set { _dyFromY = value; onPropertyChanged(nameof(dyFromY)); }
+        }
+        public double AUCFromY
+        {
             get => _AUCFromY;
-            set { _AUCFromY = value; onPropertyChanged(nameof(AUCFromY)); }}
-        public bool showInterpolateXError{ 
+            set { _AUCFromY = value; onPropertyChanged(nameof(AUCFromY)); }
+        }
+        public bool showInterpolateXError
+        {
             get => _showInterpolateXError;
-            set { _showInterpolateXError = value; onPropertyChanged(nameof(showInterpolateXError)); }}
-        public bool showInterpolateYError{ 
+            set { _showInterpolateXError = value; onPropertyChanged(nameof(showInterpolateXError)); }
+        }
+        public bool showInterpolateYError
+        {
             get => _showInterpolateYError;
-            set { _showInterpolateYError = value; onPropertyChanged(nameof(showInterpolateYError)); }}
-        public string interpolateXError{ 
+            set { _showInterpolateYError = value; onPropertyChanged(nameof(showInterpolateYError)); }
+        }
+        public string interpolateXError
+        {
             get => _interpolateXError;
-            set { _interpolateXError = value; onPropertyChanged(nameof(interpolateXError)); }}
-        public string interpolateYError{ 
+            set { _interpolateXError = value; onPropertyChanged(nameof(interpolateXError)); }
+        }
+        public string interpolateYError
+        {
             get => _interpolateYError;
-            set { _interpolateYError = value; onPropertyChanged(nameof(interpolateYError)); }}
+            set { _interpolateYError = value; onPropertyChanged(nameof(interpolateYError)); }
+        }
 
-        public string color{ 
+        public string color
+        {
             get => _color;
-            set { _color = value; onPropertyChanged(nameof(color)); }}
-        public double lineThickness{ 
+            set { _color = value; onPropertyChanged(nameof(color)); }
+        }
+        public double lineThickness
+        {
             get => _lineThickness;
-            set { _lineThickness = value; onPropertyChanged(nameof(lineThickness)); }}
+            set { _lineThickness = value; onPropertyChanged(nameof(lineThickness)); }
+        }
 
-        public StructureAttributesViewModel()
+        public InterpolatePanelViewModel()
         {
             _graphStore = (Application.Current as App).graphStore;
             _selectedStructure = _graph.selectedStructure;
@@ -110,7 +139,7 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             yFromX = double.NaN;
             dyFromX = double.NaN;
             AUCFromX = double.NaN;
-            if(_selectedStructure == null)
+            if (_selectedStructure == null)
             {
                 interpolateXError = "No Structure Selected";
             }
@@ -118,7 +147,7 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             {
                 interpolateXError = "Value cannot be less than 0";
             }
-            else if(_selectedStructure.maxX < _interpolateX)
+            else if (_selectedStructure.maxX < _interpolateX)
             {
                 interpolateXError = String.Format("Value cannot be greater than {0}", _selectedStructure.maxX);
             }
@@ -137,31 +166,30 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             dyFromY = double.NaN;
             AUCFromY = double.NaN;
 
-            if(_selectedStructure == null)
+            if (_selectedStructure == null)
             {
                 interpolateYError = "No Structure Selected";
             }
-            else if(_interpolateY < 0)
+            else if (_interpolateY < 0)
             {
                 interpolateYError = "Value cannot be less than 0";
             }
-            else if(_interpolateY > 100)
+            else if (_interpolateY > 100)
             {
                 interpolateYError = "Value cannot be greater than 100";
             }
             else
             {
-                showInterpolateYError= false;
+                showInterpolateYError = false;
                 xFromY = _selectedStructure.invInterpolate(_interpolateY);
                 dyFromY = _selectedStructure.interpolateDerivative(xFromY);
                 AUCFromY = _selectedStructure.aucFromX(xFromY);
             }
-
         }
 
         private void updateStyle(object _)
         {
-            if(_selectedStructure != null)
+            if (_selectedStructure != null)
             {
                 selectedStructure.color = new SolidColorBrush((Color)ColorConverter.ConvertFromString(color));
                 selectedStructure.lineThickness = lineThickness;
