@@ -15,13 +15,13 @@
     </UserControl.Resources>
     <Grid>
         <StackPanel x:Name="stackPanel">
-            <Expander Style="{StaticResource expander}" Header="Graph">
+            <Expander Style="{StaticResource expander}" Header="Graph" Expanded="Expander_Expanded">
                 <local:GraphGenerationPanelView></local:GraphGenerationPanelView>
             </Expander>
-            <Expander Style="{StaticResource expander}" Header="Interpolate">
+            <Expander Style="{StaticResource expander}" Header="Interpolate" Expanded="Expander_Expanded">
                 <local:InterpolatePanelView></local:InterpolatePanelView>
             </Expander>
-            <Expander Style="{StaticResource expander}" Header="Customize">
+            <Expander Style="{StaticResource expander}" Header="Customize" Expanded="Expander_Expanded">
                 <local:CustomizePanelView></local:CustomizePanelView>
             </Expander>
         </StackPanel>
