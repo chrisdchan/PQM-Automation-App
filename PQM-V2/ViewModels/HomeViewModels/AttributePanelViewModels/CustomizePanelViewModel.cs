@@ -1,4 +1,5 @@
 ﻿using PQM_V2.Commands;
+using PQM_V2.Models;
 using PQM_V2.Stores;
 using System;
 using System.Collections.Generic;
@@ -11,8 +12,9 @@ using System.Windows.Media;
 namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
 {
     public class CustomizePanelViewModel : BaseViewModel
-    {
+        {
         private GraphCustomizeStore _graphCustomizeStore;
+        private GraphStore _graphStore;
 
         private int _numXAxisTicks;
         private int _numYAxisTicks;
@@ -37,6 +39,8 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         private string _backgroundColor;
         private string _foregroundColor;
 
+        private Structure _selectedStrucutre;
+
         public int numXAxisTicks { get => _numXAxisTicks; set { _numXAxisTicks = value; onPropertyChanged(nameof(numXAxisTicks)); } }
         public int numYAxisTicks { get => _numYAxisTicks; set { _numYAxisTicks = value; onPropertyChanged(nameof(numYAxisTicks)); } }
         public int axesThickness { get => _axesThickness; set { _axesThickness = value; onPropertyChanged(nameof(axesThickness)); } }
@@ -60,6 +64,8 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         public string backgroundColor { get => _backgroundColor; set { _backgroundColor = value; onPropertyChanged(nameof(backgroundColor)); } }
         public string foregroundColor { get => _foregroundColor; set { _foregroundColor = value; onPropertyChanged(nameof(foregroundColor)); } }
 
+        public Structure selectedStructure { get => _selectedStrucutre; set { _selectedStrucutre = value; onPropertyChanged(nameof(selectedStructure));  }}
+
         public RelayCommand updateLegendSettingsCommand { get; private set; }
         public RelayCommand updateGraphColorSettingsCommand { get; private set; }
         public RelayCommand updateAxisSettingsCommand { get; private set; }
@@ -69,6 +75,8 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         public CustomizePanelViewModel()
         {
             _graphCustomizeStore = (Application.Current as App).graphCustomizeStore;
+            _graphStore = (Application.Current as App).graphStore;
+
             numXAxisTicks = _graphCustomizeStore.numXAxisTicks;
             numYAxisTicks = _graphCustomizeStore.numYAxisTicks;
             axesThickness = _graphCustomizeStore.axesThickness;
@@ -92,6 +100,8 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             foregroundColor = _graphCustomizeStore.foregroundColor;
             backgroundColor = _graphCustomizeStore.backgroundColor;
 
+            _graphStore.selectedStructureChanged += onSelectedStructureChanged;
+
             updateAxisSettingsCommand = new RelayCommand(updateAxesSettings);
             updateLegendSettingsCommand = new RelayCommand(updateLegendSettings);
             updateGraphColorSettingsCommand = new RelayCommand(updateGraphColorSettings);
@@ -99,6 +109,15 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             updateTitleSettingsCommand = new RelayCommand(updateTitleSettings);
         }
 
+        private void onSelectedStructureChanged()
+        {
+            selectedStructure = _graphStore.graph.selectedStructure;
+        }
+
+        public override void Dispose()
+        {
+            _graphStore.selectedStructureChanged -= onSelectedStructureChanged;
+        }
 
         private void updateAxesSettings(object _)
         {
