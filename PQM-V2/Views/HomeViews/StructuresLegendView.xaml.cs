@@ -28,5 +28,15 @@ namespace PQM_V2.Views.HomeViews
             InitializeComponent();
             DataContext = new StructuresLegendViewModel();
         }
+
+        private void stackPanel_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            StructuresLegendViewModel viewModel = (StructuresLegendViewModel)DataContext;
+            if(viewModel.setStructureIndexCommand.CanExecute(null))
+            {
+                StackPanel sp = (StackPanel)sender;
+                viewModel.setStructureIndexCommand.Execute(sp.Tag);
+            }
+        }
     }
 }

@@ -13,15 +13,18 @@ using System.Windows.Media;
 namespace PQM_V2.ViewModels.HomeViewModels
 {
     public class StructuresLegendViewModel : BaseViewModel
-    {
+        {
         private readonly GraphStore _graphStore;
 
         private readonly ObservableCollection<Structure> _structureList;
         public ObservableCollection<Structure> structureList => _structureList;
+        private int structureIndex;
 
+        public RelayCommand setStructureIndexCommand { get; private set; }
         public RelayCommand changeVisibilityCommand { get; private set; }
-        public RelayCommand isolateCommand { get; private set; }
+        public RelayCommand isolateStructureCommand { get; private set; }
         public RelayCommand selectStructureCommand { get; private set; }
+        public RelayCommand deleteStructureCommand { get; private set; }
 
         public StructuresLegendViewModel()
         {
@@ -32,12 +35,15 @@ namespace PQM_V2.ViewModels.HomeViewModels
             loadGraph();
 
             changeVisibilityCommand = new RelayCommand(changeVisibility);
-            isolateCommand = new RelayCommand(isolate);
+            isolateStructureCommand = new RelayCommand(isolateStructure);
             selectStructureCommand = new RelayCommand(selectStructure);
+            deleteStructureCommand = new RelayCommand(deleteStructure);
+            setStructureIndexCommand = new RelayCommand(setStructureIndex);
 
             _graphStore.graphChanged += loadGraph;
             _graphStore.graphUpdated += loadGraph;
             _graphStore.selectedStructureChanged += loadGraph;
+            structureIndex = 0;
         }
 
         private void loadGraph()
@@ -55,34 +61,36 @@ namespace PQM_V2.ViewModels.HomeViewModels
 
         private void changeVisibility(object param)
         {
-            if(param != null)
-            {
-                int index = (int)param;
-                Structure structure = _graphStore.graph.structures[index];
-                structure.visible = !structure.visible;
-                _graphStore.onGraphUpdated();
-                onPropertyChanged(nameof(structureList));
-            }
+            int index = (param == null) ? structureIndex : (int)param;
+            Structure structure = _graphStore.graph.structures[index];
+            structure.visible = !structure.visible;
+            _graphStore.onGraphUpdated();
+            onPropertyChanged(nameof(structureList));
         }
-        private void isolate(object param)
+        private void isolateStructure(object param)
         {
-            if(param != null)
-            {
-                int index = (int)param;
-                _graphStore.graph.isolate(index);
-                _graphStore.onGraphUpdated();
-                onPropertyChanged(nameof(structureList));
-            }
+            int index = (param == null) ? structureIndex : (int)param;
+            _graphStore.graph.isolate(index);
+            _graphStore.onGraphUpdated();
+            onPropertyChanged(nameof(structureList));
         }
         private void selectStructure(object param)
         {
-            if(param != null)
-            {
-                int index = (int)param;
-                _graphStore.graph.selectStructure(index);
-                _graphStore.onSelectedStructureChanged();
-                onPropertyChanged(nameof(structureList));
-            }
+            int index = (param == null) ? structureIndex : (int)param;
+            _graphStore.graph.selectStructure(index);
+            _graphStore.onSelectedStructureChanged();
+            onPropertyChanged(nameof(structureList));
+        }
+        private void deleteStructure(object param)
+        {
+            int index = (param == null) ? structureIndex : (int)param;
+            _graphStore.graph.selectStructure(index);
+            _graphStore.onSelectedStructureChanged();
+            onPropertyChanged(nameof(structureList));
+        }
+        private void setStructureIndex(object param)
+        {
+            structureIndex = (int)param;
         }
     }
 

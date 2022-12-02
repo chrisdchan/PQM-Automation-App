@@ -42,30 +42,25 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-    <!--
-        <ListView ItemTemplate="{DynamicResource myListViewItemTemplate}" 
-                  Background="#707070" 
-                  IsHitTestVisible="False"
-                  ItemsSource="{Binding structureList}">
-        </ListView>
-        -->
-        <ItemsControl ItemsSource="{Binding structureList}" x:Name="structureListItemsControl">
+            <ItemsControl ItemsSource="{Binding structureList}" 
+                      x:Name="structureListItemsControl" AlternationCount="4">
             <ItemsControl.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:Name="dataTemplate">
                     <StackPanel Orientation="Horizontal" Margin="0" Style="{StaticResource stackPanel}"
-                                Tag="{Binding index}"
+                                PreviewMouseRightButtonDown="stackPanel_PreviewMouseRightButtonDown"
+                                x:Name="stackPanel" Tag="{Binding index}"
                                 Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}}">
                         <TextBlock Text="{Binding name}" Foreground="#ffffff" FontSize="15" Width="150" Margin="5, 0, 5, 0"/>
                         <Rectangle Fill="{Binding color}" Height="10" Width="30" Margin="5, 0, 5, 0"/>
                         <Button Style="{StaticResource faButton}"  
                                 Command="{Binding ElementName=structureListItemsControl, Path=DataContext.changeVisibilityCommand}"
-                                CommandParameter="{Binding Path=Tag, RelativeSource={RelativeSource AncestorType={x:Type StackPanel}}}"
+                                CommandParameter="{Binding index}"
                                 Visibility="{Binding visible, Converter={StaticResource booleanVisibilityConverter}}">
                             <fa:ImageAwesome Foreground="White" Icon="Eye"/>
                         </Button>
                         <Button Style="{StaticResource faButton}" 
                                 Command="{Binding ElementName=structureListItemsControl, Path=DataContext.changeVisibilityCommand}"
-                                CommandParameter="{Binding Path=Tag, RelativeSource={RelativeSource AncestorType={x:Type StackPanel}}}"
+                                CommandParameter="{Binding index}"
                                 Visibility="{Binding visible, Converter={StaticResource notBooleanVisibilityConverter}}">
                             <fa:ImageAwesome Foreground="White" Icon="EyeSlash"/>
                         </Button>
@@ -74,17 +69,22 @@
                         <StackPanel.ContextMenu>
                             <ContextMenu Placement="MousePoint">
                                 <MenuItem Header="Show" 
-                                          Command="{Binding ElementName=structureListItemsControl, Path=DataContext.changeVisibilityCommand}"
-                                          CommandParameter="{Binding Path=Tag, RelativeSource={RelativeSource AncestorType={x:Type StackPanel}}}"
-                                          Foreground="{Binding Path=visible, Converter={StaticResource notBooleanForegroundConverter}}" />
+                                          Command="{Binding DataContext.changeVisibilityCommand, Source={x:Reference structureListItemsControl}}"
+                                          IsEnabled="{Binding visible, Converter={StaticResource inverseBooleanConverter}}"
+                                          Foreground="{Binding visible, Converter={StaticResource booleanForegroundConverter}}"/>
                                 <MenuItem Header="Hide"
-                                          Command="{Binding Path=DataContext.changeVisibilityCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                          CommandParameter="{Binding Path=Tag, RelativeSource={RelativeSource AncestorType={x:Type StackPanel}}}"
-                                          Foreground="{Binding Path=visible, Converter={StaticResource booleanForegroundConverter} }"/>
+                                          Command="{Binding DataContext.changeVisibilityCommand, Source={x:Reference structureListItemsControl}}"
+                                          IsEnabled="{Binding visible}"
+                                          Foreground="{Binding visible, Converter={StaticResource notBooleanForegroundConverter}}"/>
                                 <MenuItem Header="Isolate"
-                                          Command="{Binding ElementName=structureListItemsControlm, Path=DataContext.isloateCommand}"/>
-                                <MenuItem Header="Delete"/>
-                                <MenuItem Header="Select"/>
+                                          Command="{Binding DataContext.isolateStructureCommand, Source={x:Reference structureListItemsControl}}"
+                                          />
+                                <MenuItem Header="Delete"
+                                          Command="{Binding DataContext.deleteStructureCommand, Source={x:Reference structureListItemsControl}}"
+                                          />
+                                <MenuItem Header="Select"
+                                          Command="{Binding DataContext.selectStructureCommand, Source={x:Reference structureListItemsControl}}"
+                                          />
                             </ContextMenu>
                         </StackPanel.ContextMenu>
                         <StackPanel.InputBindings>
@@ -97,5 +97,6 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+
     </Grid>
 </UserControl>
