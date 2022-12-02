@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:PQM_V2.Views.HomeViews.AttributePanelViews" xmlns:xtck="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:local="clr-namespace:PQM_V2.Views.HomeViews.AttributePanelViews" xmlns:xtck="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:fa="http://schemas.fontawesome.io/icons/"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="400">
     <UserControl.Resources>
@@ -14,8 +14,9 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <StackPanel>
-            <Expander Style="{StaticResource indentedExpander}" Header="Title Settings">
+            <StackPanel x:Name="stackPanel">
+            <Expander Style="{StaticResource indentedExpander}" Header="Title Settings"
+                      Expanded="Expander_Expanded">
                 <StackPanel>
                 <StackPanel Style="{StaticResource attribSP}">
                     <TextBlock Style="{StaticResource attribTextBlockLabel}">Left Offset</TextBlock>
@@ -39,7 +40,8 @@
                         Command="{Binding updateTitleSettingsCommand}"/>
                 </StackPanel>
             </Expander>
-            <Expander Style="{StaticResource indentedExpander}" Header="Axis Settings">
+            <Expander Expanded="Expander_Expanded"
+                Style="{StaticResource indentedExpander}" Header="Axis Settings">
                 <StackPanel>
                 <StackPanel Style="{StaticResource attribSP}">
                     <TextBlock Style="{StaticResource attribTextBlockLabel}">Number of X Ticks</TextBlock>
@@ -75,7 +77,8 @@
                         Command="{Binding updateAxisSettingsCommand}"/>
                 </StackPanel>
             </Expander>
-            <Expander Style="{StaticResource indentedExpander}" Header="Axis Title Settings">
+            <Expander Expanded="Expander_Expanded"
+                Style="{StaticResource indentedExpander}" Header="Axis Title Settings">
                 <StackPanel>
                 <StackPanel Style="{StaticResource attribSP}">
                     <TextBlock Style="{StaticResource attribTextBlockLabel}">X Axis Left Offset</TextBlock>
@@ -117,7 +120,8 @@
                         Command="{Binding updateAxisTitleSettingsCommand}"/>
                 </StackPanel>
             </Expander>
-            <Expander Style="{StaticResource indentedExpander}" Header="Legend Settings">
+            <Expander Expanded="Expander_Expanded"
+                Style="{StaticResource indentedExpander}" Header="Legend Settings">
                 <StackPanel>
                     <StackPanel Style="{StaticResource attribSP}">
                         <TextBlock Style="{StaticResource attribTextBlockLabel}">Font Size</TextBlock>
@@ -126,10 +130,11 @@
                         <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
                     </StackPanel>
                     <Button Style="{StaticResource updateButton}" Content="Update Legend"
-                            Command="{Binding updateLegendSettings}"/>
+                            Command="{Binding updateLegendSettingsCommand}"/>
                 </StackPanel>
             </Expander>
-            <Expander Style="{StaticResource indentedExpander}" Header="Graph Color Settings">
+            <Expander Expanded="Expander_Expanded"
+                Style="{StaticResource indentedExpander}" Header="Graph Color Settings">
                 <StackPanel>
                 <StackPanel Style="{StaticResource attribSP}">
                     <TextBlock Style="{StaticResource attribTextBlockLabel}">Background</TextBlock>
@@ -148,6 +153,36 @@
                         Command="{Binding updateGraphColorSettingsCommand}"/>
                 </StackPanel>
             </Expander>
+            <Expander Expanded="Expander_Expanded"
+                      Style="{StaticResource indentedExpander}" Header="Structure Color Settings">
+                <StackPanel>
+                    <TextBlock Foreground="White"
+                                Margin="0, 30, 0, 0"
+                               Height="40" FontSize="20"
+                               HorizontalAlignment="Center">Selected Structure</TextBlock>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                            Margin="0, 0, 0, 10">
+                        <fa:ImageAwesome Icon="ArrowLeft" Foreground="White" Height="20" Width="20"/>
+                        <TextBlock Margin="20, 0, 20, 0"
+                                   Text="{Binding selectedStructure.name}"
+                                   Foreground="White"/>
+                        <Rectangle Width="30" Height="20" 
+                                    Margin="0, 0, 20, 10"
+                                   Fill="{Binding selectedStructure.color}"/>
+                        <fa:ImageAwesome Icon="ArrowRight" Foreground="White" Height="20" Width="20"/>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource attribSP}">
+                        <TextBlock Style="{StaticResource attribTextBlockLabel}">Structure Color</TextBlock>
+                        <xtck:ColorPicker Style="{StaticResource colorPicker}" 
+                                          SelectedColor="{Binding selectedStructure.color, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        </xtck:ColorPicker>
+                        <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+                    </StackPanel>
+                    <Button Style="{StaticResource updateButton}" Content="Update Style"
+                            Command="{Binding updateGraphColorSettingsCommand}"/>
+                </StackPanel>
+            </Expander>
         </StackPanel>
+
     </Grid>
 </UserControl>

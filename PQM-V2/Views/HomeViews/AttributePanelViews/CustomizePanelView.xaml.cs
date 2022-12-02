@@ -20,11 +20,33 @@ namespace PQM_V2.Views.HomeViews.AttributePanelViews
     /// Interaction logic for CustomizePanelView.xaml
     /// </summary>
     public partial class CustomizePanelView : UserControl
-    {
+            {
+        private Boolean enableExpanding;
         public CustomizePanelView()
         {
             InitializeComponent();
             DataContext = new CustomizePanelViewModel();
+            enableExpanding = true;
+        }
+
+        private void Expander_Expanded(object sender, RoutedEventArgs e)
+        {
+            if(enableExpanding)
+            {
+                enableExpanding = false;
+                closeAllExpanders();
+                (sender as Expander).IsExpanded = true;
+                enableExpanding = true;
+            }
+        }
+
+        private void closeAllExpanders()
+        {
+            foreach(Expander expander in stackPanel.Children)
+            {
+                expander.IsExpanded = false;
+            }
         }
     }
+
 }
