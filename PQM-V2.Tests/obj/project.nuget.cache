@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5JpFzrweGwbqKrcWhFu0+nz3bZZZEyvDRLeTNEeQefCoz31AWygcJZ8DhR0igvPxIzidK9zcOmL/0hkkibSedw==",
+  "dgSpecHash": "OwYl00zXOJ7VW+Y5WKZxcKAO00O3eKJqVCJXENzaHDnsGI1uqNdcq/VCYnAj7hqF9knIi+xI97uU8g1EYKU34g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\chris\\source\\repos\\PQM-V2\\PQM-V2.Tests\\PQM-V2.Tests.csproj",
+  "projectFilePath": "C:\\Users\\chris\\source\\repos\\PQM-V2.1\\PQM-Automation-App\\PQM-V2.Tests\\PQM-V2.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\chris\\.nuget\\packages\\coverlet.collector\\3.1.0\\coverlet.collector.3.1.0.nupkg.sha512",
     "C:\\Users\\chris\\.nuget\\packages\\microsoft.codecoverage\\16.11.0\\microsoft.codecoverage.16.11.0.nupkg.sha512",

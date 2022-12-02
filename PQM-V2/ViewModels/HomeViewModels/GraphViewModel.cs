@@ -15,7 +15,7 @@ using System.Windows.Threading;
 
 namespace PQM_V2.ViewModels.HomeViewModels
 {
-    public class GraphViewModel
+    public class GraphViewModel : BaseViewModel
     {
         private GraphCustomizeStore _graphCustomizeStore;
         private GraphStore _graphStore;
@@ -55,7 +55,18 @@ namespace PQM_V2.ViewModels.HomeViewModels
             _graphCustomizeStore.graphCustomizeChanged += update;
             _graphStore.graphUpdated += update;
             _graphStore.graphChanged += init;
+            _canvasStore.prepareExport += prepareExport;
         }
+
+        public override void Dispose()
+        {
+            _graphCustomizeStore.graphCustomizeChanged -= update;
+            _graphStore.graphUpdated -= update;
+            _graphStore.graphChanged -= init;
+            _canvasStore.prepareExport -= prepareExport;
+
+        }
+
         // Main Function call
         private void init()
         {
@@ -74,11 +85,11 @@ namespace PQM_V2.ViewModels.HomeViewModels
         {
             clearAllCanvases();
             Canvas canvas = _canvasStore.canvas;
-             _borders = (
-                left: canvas.ActualWidth * 0.15,
-                top: canvas.ActualHeight * 0.90,
-                right: canvas.ActualWidth * 0.80,
-                bottom: canvas.ActualHeight * 0.15 );
+            _borders = (
+               left: canvas.ActualWidth * 0.15,
+               top: canvas.ActualHeight * 0.90,
+               right: canvas.ActualWidth * 0.80,
+               bottom: canvas.ActualHeight * 0.15);
 
             _ratio = (
                 x: (_borders.right - _borders.left) / (_graphCustomizeStore.xmax - _graphCustomizeStore.xmin),
@@ -88,6 +99,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
             setTextCanvas();
             setLegendCanvas();
             setStructureCanvases();
+            setProbeLabel("");
         }
         private void initCanvases() // Helper to init
         {
@@ -102,16 +114,17 @@ namespace PQM_V2.ViewModels.HomeViewModels
             _canvasStore.canvas.Children.Add(_legendCanvas);
 
             _axesCanvas = new Canvas();
+
             Grid.SetZIndex(_axesCanvas, 1);
             _axesCanvas.LayoutTransform = new ScaleTransform(1, -1);
             _canvasStore.canvas.Children.Add(_axesCanvas);
 
-            _canvasStore.canvas.MouseDown += updateProbeLabel;
+            _canvasStore.canvas.PreviewMouseMove += updateProbeLabel;
         }
         private void initStructureCanvases() // Helper to init/initCanvases
         {
             _structureCanvases = new List<Canvas>();
-            for(int i = 0; i < _graphStore.graph.structures.Count; i++)
+            for (int i = 0; i < _graphStore.graph.structures.Count; i++)
             {
                 Canvas structureCanvas = new Canvas();
                 structureCanvas.LayoutTransform = new ScaleTransform(1, -1);
@@ -138,7 +151,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
 
             double x = _borders.left;
             double dx = (_borders.right - _borders.left) / (_graphCustomizeStore.numXAxisTicks - 1);
-            for(int i = 0; i < _graphCustomizeStore.numXAxisTicks; i++)
+            for (int i = 0; i < _graphCustomizeStore.numXAxisTicks; i++)
             {
                 Line tick = getLine(x, _borders.bottom, x, _borders.bottom - xTickLength, color);
                 _axesCanvas.Children.Add(tick);
@@ -147,19 +160,27 @@ namespace PQM_V2.ViewModels.HomeViewModels
 
             double y = _borders.bottom;
             double dy = (_borders.top - _borders.bottom) / (_graphCustomizeStore.numYAxisTicks - 1);
-            for(int i = 0; i < _graphCustomizeStore.numYAxisTicks; i++)
+            for (int i = 0; i < _graphCustomizeStore.numYAxisTicks; i++)
             {
                 Line tick = getLine(_borders.left, y, _borders.left - yTickLength, y, color);
                 _axesCanvas.Children.Add(tick);
                 y += dy;
             }
 
-            _probeLabel = new Label();
-            _probeLabel.Content = "X: 20 Y: 9";
-            _axesCanvas.Children.Add(_probeLabel);
-            Canvas.SetLeft(_probeLabel, 0);
-            Canvas.SetTop(_probeLabel, 0);
 
+        }
+        private void setProbeLabel(string txt)
+        {
+            double width = 200;
+            double height = 30;
+            _probeLabel = new Label();
+            _probeLabel.Height = height;
+            _probeLabel.Width = width;
+            _probeLabel.RenderTransform = new ScaleTransform(1, -1);
+            _probeLabel.Content = txt;
+            _axesCanvas.Children.Add(_probeLabel);
+            Canvas.SetLeft(_probeLabel, _borders.right - width / 2.0);
+            Canvas.SetTop(_probeLabel, _borders.top + 5);
         }
         private void setTextCanvas() // Helper to update
         {
@@ -213,7 +234,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
             double x = _graphCustomizeStore.xmin;
             double dx = (_graphCustomizeStore.xmax - _graphCustomizeStore.xmin) / (_graphCustomizeStore.numXAxisTicks - 1);
 
-            for(int i = 0; i < _graphCustomizeStore.numXAxisTicks; i++)
+            for (int i = 0; i < _graphCustomizeStore.numXAxisTicks; i++)
             {
                 TextBlock textBlock = new TextBlock();
                 textBlock.Width = width;
@@ -233,7 +254,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
             double y = 0;
             double dy = 100.0 / (_graphCustomizeStore.numYAxisTicks - 1);
 
-            for(int i = 0; i < _graphCustomizeStore.numYAxisTicks; i++)
+            for (int i = 0; i < _graphCustomizeStore.numYAxisTicks; i++)
             {
                 TextBlock textBlock = new TextBlock();
                 textBlock.Width = width;
@@ -258,7 +279,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
             double width = calculateLegendLabelWidth();
 
             StackPanel stackPanel = new StackPanel();
-            foreach(Structure structure in _graphStore.graph.structures)
+            foreach (Structure structure in _graphStore.graph.structures)
             {
                 StackPanel horizontalSP = new StackPanel();
                 horizontalSP.Orientation = Orientation.Horizontal;
@@ -286,11 +307,11 @@ namespace PQM_V2.ViewModels.HomeViewModels
         private double calculateLegendLabelWidth()
         {
             double minWidth = 0;
-            foreach(Structure structure in _graphStore.graph.structures)
+            foreach (Structure structure in _graphStore.graph.structures)
             {
                 int n = structure.name.Length;
                 double width = n * _graphCustomizeStore.legendFontSize * 0.55;
-                if(width > minWidth)
+                if (width > minWidth)
                 {
                     minWidth = width;
                 }
@@ -300,10 +321,10 @@ namespace PQM_V2.ViewModels.HomeViewModels
         private void setStructureCanvases() // Helper to update
         {
             Graph graph = _graphStore.graph;
-            for(int i = 0; i < graph.structures.Count; i++)
+            for (int i = 0; i < graph.structures.Count; i++)
             {
                 Structure structure = graph.structures[i];
-                if(structure.visible && isStructureInDomain(structure))
+                if (structure.visible && isStructureInDomain(structure))
                 {
                     Canvas canvas = _structureCanvases[i];
                     setCanvasHeightWidth(canvas);
@@ -327,7 +348,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
             double x1, x2, y1, y2;
             double mx1, mx2, my1, my2;
 
-            for(int i = 0; i < points.Count - 1; i++)
+            for (int i = 0; i < points.Count - 1; i++)
             {
                 x1 = points[i].x;
                 y1 = points[i].y;
@@ -338,7 +359,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
                 my1 = _map.y(y1);
                 mx2 = _map.x(x2);
                 my2 = _map.y(y2);
-                
+
 
                 Line line = getLine(mx1, my1, mx2, my2, structure);
                 canvas.Children.Add(line);
@@ -359,6 +380,17 @@ namespace PQM_V2.ViewModels.HomeViewModels
             line.X2 = x2;
             line.Y2 = y2;
             line.StrokeThickness = 1;
+            line.Stroke = color;
+            return line;
+        }
+        private Line getLine(double x1, double y1, double x2, double y2, SolidColorBrush color, double lineThickness)
+        {
+            Line line = new Line();
+            line.X1 = x1;
+            line.Y1 = y1;
+            line.X2 = x2;
+            line.Y2 = y2;
+            line.StrokeThickness = lineThickness;
             line.Stroke = color;
             return line;
         }
@@ -401,7 +433,51 @@ namespace PQM_V2.ViewModels.HomeViewModels
             Point p = e.GetPosition(_axesCanvas as IInputElement);
             double x = _invMap.x(p.X);
             double y = _invMap.y(p.Y);
+            _probeLabel.Content = "";
+            if (x < _graphCustomizeStore.xmin || _graphCustomizeStore.xmax < x) return;
+            if (y < 0 || 100 < x) return;
 
+            Structure selectedStructure = _graphStore.graph.selectedStructure;
+            if (selectedStructure != null)
+            {
+                if (x > selectedStructure.maxX) return;
+                if (_canvasStore.probeType == CanvasStore.ProbeTypes.x)
+                {
+                    double fx = selectedStructure.interpolate(x);
+                    updateProbeCanvas(x, fx);
+                }
+                else if (_canvasStore.probeType == CanvasStore.ProbeTypes.y)
+                {
+                    double fy = selectedStructure.invInterpolate(y);
+                    updateProbeCanvas(fy, y);
+                }
+            }
         }
+        private void updateProbeCanvas(double x, double y)
+        {
+            setAxesCanvas();
+            setProbeLabel(String.Format("{0}: X = {1}, Y = {2}", _graphStore.graph.selectedStructure.name, Math.Round(x, 2), Math.Round(y, 2)));
+            double inner = 2;
+            double length = 5;
+            double thickness = 1;
+            x = _map.x(x);
+            y = _map.y(y);
+            SolidColorBrush color = new SolidColorBrush(Colors.Black);
+            Line top = getLine(x, y + inner, x, y + inner + length, color, thickness);
+            Line bottom = getLine(x, y - inner, x, y - inner - length, color, thickness);
+            Line right = getLine(x + inner, y, x + inner + length, y, color, thickness);
+            Line left = getLine(x - inner, y, x - inner - length, y, color, thickness);
+            _axesCanvas.Children.Add(top);
+            _axesCanvas.Children.Add(bottom);
+            _axesCanvas.Children.Add(right);
+            _axesCanvas.Children.Add(left);
+        }
+
+        private void prepareExport()
+        {
+            setAxesCanvas();
+        }
+
     }
+
 }

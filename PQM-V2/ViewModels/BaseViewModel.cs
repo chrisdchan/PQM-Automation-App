@@ -14,5 +14,6 @@ namespace PQM_V2.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        public virtual void Dispose() { }
     }
 }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\chris\\source\\repos\\PQM-V2\\PQM-V2.Tests\\PQM-V2.Tests.csproj": {}
+    "C:\\Users\\chris\\source\\repos\\PQM-V2.1\\PQM-Automation-App\\PQM-V2.Tests\\PQM-V2.Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\chris\\source\\repos\\PQM-V2\\PQM-V2.Tests\\PQM-V2.Tests.csproj": {
+    "C:\\Users\\chris\\source\\repos\\PQM-V2.1\\PQM-Automation-App\\PQM-V2.Tests\\PQM-V2.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\chris\\source\\repos\\PQM-V2\\PQM-V2.Tests\\PQM-V2.Tests.csproj",
+        "projectUniqueName": "C:\\Users\\chris\\source\\repos\\PQM-V2.1\\PQM-Automation-App\\PQM-V2.Tests\\PQM-V2.Tests.csproj",
         "projectName": "PQM-V2.Tests",
-        "projectPath": "C:\\Users\\chris\\source\\repos\\PQM-V2\\PQM-V2.Tests\\PQM-V2.Tests.csproj",
+        "projectPath": "C:\\Users\\chris\\source\\repos\\PQM-V2.1\\PQM-Automation-App\\PQM-V2.Tests\\PQM-V2.Tests.csproj",
         "packagesPath": "C:\\Users\\chris\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\chris\\source\\repos\\PQM-V2\\PQM-V2.Tests\\obj\\",
+        "outputPath": "C:\\Users\\chris\\source\\repos\\PQM-V2.1\\PQM-Automation-App\\PQM-V2.Tests\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -32,8 +32,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\chris\\source\\repos\\PQM-V2\\PQM-V2\\PQM-V2.csproj": {
-                "projectPath": "C:\\Users\\chris\\source\\repos\\PQM-V2\\PQM-V2\\PQM-V2.csproj"
+              "C:\\Users\\chris\\source\\repos\\PQM-V2.1\\PQM-Automation-App\\PQM-V2\\PQM-V2.csproj": {
+                "projectPath": "C:\\Users\\chris\\source\\repos\\PQM-V2.1\\PQM-Automation-App\\PQM-V2\\PQM-V2.csproj"
               }
             }
           }
@@ -88,11 +88,11 @@
         }
       }
     },
-    "C:\\Users\\chris\\source\\repos\\PQM-V2\\PQM-V2\\PQM-V2.csproj": {
+    "C:\\Users\\chris\\source\\repos\\PQM-V2.1\\PQM-Automation-App\\PQM-V2\\PQM-V2.csproj": {
       "restore": {
-        "projectUniqueName": "C:\\Users\\chris\\source\\repos\\PQM-V2\\PQM-V2\\PQM-V2.csproj",
+        "projectUniqueName": "C:\\Users\\chris\\source\\repos\\PQM-V2.1\\PQM-Automation-App\\PQM-V2\\PQM-V2.csproj",
         "projectName": "PQM-V2",
-        "projectPath": "C:\\Users\\chris\\source\\repos\\PQM-V2\\PQM-V2\\PQM-V2.csproj",
+        "projectPath": "C:\\Users\\chris\\source\\repos\\PQM-V2.1\\PQM-Automation-App\\PQM-V2\\PQM-V2.csproj",
         "frameworks": {
           "net472": {
             "projectReferences": {}
