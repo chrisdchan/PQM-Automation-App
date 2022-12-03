@@ -2,6 +2,7 @@
 using PQM_V2.Commands;
 using PQM_V2.Models;
 using PQM_V2.Stores;
+using PQM_V2.Tools;
 using PQM_V2.ViewModels.HomeViewModels;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace PQM_V2.ViewModels
@@ -27,8 +29,8 @@ namespace PQM_V2.ViewModels
 
         public StartupViewModel()
         {
-            _navigationStore = (Application.Current as App).navigationStore; 
-            _graphStore = (Application.Current as App).graphStore;
+            _navigationStore = (System.Windows.Application.Current as App).navigationStore; 
+            _graphStore = (System.Windows.Application.Current as App).graphStore;
             
             smallFontSize = 12;
             mediumFontSize = 18;
@@ -40,21 +42,48 @@ namespace PQM_V2.ViewModels
 
         public void openFileDialog(object message)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
+            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
             openFileDialog.Filter = "CSV Files (*.csv)|*.csv";
             openFileDialog.Title = "Select Files";
             openFileDialog.Multiselect = true;
             if (openFileDialog.ShowDialog() == true)
             {
-                _graphStore.graph = new Graph(openFileDialog.FileNames);
-                _navigationStore.selectedViewModel = new HomeViewModel();
+                string result = CSVChecker.isValidFile(openFileDialog.FileNames);
+                if(result == "passed")
+                {
+                    _graphStore.graph = new Graph(openFileDialog.FileNames);
+                    _navigationStore.selectedViewModel = new HomeViewModel();
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show(result);
+                }
             }
         }
-        public bool openFileDialogCanUse(object message) { return (string)message == "OpenFileDialog"; }
-        public void openFolderDialog(object message)
+        public void openFolderDialog(object _)
         {
-            MessageBox.Show("Opening Folder Dialog");
+            FolderBrowserDialog openFolderDialog = new FolderBrowserDialog();
+            DialogResult dialogResult = openFolderDialog.ShowDialog();
+            if(dialogResult.ToString() != string.Empty)
+            {
+                string path = openFolderDialog.SelectedPath.ToString();
+                if (path != String.Empty)
+                {
+                    string message = CSVChecker.isValidFile(Directory.GetFiles(path));
+                    if(message == "passed")
+                    {
+                        _graphStore.graph = new Graph(Directory.GetFiles(path));
+                        _navigationStore.selectedViewModel = new HomeViewModel();
+                    }
+                    else
+                    {
+                        System.Windows.MessageBox.Show(message);
+                    }
+                }
+            }
         }
+
+        public bool openFileDialogCanUse(object message) { return (string)message == "OpenFileDialog"; }
         public bool openFolderDialogCanUse(object message) {return (string)message == "OpenFolderDialog";}
     }
 }

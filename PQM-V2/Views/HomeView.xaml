@@ -30,7 +30,7 @@
         </KeyBinding>
     </UserControl.InputBindings>
     <Grid>
-        <Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" MaxWidth="400px" MinWidth="100px"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="2*" MinWidth="200px"/>
@@ -83,7 +83,6 @@
 
         <GridSplitter Grid.Row="{Binding layout.rowSplit.row}" Grid.Column="{Binding layout.rowSplit.column}" 
                       Grid.RowSpan="{Binding layout.rowSplit.rowSpan}" Grid.ColumnSpan="{Binding layout.rowSplit.colSpan}"
-                      Visibility="{Binding Path=layout.rowVisibility, Converter={StaticResource BooleanVisibilityConverter}}"
                       HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                       Height="4"
                       Background="#DEDEDE"/>
@@ -91,7 +90,6 @@
                       Grid.RowSpan="{Binding layout.colSplit.rowSpan}" Grid.ColumnSpan="{Binding layout.colSplit.colSpan}"
                       Background="#DEDEDE"
                       HorizontalAlignment="Center" VerticalAlignment="Stretch"
-                      Visibility="{Binding Path=layout.colVisibility, Converter={StaticResource BooleanVisibilityConverter}}"
                       Width="4"/>
         <GridSplitter Grid.Row="1" Grid.Column="1" 
                       Grid.RowSpan="3"
@@ -119,8 +117,6 @@
             <homeViews:TableView>
             </homeViews:TableView>
         </Grid>
-
-
 
         <Grid 
             Grid.Row="{Binding layout.attributes.row}" Grid.Column="{Binding layout.attributes.column}"

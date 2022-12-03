@@ -27,16 +27,13 @@ namespace PQM_V2.Stores
         {
             graphChanged?.Invoke();
         }
-
         public void onGraphUpdated()
         {
             graphUpdated?.Invoke();
         }
-
         public void onSelectedStructureChanged()
         {
             selectedStructureChanged?.Invoke();
         }
-
     }
 }

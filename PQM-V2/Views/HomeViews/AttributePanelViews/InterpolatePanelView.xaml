@@ -22,29 +22,71 @@
             <Setter Property="Background" Value="#808080"/>
         </Style>
 
-        <Style x:Key="errorMessage" TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="#FFB3B3"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
+
+        <Style x:Key="probeButton" TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Background" Value="#D0E4F1"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Margin" Value="0, 10, 0, 10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Border CornerRadius="10"
+                                    Background="{Binding Path=Background, 
+                                        RelativeSource={RelativeSource AncestorType={x:Type Button}}}"/>
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#D0E7F5"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
+
+            
         </ResourceDictionary>
 
     </UserControl.Resources>
     <Grid>
-        <StackPanel>
+            <StackPanel>
             <TextBlock Foreground="White"
                         Margin="0, 30, 0, 0"
                        Height="40" FontSize="20"
                        HorizontalAlignment="Center">Selected Structure</TextBlock>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
                         Margin="0, 0, 0, 10">
-                <fa:ImageAwesome Icon="ArrowLeft" Foreground="White" Height="20" Width="20"/>
-                <TextBlock Margin="20, 0, 20, 0"
-                           Text="{Binding selectedStructure.name}"
-                           Foreground="White"/>
-                <Rectangle Width="30" Height="20" 
-                            Margin="0, 0, 20, 10"
-                           Fill="{Binding selectedStructure.color}"/>
-                <fa:ImageAwesome Icon="ArrowRight" Foreground="White" Height="20" Width="20"/>
+                <fa:ImageAwesome Icon="ArrowLeft" Foreground="White" Height="20" Width="20">
+                    <fa:ImageAwesome.InputBindings>
+                        <MouseBinding MouseAction="LeftClick"
+                                      Command="{Binding changeSelectedStructureCommand}"
+                                      CommandParameter="left">
+                        </MouseBinding>
+                    </fa:ImageAwesome.InputBindings>
+                </fa:ImageAwesome>
+                <StackPanel Orientation="Horizontal" Width="200">
+                    <TextBlock Margin="20, 0, 20, 0"
+                               Width="95"
+                               TextAlignment="Center"
+                               Text="{Binding selectedStructure.name}"
+                               Foreground="White"/>
+                    <Rectangle Width="40" Height="20" 
+                                Margin="0, 0, 20, 10"
+                               Fill="{Binding selectedStructure.color}"/>
+                </StackPanel>
+                <fa:ImageAwesome Icon="ArrowRight" Foreground="White" Height="20" Width="20">
+                    <fa:ImageAwesome.InputBindings>
+                        <MouseBinding MouseAction="LeftClick"
+                                      Command="{Binding changeSelectedStructureCommand}"
+                                      CommandParameter="right">
+                        </MouseBinding>
+                    </fa:ImageAwesome.InputBindings>
+                </fa:ImageAwesome>
             </StackPanel>
             <StackPanel Style="{StaticResource headerSP}">
                 <TextBlock Style="{StaticResource attribTextBlockLabel}">Interpolate X:</TextBlock>
@@ -95,11 +137,10 @@
             <StackPanel Style="{StaticResource headerSP}">
                 <TextBlock Style="{StaticResource headerTextBlockLabel}">Probe</TextBlock>
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Button Content="None"/>
-                <Button Content="X"/>
-                <Button Content="Y"/>
-                <Button Content="Closest"/>
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <Button Content="None" Style="{StaticResource probeButton}"/>
+                <Button Content="X" Style="{StaticResource probeButton}"/>
+                <Button Content="Y" Style="{StaticResource probeButton}"/>
             </StackPanel>
         </StackPanel>
     </Grid>

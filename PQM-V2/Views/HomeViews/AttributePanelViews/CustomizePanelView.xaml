@@ -162,24 +162,40 @@
                                HorizontalAlignment="Center">Selected Structure</TextBlock>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
                             Margin="0, 0, 0, 10">
-                        <fa:ImageAwesome Icon="ArrowLeft" Foreground="White" Height="20" Width="20"/>
+                        <fa:ImageAwesome Icon="ArrowLeft" Foreground="White" Height="20" Width="20">
+                            <fa:ImageAwesome.InputBindings>
+                                <MouseBinding MouseAction="LeftClick"
+                                              Command="{Binding changeSelectedStructureCommand}"
+                                              CommandParameter="left">
+                                </MouseBinding>
+                            </fa:ImageAwesome.InputBindings>
+                        </fa:ImageAwesome>
                         <TextBlock Margin="20, 0, 20, 0"
                                    Text="{Binding selectedStructure.name}"
                                    Foreground="White"/>
                         <Rectangle Width="30" Height="20" 
                                     Margin="0, 0, 20, 10"
                                    Fill="{Binding selectedStructure.color}"/>
-                        <fa:ImageAwesome Icon="ArrowRight" Foreground="White" Height="20" Width="20"/>
+                        <fa:ImageAwesome Icon="ArrowRight" Foreground="White" Height="20" Width="20">
+                            <fa:ImageAwesome.InputBindings>
+                                <MouseBinding MouseAction="LeftClick"
+                                              Command="{Binding changeSelectedStructureCommand}"
+                                              CommandParameter="right">
+                                </MouseBinding>
+                            </fa:ImageAwesome.InputBindings>
+                        </fa:ImageAwesome>
                     </StackPanel>
+                    <TextBlock Style="{StaticResource errorMessage}" Text="{Binding selectedStructureColorError}"
+                               Visibility="{Binding showSelectedStructureColorError, Converter={StaticResource booleanVisibilityConverter}}"/>
                     <StackPanel Style="{StaticResource attribSP}">
                         <TextBlock Style="{StaticResource attribTextBlockLabel}">Structure Color</TextBlock>
                         <xtck:ColorPicker Style="{StaticResource colorPicker}" 
-                                          SelectedColor="{Binding selectedStructure.color, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                          SelectedColor="{Binding structureColorSelect, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         </xtck:ColorPicker>
                         <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
                     </StackPanel>
                     <Button Style="{StaticResource updateButton}" Content="Update Style"
-                            Command="{Binding updateGraphColorSettingsCommand}"/>
+                            Command="{Binding updateSelectedStructureColorCommand}"/>
                 </StackPanel>
             </Expander>
         </StackPanel>

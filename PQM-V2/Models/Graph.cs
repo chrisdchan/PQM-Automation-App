@@ -9,7 +9,7 @@ using System.Windows.Media;
 namespace PQM_V2.Models
 {
     public class Graph
-    {
+        {
         private string[] _filepaths;
         private string _title;
         private double _xmax;
@@ -61,6 +61,16 @@ namespace PQM_V2.Models
             selectedStructure = structures[index];
             selectedStructure.selected = true;
         }
+
+        public void newSelectedStructureFromOffset(int offset)
+        {
+            if (selectedStructure == null) return;
+            int index = selectedStructure.index;
+            int newIndex = (index + offset < 0) ? index + offset + structures.Count : index + offset;
+            newIndex %= structures.Count;
+            selectStructure(newIndex);
+        }
+
         private void setXmax()
         {
             _xmax = double.MinValue;
@@ -184,4 +194,5 @@ namespace PQM_V2.Models
             }
         }
     }
+
 }

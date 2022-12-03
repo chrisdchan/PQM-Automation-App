@@ -17,12 +17,12 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         private Graph _graph => _graphStore.graph;
         private Structure _selectedStructure;
 
-        private double _interpolateX;
+        private string _interpolateX;
         private double _yFromX;
         private double _dyFromX;
         private double _AUCFromX;
 
-        private double _interpolateY;
+        private string _interpolateY;
         private double _xFromY;
         private double _dyFromY;
         private double _AUCFromY;
@@ -36,6 +36,7 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         private double _lineThickness;
 
         public RelayCommand updateStyleCommand { get; set; }
+        public RelayCommand changeSelectedStructureCommand { get; set; }
 
         public Structure selectedStructure
         {
@@ -43,7 +44,7 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             set { _selectedStructure = value; onPropertyChanged(nameof(selectedStructure)); }
         }
 
-        public double interpolateX
+        public string interpolateX
         {
             get => _interpolateX;
             set { _interpolateX = value; setFromX(); }
@@ -64,7 +65,7 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             set { _AUCFromX = value; onPropertyChanged(nameof(AUCFromX)); }
         }
 
-        public double interpolateY
+        public string interpolateY
         {
             get => _interpolateY;
             set { _interpolateY = value; setFromY(); }
@@ -104,7 +105,6 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             get => _interpolateYError;
             set { _interpolateYError = value; onPropertyChanged(nameof(interpolateYError)); }
         }
-
         public string color
         {
             get => _color;
@@ -115,7 +115,6 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             get => _lineThickness;
             set { _lineThickness = value; onPropertyChanged(nameof(lineThickness)); }
         }
-
         public InterpolatePanelViewModel()
         {
             _graphStore = (Application.Current as App).graphStore;
@@ -124,6 +123,15 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             _graphStore.selectedStructureChanged += onSelectedStructureChanged;
 
             updateStyleCommand = new RelayCommand(updateStyle);
+            changeSelectedStructureCommand = new RelayCommand(changeSelectedStructure);
+        }
+        ~InterpolatePanelViewModel()
+        {
+
+        }
+        public override void Dispose()
+        {
+            _graphStore.selectedStructureChanged -= onSelectedStructureChanged;
         }
 
         private void onSelectedStructureChanged()
@@ -139,24 +147,35 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             yFromX = double.NaN;
             dyFromX = double.NaN;
             AUCFromX = double.NaN;
-            if (_selectedStructure == null)
+
+            double xInput; 
+
+            if(interpolateX == "")
+            {
+                showInterpolateXError = false;
+            }
+            else if(!double.TryParse(interpolateX, out xInput))
+            {
+                interpolateXError = "Must be a number";
+            }
+            else if (_selectedStructure == null)
             {
                 interpolateXError = "No Structure Selected";
             }
-            else if (_interpolateX < 0)
+            else if (xInput < 0)
             {
                 interpolateXError = "Value cannot be less than 0";
             }
-            else if (_selectedStructure.maxX < _interpolateX)
+            else if (_selectedStructure.maxX < xInput)
             {
                 interpolateXError = String.Format("Value cannot be greater than {0}", _selectedStructure.maxX);
             }
             else
             {
                 showInterpolateXError = false;
-                yFromX = _selectedStructure.interpolate(_interpolateX);
-                dyFromX = _selectedStructure.interpolateDerivative(_interpolateX);
-                AUCFromX = _selectedStructure.aucFromX(_interpolateX);
+                yFromX = _selectedStructure.interpolate(xInput);
+                dyFromX = _selectedStructure.interpolateDerivative(xInput);
+                AUCFromX = _selectedStructure.aucFromX(xInput);
             }
         }
         private void setFromY()
@@ -166,25 +185,48 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             dyFromY = double.NaN;
             AUCFromY = double.NaN;
 
-            if (_selectedStructure == null)
+            double yInput; 
+
+            if(interpolateY == "")
+            {
+                showInterpolateYError = false;
+            }
+            else if(!double.TryParse(interpolateY, out yInput))
+            {
+                interpolateYError = "Must be a number";
+            }
+            else if (_selectedStructure == null)
             {
                 interpolateYError = "No Structure Selected";
             }
-            else if (_interpolateY < 0)
+            else if (yInput < 0)
             {
                 interpolateYError = "Value cannot be less than 0";
             }
-            else if (_interpolateY > 100)
+            else if (yInput > 100)
             {
                 interpolateYError = "Value cannot be greater than 100";
             }
             else
             {
                 showInterpolateYError = false;
-                xFromY = _selectedStructure.invInterpolate(_interpolateY);
+                xFromY = _selectedStructure.invInterpolate(yInput);
                 dyFromY = _selectedStructure.interpolateDerivative(xFromY);
                 AUCFromY = _selectedStructure.aucFromX(xFromY);
             }
+        }
+
+        private void changeSelectedStructure(object param)
+        {
+            if((string)param == "left")
+            {
+                _graphStore.graph.newSelectedStructureFromOffset(-1);
+            }
+            else if((string)param == "right")
+            {
+                _graphStore.graph.newSelectedStructureFromOffset(1);
+            }
+            _graphStore.onSelectedStructureChanged();
         }
 
         private void updateStyle(object _)

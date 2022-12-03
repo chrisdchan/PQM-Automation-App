@@ -2,6 +2,7 @@
 using PQM_V2.Commands;
 using PQM_V2.Models;
 using PQM_V2.Stores;
+using PQM_V2.Tools;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Media.Imaging;
 
 namespace PQM_V2.ViewModels.HomeViewModels
@@ -66,9 +68,9 @@ namespace PQM_V2.ViewModels.HomeViewModels
 
         public HomeViewModel()
         {
-            _navigationStore = (Application.Current as App).navigationStore;
-            _graphStore = (Application.Current as App).graphStore;
-            _canvasStore = (Application.Current as App).canvasStore;
+            _navigationStore = (System.Windows.Application.Current as App).navigationStore;
+            _graphStore = (System.Windows.Application.Current as App).graphStore;
+            _canvasStore = (System.Windows.Application.Current as App).canvasStore;
 
             _graphVisible = true;
             _tableVisible = true;
@@ -78,7 +80,8 @@ namespace PQM_V2.ViewModels.HomeViewModels
 
             navigateStartupCommand = new RelayCommand(navigateStartup);
             exitApplicationCommand = new RelayCommand(exitApplication);
-            openFilesCommand = new RelayCommand(openFiles);
+            openFilesCommand = new RelayCommand(openFileDialog);
+
             exportGraphCommand = new RelayCommand(exportGraph);
 
             _graphStore.graphChanged += onGraphChanged;
@@ -121,7 +124,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
             pngEncoder.Save(ms);
             ms.Close();
 
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
             saveFileDialog.DefaultExt = ".png";
             saveFileDialog.Filter = "png files (*.png)|*.png";
             bool? result = saveFileDialog.ShowDialog();
@@ -131,22 +134,50 @@ namespace PQM_V2.ViewModels.HomeViewModels
             }
             else
             {
-                (Application.Current as App).displayMessage("Error saving file");
+                (System.Windows.Application.Current as App).displayMessage("Error saving file");
             }
         }
 
-        /*
-         * Helper Methods
-         */
-        private void openFiles(object message)
+        public void openFileDialog(object message)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
+            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
             openFileDialog.Filter = "CSV Files (*.csv)|*.csv";
             openFileDialog.Title = "Select Files";
             openFileDialog.Multiselect = true;
             if (openFileDialog.ShowDialog() == true)
             {
-                _graphStore.graph = new Graph(openFileDialog.FileNames);
+                string result = CSVChecker.isValidFile(openFileDialog.FileNames);
+                if(result == "passed")
+                {
+                    _graphStore.graph = new Graph(openFileDialog.FileNames);
+                    _navigationStore.selectedViewModel = new HomeViewModel();
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show(result);
+                }
+            }
+        }
+        public void openFolderDialog(object _)
+        {
+            FolderBrowserDialog openFolderDialog = new FolderBrowserDialog();
+            DialogResult dialogResult = openFolderDialog.ShowDialog();
+            if(dialogResult.ToString() != string.Empty)
+            {
+                string path = openFolderDialog.SelectedPath.ToString();
+                if (path != String.Empty)
+                {
+                    string message = CSVChecker.isValidFile(Directory.GetFiles(path));
+                    if(message == "passed")
+                    {
+                        _graphStore.graph = new Graph(Directory.GetFiles(path));
+                        _navigationStore.selectedViewModel = new HomeViewModel();
+                    }
+                    else
+                    {
+                        System.Windows.MessageBox.Show(message);
+                    }
+                }
             }
         }
 

@@ -12,9 +12,10 @@ using System.Windows.Media;
 namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
 {
     public class CustomizePanelViewModel : BaseViewModel
-        {
+    {
         private GraphCustomizeStore _graphCustomizeStore;
         private GraphStore _graphStore;
+        public RelayCommand changeSelectedStructureCommand { get; set; }
 
         private int _numXAxisTicks;
         private int _numYAxisTicks;
@@ -40,6 +41,11 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         private string _foregroundColor;
 
         private Structure _selectedStrucutre;
+        private string _structureColorSelect;
+
+        private bool _showSelectedStructureColorError;
+        private string _selectedStructureColorError;
+
 
         public int numXAxisTicks { get => _numXAxisTicks; set { _numXAxisTicks = value; onPropertyChanged(nameof(numXAxisTicks)); } }
         public int numYAxisTicks { get => _numYAxisTicks; set { _numYAxisTicks = value; onPropertyChanged(nameof(numYAxisTicks)); } }
@@ -65,12 +71,22 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         public string foregroundColor { get => _foregroundColor; set { _foregroundColor = value; onPropertyChanged(nameof(foregroundColor)); } }
 
         public Structure selectedStructure { get => _selectedStrucutre; set { _selectedStrucutre = value; onPropertyChanged(nameof(selectedStructure));  }}
+        public string structureColorSelect { get => _structureColorSelect; set 
+            {
+                _structureColorSelect = value;
+                resetSelectedStructureColorError();
+                onPropertyChanged(nameof(structureColorSelect)); 
+            } }
+
+        public bool showSelectedStructureColorError { get => _showSelectedStructureColorError; set { _showSelectedStructureColorError = value; onPropertyChanged(nameof(showSelectedStructureColorError)); } }
+        public string selectedStructureColorError { get => _selectedStructureColorError; set { _selectedStructureColorError = value; onPropertyChanged(nameof(selectedStructureColorError)); } }
 
         public RelayCommand updateLegendSettingsCommand { get; private set; }
         public RelayCommand updateGraphColorSettingsCommand { get; private set; }
         public RelayCommand updateAxisSettingsCommand { get; private set; }
         public RelayCommand updateAxisTitleSettingsCommand { get; private set; }
         public RelayCommand updateTitleSettingsCommand { get; private set; }
+        public RelayCommand updateSelectedStructureColorCommand { get; private set; }
 
         public CustomizePanelViewModel()
         {
@@ -100,6 +116,8 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             foregroundColor = _graphCustomizeStore.foregroundColor;
             backgroundColor = _graphCustomizeStore.backgroundColor;
 
+            structureColorSelect = (selectedStructure != null) ? selectedStructure.color.ToString() : null;
+
             _graphStore.selectedStructureChanged += onSelectedStructureChanged;
 
             updateAxisSettingsCommand = new RelayCommand(updateAxesSettings);
@@ -107,18 +125,19 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             updateGraphColorSettingsCommand = new RelayCommand(updateGraphColorSettings);
             updateAxisTitleSettingsCommand = new RelayCommand(updateAxisTitleSettings);
             updateTitleSettingsCommand = new RelayCommand(updateTitleSettings);
+            changeSelectedStructureCommand = new RelayCommand(changeSelectedStructure);
+            updateSelectedStructureColorCommand = new RelayCommand(updateSelectedStructureColor);
         }
 
         private void onSelectedStructureChanged()
         {
             selectedStructure = _graphStore.graph.selectedStructure;
+            structureColorSelect = selectedStructure.color.ToString();
         }
-
         public override void Dispose()
         {
             _graphStore.selectedStructureChanged -= onSelectedStructureChanged;
         }
-
         private void updateAxesSettings(object _)
         {
             _graphCustomizeStore.numXAxisTicks = _numXAxisTicks;
@@ -128,7 +147,6 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             _graphCustomizeStore.numPoints = _numPoints;
             _graphCustomizeStore.onGraphCustomizeChanged();
         }
-
         private void updateTitleSettings(object _)
         {
             _graphCustomizeStore.titleFontSize = _titleFontSize;
@@ -136,7 +154,6 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             _graphCustomizeStore.titleTopOffset = _titleTopOffset;
             _graphCustomizeStore.onGraphCustomizeChanged();
         }
-
         private void updateAxisTitleSettings(object _)
         {
             _graphCustomizeStore.xAxisTitleFontSize = _xAxisTitleFontSize;
@@ -147,18 +164,46 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             _graphCustomizeStore.yAxisTitleTopOffset = _yAxisTitleTopOffset;
             _graphCustomizeStore.onGraphCustomizeChanged();
         }
-
         private void updateLegendSettings(object _)
         {
             _graphCustomizeStore.legendFontSize = _legendFontSize;
             _graphCustomizeStore.onGraphCustomizeChanged();
         }
-
         private void updateGraphColorSettings(object _)
         {
             _graphCustomizeStore.backgroundColor = _backgroundColor;
             _graphCustomizeStore.foregroundColor = _foregroundColor;
             _graphCustomizeStore.onGraphCustomizeChanged();
+        }
+        private void changeSelectedStructure(object param)
+        {
+            if((string)param == "left")
+            {
+                _graphStore.graph.newSelectedStructureFromOffset(-1);
+                _graphStore.onSelectedStructureChanged();
+            }
+            else if((string)param == "right")
+            {
+                _graphStore.graph.newSelectedStructureFromOffset(1);
+                _graphStore.onSelectedStructureChanged();
+            }
+        }
+        private void updateSelectedStructureColor(object _)
+        {
+            if (selectedStructure == null)
+            {
+                showSelectedStructureColorError = true;
+                selectedStructureColorError = "Please Select a Structure";
+            }
+            else
+            {
+                selectedStructure.color = new SolidColorBrush((Color)ColorConverter.ConvertFromString(structureColorSelect));
+                _graphStore.onGraphUpdated();
+            }
+        }
+        private void resetSelectedStructureColorError()
+        {
+            showSelectedStructureColorError = false;
         }
     }
 }

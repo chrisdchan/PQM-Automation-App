@@ -1095,11 +1095,11 @@
           "PQM-V2.exe": {}
         }
       },
-      "MathNet.Numerics/5.0.0.0": {
+      "FontAwesome.WPF/4.7.0.37774": {
         "runtime": {
-          "MathNet.Numerics.dll": {
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.0.0"
+          "FontAwesome.WPF.dll": {
+            "assemblyVersion": "4.7.0.37774",
+            "fileVersion": "4.7.0.9"
           }
         }
       }
@@ -1760,7 +1760,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "MathNet.Numerics/5.0.0.0": {
+    "FontAwesome.WPF/4.7.0.37774": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
