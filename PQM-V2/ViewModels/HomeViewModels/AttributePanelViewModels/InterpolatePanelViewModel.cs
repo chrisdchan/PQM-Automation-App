@@ -14,6 +14,7 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
     public class InterpolatePanelViewModel : BaseViewModel
     {
         private GraphStore _graphStore;
+        private CanvasStore _canvasStore;
         private Graph _graph => _graphStore.graph;
         private Structure _selectedStructure;
 
@@ -37,6 +38,7 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
 
         public RelayCommand updateStyleCommand { get; set; }
         public RelayCommand changeSelectedStructureCommand { get; set; }
+        public RelayCommand updateProbeCommand { get; set; }
 
         public Structure selectedStructure
         {
@@ -64,7 +66,6 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             get => _AUCFromX;
             set { _AUCFromX = value; onPropertyChanged(nameof(AUCFromX)); }
         }
-
         public string interpolateY
         {
             get => _interpolateY;
@@ -124,6 +125,7 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
 
             updateStyleCommand = new RelayCommand(updateStyle);
             changeSelectedStructureCommand = new RelayCommand(changeSelectedStructure);
+            updateProbeCommand = new RelayCommand(updateProbe);
         }
         ~InterpolatePanelViewModel()
         {
@@ -215,7 +217,6 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
                 AUCFromY = _selectedStructure.aucFromX(xFromY);
             }
         }
-
         private void changeSelectedStructure(object param)
         {
             if((string)param == "left")
@@ -228,7 +229,6 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             }
             _graphStore.onSelectedStructureChanged();
         }
-
         private void updateStyle(object _)
         {
             if (_selectedStructure != null)
@@ -238,6 +238,22 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
 
                 _graphStore.onGraphUpdated();
                 onPropertyChanged(nameof(selectedStructure));
+            }
+        }
+        private void updateProbe(object message)
+        {
+            switch ((string)message)
+            {
+                case "None":
+                    _canvasStore.probeType = CanvasStore.ProbeTypes.none;
+                    break;
+                case "X":
+                    _canvasStore.probeType = CanvasStore.ProbeTypes.x;
+                    break;
+                case "Y":
+                    _canvasStore.probeType = CanvasStore.ProbeTypes.y;
+                    break;
+
             }
         }
     }

@@ -24,7 +24,10 @@ namespace PQM_V2.Stores
         public ProbeTypes probeType
         {
             get => _probeType;
-            set => _probeType = value;
+            set {
+                _probeType = value;
+                onCanvasChanged();
+            }
         }
 
         public CanvasStore()

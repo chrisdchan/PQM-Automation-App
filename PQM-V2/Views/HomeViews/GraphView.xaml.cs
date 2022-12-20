@@ -28,21 +28,29 @@ namespace PQM_V2.Views.HomeViews
     {
         private DispatcherTimer _resizeTimer;
         private CanvasStore _canvasStore;
+        private NavigationStore _navigationStore;
         public GraphView()
         {
             InitializeComponent();
             DataContext = new GraphViewModel();
 
             _canvasStore = (Application.Current as App).canvasStore;
+            _navigationStore = (Application.Current as App).navigationStore;
             grid.Children.Add(_canvasStore.canvas);
+
+
 
             _resizeTimer = new DispatcherTimer();
             _resizeTimer.Interval = TimeSpan.FromMilliseconds(100);
             _resizeTimer.IsEnabled = false;
             _resizeTimer.Tick += onResizeTimerEnd;
-
-
         }
+
+        private void disposeGraph()
+        {
+            _resizeTimer.Tick -= onResizeTimerEnd;
+        }
+
         private void onResizeTimerEnd(object sender, EventArgs e)
         {
             _resizeTimer.IsEnabled = false;

@@ -199,6 +199,7 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             {
                 selectedStructure.color = new SolidColorBrush((Color)ColorConverter.ConvertFromString(structureColorSelect));
                 _graphStore.onGraphUpdated();
+                _graphStore.onSelectedStructureChanged();
             }
         }
         private void resetSelectedStructureColorError()

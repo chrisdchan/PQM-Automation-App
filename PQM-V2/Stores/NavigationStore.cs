@@ -11,6 +11,7 @@ namespace PQM_V2.Stores
     public class NavigationStore
     {
         public event Action selectedViewModelChanged;
+        public event Action graphDiscarded;
 
         private BaseViewModel _selectedViewModel;
         public BaseViewModel selectedViewModel
@@ -25,6 +26,11 @@ namespace PQM_V2.Stores
         private void OnSelectedViewModelChanged()
         {
             selectedViewModelChanged?.Invoke();
+        }
+
+        public void OnGraphDiscarded()
+        {
+            graphDiscarded?.Invoke();
         }
 
     }

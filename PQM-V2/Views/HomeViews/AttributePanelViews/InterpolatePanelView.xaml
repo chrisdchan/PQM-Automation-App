@@ -44,7 +44,7 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#D0E7F5"/>
+                    <Setter Property="Background" Value="#30C9B6"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -138,9 +138,15 @@
                 <TextBlock Style="{StaticResource headerTextBlockLabel}">Probe</TextBlock>
             </StackPanel>
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                <Button Content="None" Style="{StaticResource probeButton}"/>
-                <Button Content="X" Style="{StaticResource probeButton}"/>
-                <Button Content="Y" Style="{StaticResource probeButton}"/>
+                <Button Content="None" 
+                        CommandParameter="None"
+                        Command="{Binding updateProbeCommand}" Style="{StaticResource probeButton}"/>
+                <Button Content="X" 
+                        CommandParameter="X"
+                        Command="{Binding updateProbeCommand}" Style="{StaticResource probeButton}"/>
+                <Button Content="Y" 
+                        CommandParameter="Y"
+                        Command="{Binding upateProbeCommand}" Style="{StaticResource probeButton}"/>
             </StackPanel>
         </StackPanel>
     </Grid>

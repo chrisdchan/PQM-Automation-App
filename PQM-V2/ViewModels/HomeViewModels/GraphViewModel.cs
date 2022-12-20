@@ -89,6 +89,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
 
             _canvasStore.canvas.Children.Add(_baseCanvas);
             _canvasStore.canvas.Children.Add(_displayCanvas);
+            Grid.SetZIndex(_baseCanvas, 1);
 
             initStructureCanvases();
 
@@ -121,6 +122,8 @@ namespace PQM_V2.ViewModels.HomeViewModels
                 x: (_borders.right - _borders.left) / (_graphCustomizeStore.xmax - _graphCustomizeStore.xmin),
                 y: (_borders.top - _borders.bottom) / 100);
 
+            _canvasStore.canvas.Background = stringToBrush(_graphCustomizeStore.backgroundColor);
+
             setBaseCanvas();
             setStructureCanvases();
         }
@@ -145,7 +148,6 @@ namespace PQM_V2.ViewModels.HomeViewModels
         private void setBaseCanvas()
         {
             _baseCanvas.Children.Clear();
-            _baseCanvas.Background = stringToBrush(_graphCustomizeStore.backgroundColor);
             setCanvasHeightWidth(_baseCanvas);
             setAxesLines();
             setAxesTickLabels();
@@ -282,8 +284,11 @@ namespace PQM_V2.ViewModels.HomeViewModels
         private void setLegend()
         {
             double width = calculateLegendLabelWidth();
+            double height = 30;
 
             StackPanel stackPanel = new StackPanel();
+            List<Structure> structures = _graphStore.graph.structures;
+
             stackPanel.RenderTransform = new ScaleTransform(1, -1);
             foreach (Structure structure in _graphStore.graph.structures)
             {
@@ -293,14 +298,13 @@ namespace PQM_V2.ViewModels.HomeViewModels
                 Rectangle rectangle = new Rectangle();
                 rectangle.Fill = structure.color;
                 rectangle.Width = 10;
-                rectangle.Height = 15;
+                rectangle.Height = height - 20;
                 horizontalSP.Children.Add(rectangle);
 
                 Label label = new Label();
-                label.Height = 25;
+                label.Height = height;
                 label.FontSize = _graphCustomizeStore.legendFontSize;
                 label.Foreground = stringToBrush(_graphCustomizeStore.foregroundColor);
-                label.Background = new SolidColorBrush(Colors.Beige);
                 label.Content = structure.name;
                 label.Width = width;
                 horizontalSP.Children.Add(label);
@@ -309,8 +313,8 @@ namespace PQM_V2.ViewModels.HomeViewModels
             }
             _baseCanvas.Children.Add(stackPanel);
             Canvas.SetLeft(stackPanel, (_borders.right + _canvasStore.canvas.ActualWidth) / 2.0 - 125.0 / 2.0);
-            Canvas.SetTop(stackPanel, (_borders.top - _borders.bottom) / 2.0);
-
+            double totalHeight = height * _graphStore.graph.structures.Count;
+            Canvas.SetTop(stackPanel, (_borders.top + _borders.bottom + totalHeight) / 2.0);
         }
         private double calculateLegendLabelWidth()
             {

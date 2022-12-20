@@ -108,6 +108,7 @@
     <Compile Include="Converters\BooleanVisibilityConverter.cs" />
     <Compile Include="Converters\CombiningConverter.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
+    <Compile Include="Converters\ProbeTypeBorderConverter.cs" />
     <Compile Include="Tools\CSVChecker.cs" />
     <Compile Include="Models\Graph.cs" />
     <Compile Include="Models\Spline.cs" />
