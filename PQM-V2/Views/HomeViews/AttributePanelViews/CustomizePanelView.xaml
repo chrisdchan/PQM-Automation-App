@@ -31,9 +31,9 @@
                     <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
                 </StackPanel>
                 <StackPanel Style="{StaticResource attribSP}">
-                        <TextBlock Style="{StaticResource attribTextBlockLabel}">Font Size</TextBlock>
+                        <TextBlock Style="{StaticResource attribTextBlockLabel}"> Size</TextBlock>
                     <TextBox Style="{StaticResource attribTextBox}"
-                             Text="{Binding Path=titleFontSize, Mode=TwoWay}"/>
+                             Text="{Binding Path=titleSize, Mode=TwoWay}"/>
                     <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
                 </StackPanel>
                 <Button Style="{StaticResource updateButton}" Content="Update Style"
@@ -62,9 +62,9 @@
                     <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
                 </StackPanel>
                 <StackPanel Style="{StaticResource attribSP}">
-                    <TextBlock Style="{StaticResource attribTextBlockLabel}">Axis Tick Font Size</TextBlock>
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}">Axis Tick  Size</TextBlock>
                     <TextBox Style="{StaticResource attribTextBox}"
-                             Text="{Binding Path=axesTickFontSize, Mode=TwoWay}"/>
+                             Text="{Binding Path=axesTickSize, Mode=TwoWay}"/>
                     <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
                 </StackPanel>
                 <StackPanel Style="{StaticResource attribSP}">
@@ -93,9 +93,9 @@
                     <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
                 </StackPanel>
                 <StackPanel Style="{StaticResource attribSP}">
-                        <TextBlock Style="{StaticResource attribTextBlockLabel}">X Axis Font Size</TextBlock>
+                        <TextBlock Style="{StaticResource attribTextBlockLabel}">X Axis  Size</TextBlock>
                     <TextBox Style="{StaticResource attribTextBox}"
-                             Text="{Binding Path=xAxisTitleFontSize, Mode=TwoWay}"/>
+                             Text="{Binding Path=xAxisTitleSize, Mode=TwoWay}"/>
                     <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
                 </StackPanel>
                 <StackPanel Style="{StaticResource attribSP}">
@@ -111,9 +111,9 @@
                     <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
                 </StackPanel>
                 <StackPanel Style="{StaticResource attribSP}">
-                        <TextBlock Style="{StaticResource attribTextBlockLabel}">Y Axis Font Size</TextBlock>
+                        <TextBlock Style="{StaticResource attribTextBlockLabel}">Y Axis  Size</TextBlock>
                     <TextBox Style="{StaticResource attribTextBox}"
-                             Text="{Binding Path=yAxisTitleFontSize, Mode=TwoWay}"/>
+                             Text="{Binding Path=yAxisTitleSize, Mode=TwoWay}"/>
                     <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
                 </StackPanel>
                 <Button Style="{StaticResource updateButton}" Content="Update Style"
@@ -124,9 +124,9 @@
                 Style="{StaticResource indentedExpander}" Header="Legend Settings">
                 <StackPanel>
                     <StackPanel Style="{StaticResource attribSP}">
-                        <TextBlock Style="{StaticResource attribTextBlockLabel}">Font Size</TextBlock>
+                        <TextBlock Style="{StaticResource attribTextBlockLabel}"> Size</TextBlock>
                         <TextBox Style="{StaticResource attribTextBox}"
-                                 Text="{Binding Path=legendFontSize, Mode=TwoWay}"/>
+                                 Text="{Binding Path=legendSize, Mode=TwoWay}"/>
                         <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
                     </StackPanel>
                     <Button Style="{StaticResource updateButton}" Content="Update Legend"

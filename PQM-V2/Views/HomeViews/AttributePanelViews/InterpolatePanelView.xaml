@@ -146,7 +146,7 @@
                         Command="{Binding updateProbeCommand}" Style="{StaticResource probeButton}"/>
                 <Button Content="Y" 
                         CommandParameter="Y"
-                        Command="{Binding upateProbeCommand}" Style="{StaticResource probeButton}"/>
+                        Command="{Binding updateProbeCommand}" Style="{StaticResource probeButton}"/>
             </StackPanel>
         </StackPanel>
     </Grid>

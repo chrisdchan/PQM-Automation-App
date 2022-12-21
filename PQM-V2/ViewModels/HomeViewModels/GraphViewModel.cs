@@ -75,6 +75,12 @@ namespace PQM_V2.ViewModels.HomeViewModels
                 x: (x) => (x - _borders.left) / _ratio.x + _graphCustomizeStore.xmin,
                 y: (y) => (y - _borders.bottom) / _ratio.y);
 
+
+
+            double fontSize = _graphCustomizeStore.titleSize;
+            int textLength = _graphStore.graph.title.Length;
+            double titleWidth = fontSize * (48.0 / 72.0) * textLength;
+            double titleHeight = fontSize * (96.0 / 72.0);
             initCanvases();
             update();
         }
@@ -196,7 +202,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
 
             TextBlock xaxis = new TextBlock();
             xaxis.Text = _graphStore.graph.xaxisName;
-            xaxis.FontSize = _graphCustomizeStore.xAxisTitleFontSize;
+            xaxis.FontSize = _graphCustomizeStore.xAxisTitleSize;
             xaxis.Width = axisTitleWidth;
             xaxis.Height = axisTitleHeight;
             xaxis.RenderTransform = new ScaleTransform(1, -1);
@@ -208,7 +214,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
 
             TextBlock yaxis = new TextBlock();
             yaxis.Text = _graphStore.graph.yaxisName;
-            yaxis.FontSize = _graphCustomizeStore.yAxisTitleFontSize;
+            yaxis.FontSize = _graphCustomizeStore.yAxisTitleSize;
             yaxis.Width = axisTitleWidth;
             yaxis.Height = axisTitleHeight;
             yaxis.RenderTransform = _yaxisRenderTransform;
@@ -220,19 +226,16 @@ namespace PQM_V2.ViewModels.HomeViewModels
         }
         private void setTitle()
         {
-            double titleWidth = 300;
-            double titleHeight = 20;
-
             TextBlock title = new TextBlock();
             title.Text = _graphStore.graph.title;
-            title.FontSize = _graphCustomizeStore.titleFontSize;
+            title.FontSize = _graphCustomizeStore.titleSize;
+            title.Background = new SolidColorBrush(Colors.Beige);
             title.RenderTransform = new ScaleTransform(1, -1);
-            title.Width = titleWidth;
-            title.Height = titleHeight;
             title.Foreground = stringToBrush(_graphCustomizeStore.foregroundColor);
             title.TextAlignment = TextAlignment.Center;
+            fixTextBlockHeightAndWidth(title);
             _baseCanvas.Children.Add(title);
-            Canvas.SetLeft(title, (_borders.right + _borders.left) / 2.0 - titleWidth / 2.0 + _graphCustomizeStore.titleLeftOffset);
+            Canvas.SetLeft(title, (_borders.right + _borders.left) / 2.0 - title.Width / 2.0 + _graphCustomizeStore.titleLeftOffset);
             Canvas.SetTop(title, _borders.top + 50 + _graphCustomizeStore.titleTopOffset);
         }
         private void setAxesTickLabels()
@@ -283,11 +286,9 @@ namespace PQM_V2.ViewModels.HomeViewModels
         }
         private void setLegend()
         {
-            double width = calculateLegendLabelWidth();
-            double height = 30;
-
             StackPanel stackPanel = new StackPanel();
             List<Structure> structures = _graphStore.graph.structures;
+            double height = 0;
 
             stackPanel.RenderTransform = new ScaleTransform(1, -1);
             foreach (Structure structure in _graphStore.graph.structures)
@@ -297,17 +298,17 @@ namespace PQM_V2.ViewModels.HomeViewModels
 
                 Rectangle rectangle = new Rectangle();
                 rectangle.Fill = structure.color;
-                rectangle.Width = 10;
-                rectangle.Height = height - 20;
-                horizontalSP.Children.Add(rectangle);
 
-                Label label = new Label();
-                label.Height = height;
-                label.FontSize = _graphCustomizeStore.legendFontSize;
-                label.Foreground = stringToBrush(_graphCustomizeStore.foregroundColor);
-                label.Content = structure.name;
-                label.Width = width;
-                horizontalSP.Children.Add(label);
+                TextBlock textBlock = new TextBlock();
+                textBlock.FontSize = _graphCustomizeStore.legendSize;
+                textBlock.Foreground = stringToBrush(_graphCustomizeStore.foregroundColor);
+                textBlock.Text = structure.name;
+
+                fixLegendBlockHeightAndWidth(textBlock, rectangle);
+                height = textBlock.Height;
+
+                horizontalSP.Children.Add(rectangle);
+                horizontalSP.Children.Add(textBlock);
 
                 stackPanel.Children.Add(horizontalSP);
             }
@@ -316,21 +317,28 @@ namespace PQM_V2.ViewModels.HomeViewModels
             double totalHeight = height * _graphStore.graph.structures.Count;
             Canvas.SetTop(stackPanel, (_borders.top + _borders.bottom + totalHeight) / 2.0);
         }
-        private double calculateLegendLabelWidth()
-            {
-                double minWidth = 0;
-                foreach (Structure structure in _graphStore.graph.structures)
-                {
-                    int n = structure.name.Length;
-                    double width = n * _graphCustomizeStore.legendFontSize * 0.55;
-                    if (width > minWidth)
-                    {
-                        minWidth = width;
-                    }
-                }
-                return minWidth;
-            }
+        private void fixTextBlockHeightAndWidth(TextBlock textBlock)
+        {
+            int textLength = textBlock.Text.Length;
+            double fontSize = textBlock.FontSize;
+            double width = fontSize * (48.0 / 72.0) * textLength;
+            double height = fontSize * (96.0 / 72.0);
 
+            textBlock.Width = width;
+            textBlock.Height = height;
+        }
+        private void fixLegendBlockHeightAndWidth(TextBlock textblock, Rectangle rectangle)
+        {
+            int textLength = textblock.Text.Length;
+            double fontSize = textblock.FontSize;
+            double width = fontSize * (48.0 / 72.0) * textLength;
+            double height = fontSize * (96.0 / 72.0);
+
+            rectangle.Height = height * 0.9;
+            rectangle.Width = height;
+            textblock.Width = width;
+            textblock.Height = height;
+        }
 
         // ---------- Display Canvas Updates --------------
         private void setDisplayCanvas()
