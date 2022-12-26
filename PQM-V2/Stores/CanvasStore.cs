@@ -32,8 +32,8 @@ namespace PQM_V2.Stores
 
         public CanvasStore()
         {
-            _canvas = new Canvas();
-            _probeType = ProbeTypes.x;
+            canvas = new Canvas();
+            probeType = ProbeTypes.x;
         }
 
         public void onPrepareExport()

@@ -119,6 +119,7 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         public InterpolatePanelViewModel()
         {
             _graphStore = (Application.Current as App).graphStore;
+            _canvasStore = (Application.Current as App).canvasStore;
             _selectedStructure = _graph.selectedStructure;
 
             _graphStore.selectedStructureChanged += onSelectedStructureChanged;
