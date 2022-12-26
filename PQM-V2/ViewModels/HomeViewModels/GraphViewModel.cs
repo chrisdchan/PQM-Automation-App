@@ -75,8 +75,6 @@ namespace PQM_V2.ViewModels.HomeViewModels
                 x: (x) => (x - _borders.left) / _ratio.x + _graphCustomizeStore.xmin,
                 y: (y) => (y - _borders.bottom) / _ratio.y);
 
-
-
             double fontSize = _graphCustomizeStore.titleSize;
             int textLength = _graphStore.graph.title.Length;
             double titleWidth = fontSize * (48.0 / 72.0) * textLength;
@@ -202,24 +200,20 @@ namespace PQM_V2.ViewModels.HomeViewModels
 
             TextBlock xaxis = new TextBlock();
             xaxis.Text = _graphStore.graph.xaxisName;
-            xaxis.FontSize = _graphCustomizeStore.xAxisTitleSize;
-            xaxis.Width = axisTitleWidth;
-            xaxis.Height = axisTitleHeight;
             xaxis.RenderTransform = new ScaleTransform(1, -1);
             xaxis.Foreground = stringToBrush(_graphCustomizeStore.foregroundColor);
             xaxis.TextAlignment = TextAlignment.Center;
+            setTitleSize(xaxis, _graphCustomizeStore.xAxisTitleSize);
             _baseCanvas.Children.Add(xaxis);
             Canvas.SetLeft(xaxis, (_borders.left + _borders.right) / 2.0 - axisTitleWidth / 2.0 + _graphCustomizeStore.xAxisTitleLeftOffset);
             Canvas.SetTop(xaxis, _borders.bottom - 55 + _graphCustomizeStore.xAxisTitleTopOffset);
 
             TextBlock yaxis = new TextBlock();
             yaxis.Text = _graphStore.graph.yaxisName;
-            yaxis.FontSize = _graphCustomizeStore.yAxisTitleSize;
-            yaxis.Width = axisTitleWidth;
-            yaxis.Height = axisTitleHeight;
             yaxis.RenderTransform = _yaxisRenderTransform;
             yaxis.Foreground = stringToBrush(_graphCustomizeStore.foregroundColor);
             yaxis.TextAlignment = TextAlignment.Center;
+            setTitleSize(yaxis, _graphCustomizeStore.yAxisTitleSize);
             _baseCanvas.Children.Add(yaxis);
             Canvas.SetLeft(yaxis, _borders.left - 100 + _graphCustomizeStore.yAxisTitleLeftOffset);
             Canvas.SetTop(yaxis, (_borders.top + _borders.bottom) / 2.0 - axisTitleWidth / 2.0 + _graphCustomizeStore.yAxisTitleTopOffset);
@@ -228,12 +222,11 @@ namespace PQM_V2.ViewModels.HomeViewModels
         {
             TextBlock title = new TextBlock();
             title.Text = _graphStore.graph.title;
-            title.FontSize = _graphCustomizeStore.titleSize;
             title.Background = new SolidColorBrush(Colors.Beige);
             title.RenderTransform = new ScaleTransform(1, -1);
             title.Foreground = stringToBrush(_graphCustomizeStore.foregroundColor);
             title.TextAlignment = TextAlignment.Center;
-            fixTextBlockHeightAndWidth(title);
+            setTitleSize(title, _graphCustomizeStore.titleSize);
             _baseCanvas.Children.Add(title);
             Canvas.SetLeft(title, (_borders.right + _borders.left) / 2.0 - title.Width / 2.0 + _graphCustomizeStore.titleLeftOffset);
             Canvas.SetTop(title, _borders.top + 50 + _graphCustomizeStore.titleTopOffset);
@@ -317,13 +310,13 @@ namespace PQM_V2.ViewModels.HomeViewModels
             double totalHeight = height * _graphStore.graph.structures.Count;
             Canvas.SetTop(stackPanel, (_borders.top + _borders.bottom + totalHeight) / 2.0);
         }
-        private void fixTextBlockHeightAndWidth(TextBlock textBlock)
+        private void setTitleSize(TextBlock textBlock, double fontSize)
         {
             int textLength = textBlock.Text.Length;
-            double fontSize = textBlock.FontSize;
             double width = fontSize * (48.0 / 72.0) * textLength;
             double height = fontSize * (96.0 / 72.0);
 
+            textBlock.FontSize = fontSize;
             textBlock.Width = width;
             textBlock.Height = height;
         }
@@ -502,6 +495,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
         {
             return (SolidColorBrush)new BrushConverter().ConvertFromString(hex_code);
         }
+
     }
 
 }
