@@ -78,7 +78,7 @@
                 </StackPanel>
             </Expander>
             <Expander Expanded="Expander_Expanded"
-                Style="{StaticResource indentedExpander}" Header="Axis Title Settings">
+                Style="{StaticResource indentedExpander}" Header="X Axis Title Settings">
                 <StackPanel>
                 <StackPanel Style="{StaticResource attribSP}">
                     <TextBlock Style="{StaticResource attribTextBlockLabel}">X Axis Left Offset</TextBlock>
@@ -98,6 +98,13 @@
                              Text="{Binding Path=xAxisTitleSize, Mode=TwoWay}"/>
                     <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
                 </StackPanel>
+                <Button Style="{StaticResource updateButton}" Content="Update Style"
+                        Command="{Binding updateXAxisTitleSettingsCommand}"/>
+                </StackPanel>
+            </Expander>
+            <Expander Expanded="Expander_Expanded"
+                Style="{StaticResource indentedExpander}" Header="Y Axis Title Settings">
+                <StackPanel>
                 <StackPanel Style="{StaticResource attribSP}">
                     <TextBlock Style="{StaticResource attribTextBlockLabel}"> Y Axis Left Offset</TextBlock>
                     <TextBox Style="{StaticResource attribTextBox}"
@@ -117,7 +124,7 @@
                     <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
                 </StackPanel>
                 <Button Style="{StaticResource updateButton}" Content="Update Style"
-                        Command="{Binding updateAxisTitleSettingsCommand}"/>
+                        Command="{Binding updateYAxisTitleSettingsCommand}"/>
                 </StackPanel>
             </Expander>
             <Expander Expanded="Expander_Expanded"

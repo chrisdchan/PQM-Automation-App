@@ -84,7 +84,8 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         public RelayCommand updateLegendSettingsCommand { get; private set; }
         public RelayCommand updateGraphColorSettingsCommand { get; private set; }
         public RelayCommand updateAxisSettingsCommand { get; private set; }
-        public RelayCommand updateAxisTitleSettingsCommand { get; private set; }
+        public RelayCommand updateXAxisTitleSettingsCommand { get; private set; }
+        public RelayCommand updateYAxisTitleSettingsCommand { get; private set; }
         public RelayCommand updateTitleSettingsCommand { get; private set; }
         public RelayCommand updateSelectedStructureColorCommand { get; private set; }
 
@@ -123,7 +124,8 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             updateAxisSettingsCommand = new RelayCommand(updateAxesSettings);
             updateLegendSettingsCommand = new RelayCommand(updateLegendSettings);
             updateGraphColorSettingsCommand = new RelayCommand(updateGraphColorSettings);
-            updateAxisTitleSettingsCommand = new RelayCommand(updateAxisTitleSettings);
+            updateXAxisTitleSettingsCommand = new RelayCommand(updateXAxisTitleSettings);
+            updateYAxisTitleSettingsCommand = new RelayCommand(updateYAxisTitleSettings);
             updateTitleSettingsCommand = new RelayCommand(updateTitleSettings);
             changeSelectedStructureCommand = new RelayCommand(changeSelectedStructure);
             updateSelectedStructureColorCommand = new RelayCommand(updateSelectedStructureColor);
@@ -154,11 +156,15 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             _graphCustomizeStore.titleTopOffset = _titleTopOffset;
             _graphCustomizeStore.onGraphCustomizeChanged();
         }
-        private void updateAxisTitleSettings(object _)
+        private void updateXAxisTitleSettings(object _)
         {
             _graphCustomizeStore.xAxisTitleSize = _xAxisTitleSize;
             _graphCustomizeStore.xAxisTitleLeftOffset = _xAxisTitleLeftOffset;
             _graphCustomizeStore.xAxisTitleTopOffset = _xAxisTitleTopOffset;
+            _graphCustomizeStore.onGraphCustomizeChanged();
+        }
+        private void updateYAxisTitleSettings(object _)
+        {
             _graphCustomizeStore.yAxisTitleSize = _yAxisTitleSize;
             _graphCustomizeStore.yAxisTitleLeftOffset = _yAxisTitleLeftOffset;
             _graphCustomizeStore.yAxisTitleTopOffset = _yAxisTitleTopOffset;
