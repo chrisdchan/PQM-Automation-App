@@ -26,14 +26,20 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         private int _titleSize;
         private int _titleLeftOffset;
         private int _titleTopOffset;
+        private bool _titleBold;
+        private bool _titleItalic;
 
         private int _xAxisTitleSize;
         private int _xAxisTitleLeftOffset;
         private int _xAxisTitleTopOffset;
+        private bool _xAxisTitleBold;
+        private bool _xAxisTitleItalic;
 
         private int _yAxisTitleSize;
         private int _yAxisTitleLeftOffset;
         private int _yAxisTitleTopOffset;
+        private bool _yAxisTitleBold;
+        private bool _yAxisTitleItalic;
 
         private int _legendSize;
 
@@ -56,14 +62,20 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         public int titleSize { get => _titleSize; set { _titleSize = value; onPropertyChanged(nameof(titleSize)); } }
         public int titleLeftOffset { get => _titleLeftOffset; set { _titleLeftOffset = value; onPropertyChanged(nameof(titleLeftOffset)); } }
         public int titleTopOffset { get => _titleTopOffset; set { _titleTopOffset = value; onPropertyChanged(nameof(titleTopOffset)); } }
+        public bool titleBold { get => _titleBold; set { _titleBold = value; onPropertyChanged(nameof(titleBold)); } }
+        public bool titleItalic { get => _titleItalic; set { _titleItalic = value; onPropertyChanged(nameof(titleItalic)); } }
 
         public int xAxisTitleSize { get => _xAxisTitleSize; set { _xAxisTitleSize = value; onPropertyChanged(nameof(xAxisTitleSize)); } }
         public int xAxisTitleLeftOffset { get => _xAxisTitleLeftOffset; set { _xAxisTitleLeftOffset = value; onPropertyChanged(nameof(xAxisTitleLeftOffset)); } }
         public int xAxisTitleTopOffset { get => _xAxisTitleTopOffset; set { _xAxisTitleTopOffset = value; onPropertyChanged(nameof(xAxisTitleTopOffset)); } }
+        public bool xAxisTitleBold { get => _xAxisTitleBold; set { _xAxisTitleBold = value; onPropertyChanged(nameof(xAxisTitleBold)); } }
+        public bool xAxisTitleItalic { get => _xAxisTitleItalic; set { _xAxisTitleItalic = value; onPropertyChanged(nameof(xAxisTitleItalic)); } }
 
         public int yAxisTitleSize { get => _yAxisTitleSize; set { _yAxisTitleSize = value; onPropertyChanged(nameof(yAxisTitleSize)); } }
         public int yAxisTitleLeftOffset { get => _yAxisTitleLeftOffset; set { _yAxisTitleLeftOffset = value; onPropertyChanged(nameof(yAxisTitleLeftOffset)); } }
         public int yAxisTitleTopOffset { get => _yAxisTitleTopOffset; set { _yAxisTitleTopOffset = value; onPropertyChanged(nameof(yAxisTitleTopOffset)); } }
+        public bool yAxisTitleBold { get => _yAxisTitleBold; set { _yAxisTitleBold = value; onPropertyChanged(nameof(yAxisTitleBold)); } }
+        public bool yAxisTitleItalic { get => _yAxisTitleItalic; set { _yAxisTitleItalic = value; onPropertyChanged(nameof(yAxisTitleItalic)); } }
 
         public int legendSize { get => _legendSize; set { _legendSize = value; onPropertyChanged(nameof(legendSize)); } }
 
@@ -103,14 +115,20 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             titleSize = _graphCustomizeStore.titleSize;
             titleLeftOffset = _graphCustomizeStore.titleLeftOffset;
             titleTopOffset = _graphCustomizeStore.titleTopOffset;
+            titleBold = _graphCustomizeStore.titleBold;
+            titleItalic = _graphCustomizeStore.titleItalic;
 
             xAxisTitleSize = _graphCustomizeStore.xAxisTitleSize;
             xAxisTitleLeftOffset = _graphCustomizeStore.xAxisTitleLeftOffset;
             xAxisTitleTopOffset = _graphCustomizeStore.xAxisTitleTopOffset;
+            xAxisTitleBold = _graphCustomizeStore.xAxisTitleBold;
+            xAxisTitleItalic = _graphCustomizeStore.xAxisTitleItalic;
 
             yAxisTitleSize = _graphCustomizeStore.yAxisTitleSize;
             yAxisTitleLeftOffset = _graphCustomizeStore.yAxisTitleLeftOffset;
             yAxisTitleTopOffset = _graphCustomizeStore.yAxisTitleTopOffset;
+            yAxisTitleBold = _graphCustomizeStore.yAxisTitleBold;
+            yAxisTitleItalic = _graphCustomizeStore.yAxisTitleItalic;
 
             legendSize = _graphCustomizeStore.legendSize;
 
@@ -154,6 +172,8 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             _graphCustomizeStore.titleSize = _titleSize;
             _graphCustomizeStore.titleLeftOffset = _titleLeftOffset;
             _graphCustomizeStore.titleTopOffset = _titleTopOffset;
+            _graphCustomizeStore.titleBold = _titleBold;
+            _graphCustomizeStore.titleItalic = _titleItalic;
             _graphCustomizeStore.onGraphCustomizeChanged();
         }
         private void updateXAxisTitleSettings(object _)
@@ -161,6 +181,8 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             _graphCustomizeStore.xAxisTitleSize = _xAxisTitleSize;
             _graphCustomizeStore.xAxisTitleLeftOffset = _xAxisTitleLeftOffset;
             _graphCustomizeStore.xAxisTitleTopOffset = _xAxisTitleTopOffset;
+            _graphCustomizeStore.xAxisTitleBold = _xAxisTitleBold;
+            _graphCustomizeStore.xAxisTitleItalic = _xAxisTitleItalic;
             _graphCustomizeStore.onGraphCustomizeChanged();
         }
         private void updateYAxisTitleSettings(object _)
@@ -168,6 +190,8 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             _graphCustomizeStore.yAxisTitleSize = _yAxisTitleSize;
             _graphCustomizeStore.yAxisTitleLeftOffset = _yAxisTitleLeftOffset;
             _graphCustomizeStore.yAxisTitleTopOffset = _yAxisTitleTopOffset;
+            _graphCustomizeStore.yAxisTitleBold = _yAxisTitleBold;
+            _graphCustomizeStore.yAxisTitleItalic = _yAxisTitleItalic;
             _graphCustomizeStore.onGraphCustomizeChanged();
         }
         private void updateLegendSettings(object _)

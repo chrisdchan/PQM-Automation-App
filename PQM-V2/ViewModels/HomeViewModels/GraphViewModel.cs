@@ -75,10 +75,6 @@ namespace PQM_V2.ViewModels.HomeViewModels
                 x: (x) => (x - _borders.left) / _ratio.x + _graphCustomizeStore.xmin,
                 y: (y) => (y - _borders.bottom) / _ratio.y);
 
-            double fontSize = _graphCustomizeStore.titleSize;
-            int textLength = _graphStore.graph.title.Length;
-            double titleWidth = fontSize * (48.0 / 72.0) * textLength;
-            double titleHeight = fontSize * (96.0 / 72.0);
             initCanvases();
             update();
         }
@@ -200,6 +196,8 @@ namespace PQM_V2.ViewModels.HomeViewModels
 
             TextBlock xaxis = new TextBlock();
             xaxis.Text = _graphStore.graph.xaxisName;
+            xaxis.FontWeight = _graphCustomizeStore.xAxisTitleBold ? FontWeights.Bold : FontWeights.Normal;
+            xaxis.FontStyle = _graphCustomizeStore.xAxisTitleItalic ? FontStyles.Italic : FontStyles.Normal;
             xaxis.RenderTransform = new ScaleTransform(1, -1);
             xaxis.Foreground = stringToBrush(_graphCustomizeStore.foregroundColor);
             xaxis.TextAlignment = TextAlignment.Center;
@@ -210,6 +208,8 @@ namespace PQM_V2.ViewModels.HomeViewModels
 
             TextBlock yaxis = new TextBlock();
             yaxis.Text = _graphStore.graph.yaxisName;
+            yaxis.FontWeight = _graphCustomizeStore.yAxisTitleBold ? FontWeights.Bold : FontWeights.Normal;
+            yaxis.FontStyle = _graphCustomizeStore.yAxisTitleItalic ? FontStyles.Italic : FontStyles.Normal;
             yaxis.RenderTransform = _yaxisRenderTransform;
             yaxis.Foreground = stringToBrush(_graphCustomizeStore.foregroundColor);
             yaxis.TextAlignment = TextAlignment.Center;
@@ -222,7 +222,8 @@ namespace PQM_V2.ViewModels.HomeViewModels
         {
             TextBlock title = new TextBlock();
             title.Text = _graphStore.graph.title;
-            title.Background = new SolidColorBrush(Colors.Beige);
+            title.FontWeight = _graphCustomizeStore.titleBold ? FontWeights.Bold : FontWeights.Normal;
+            title.FontStyle = _graphCustomizeStore.titleItalic ? FontStyles.Italic : FontStyles.Normal;
             title.RenderTransform = new ScaleTransform(1, -1);
             title.Foreground = stringToBrush(_graphCustomizeStore.foregroundColor);
             title.TextAlignment = TextAlignment.Center;

@@ -110,5 +110,10 @@
         <Setter Property="HorizontalAlignment" Value="Center"/>
     </Style>
 
+    <Style x:Key="checkbox" TargetType="{x:Type CheckBox}">
+        <Setter Property="Foreground" Value="white"/>
+        <Setter Property="Margin" Value="10, 0,0 ,0"/>
+    </Style>
+
     <converters:BooleanVisibilityConverter x:Key="booleanVisibilityConverter"/>
 </ResourceDictionary>

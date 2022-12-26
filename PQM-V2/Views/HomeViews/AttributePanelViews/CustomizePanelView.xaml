@@ -36,6 +36,10 @@
                              Text="{Binding Path=titleSize, Mode=TwoWay}"/>
                     <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
                 </StackPanel>
+                <StackPanel Style="{StaticResource attribSP}">
+                    <CheckBox Style="{StaticResource checkbox}" Content="Bold" IsChecked="{Binding Path=titleBold, Mode=TwoWay}"/>
+                    <CheckBox Style="{StaticResource checkbox}" Content="Italics" IsChecked="{Binding Path=titleItalic, Mode=TwoWay}"/>
+                </StackPanel>
                 <Button Style="{StaticResource updateButton}" Content="Update Style"
                         Command="{Binding updateTitleSettingsCommand}"/>
                 </StackPanel>
@@ -98,6 +102,10 @@
                              Text="{Binding Path=xAxisTitleSize, Mode=TwoWay}"/>
                     <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
                 </StackPanel>
+                <StackPanel Style="{StaticResource attribSP}">
+                    <CheckBox Style="{StaticResource checkbox}" Content="Bold" IsChecked="{Binding Path=xAxisTitleBold, Mode=TwoWay}"/>
+                    <CheckBox Style="{StaticResource checkbox}" Content="Italics" IsChecked="{Binding Path=xAxisTitleItalic, Mode=TwoWay}"/>
+                </StackPanel>
                 <Button Style="{StaticResource updateButton}" Content="Update Style"
                         Command="{Binding updateXAxisTitleSettingsCommand}"/>
                 </StackPanel>
@@ -118,13 +126,17 @@
                     <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
                 </StackPanel>
                 <StackPanel Style="{StaticResource attribSP}">
-                        <TextBlock Style="{StaticResource attribTextBlockLabel}">Y Axis  Size</TextBlock>
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}">Y Axis  Size</TextBlock>
                     <TextBox Style="{StaticResource attribTextBox}"
                              Text="{Binding Path=yAxisTitleSize, Mode=TwoWay}"/>
                     <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
                 </StackPanel>
+                <StackPanel Style="{StaticResource attribSP}">
+                    <CheckBox Style="{StaticResource checkbox}" Content="Bold" IsChecked="{Binding Path=yAxisTitleBold, Mode=TwoWay}"/>
+                    <CheckBox Style="{StaticResource checkbox}" Content="Italics" IsChecked="{Binding Path=yAxisTitleItalic, Mode=TwoWay}"/>
+                </StackPanel>
                 <Button Style="{StaticResource updateButton}" Content="Update Style"
-                        Command="{Binding updateYAxisTitleSettingsCommand}"/>
+                Command="{Binding updateYAxisTitleSettingsCommand}"/>
                 </StackPanel>
             </Expander>
             <Expander Expanded="Expander_Expanded"
