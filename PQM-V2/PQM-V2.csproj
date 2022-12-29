@@ -104,6 +104,7 @@
     </ApplicationDefinition>
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Converters\BooleanBackgroundConverter.cs" />
     <Compile Include="Converters\BooleanForegroundConverter.cs" />
     <Compile Include="Converters\BooleanVisibilityConverter.cs" />
     <Compile Include="Converters\CombiningConverter.cs" />

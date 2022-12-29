@@ -12,8 +12,9 @@
                 <ResourceDictionary Source="AttributeStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         <converter:BooleanVisibilityConverter x:Key="booleanVisibilityConverter"/>
-        
-        <Style x:Key="attribTextBlockValue" TargetType="{x:Type TextBlock}">
+        <converter:BooleanBackgroundConverter x:Key="booleanBackgroundConverter"/>
+
+            <Style x:Key="attribTextBlockValue" TargetType="{x:Type TextBlock}">
             <Setter Property="Padding" Value="10, 0, 0, 0"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Foreground" Value="White"/>
@@ -112,12 +113,17 @@
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                 <Button Content="None" 
                         CommandParameter="None"
-                        Command="{Binding updateProbeCommand}" Style="{StaticResource probeButton}"/>
+                        Background="{Binding noneProbeBtnBackground}"
+                        Command="{Binding updateProbeCommand}" 
+                        Style="{StaticResource probeButton}"
+                        />
                 <Button Content="X" 
                         CommandParameter="X"
+                        Background="{Binding xProbeBtnBackground}"
                         Command="{Binding updateProbeCommand}" Style="{StaticResource probeButton}"/>
                 <Button Content="Y" 
-                        CommandParameter="Y"
+                        CommandParameter="Y" 
+                        Background="{Binding yProbeBtnBackground}"
                         Command="{Binding updateProbeCommand}" Style="{StaticResource probeButton}"/>
             </StackPanel>
         </StackPanel>

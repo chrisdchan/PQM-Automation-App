@@ -36,6 +36,9 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         private string _color;
         private double _lineThickness;
 
+        private string _xProbeBtnBackground;
+        private string _yProbeBtnBackground;
+        private string _noneProbeBtnBackground;
         public RelayCommand updateStyleCommand { get; set; }
         public RelayCommand changeSelectedStructureCommand { get; set; }
         public RelayCommand updateProbeCommand { get; set; }
@@ -45,7 +48,6 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             get => _selectedStructure;
             set { _selectedStructure = value; onPropertyChanged(nameof(selectedStructure)); }
         }
-
         public string interpolateX
         {
             get => _interpolateX;
@@ -111,6 +113,10 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             get => _color;
             set { _color = value; onPropertyChanged(nameof(color)); }
         }
+
+        public string xProbeBtnBackground { get => _xProbeBtnBackground; set { _xProbeBtnBackground = value; onPropertyChanged(nameof(xProbeBtnBackground)); } }
+        public string yProbeBtnBackground { get => _yProbeBtnBackground; set { _yProbeBtnBackground = value; onPropertyChanged(nameof(yProbeBtnBackground)); } }
+        public string noneProbeBtnBackground { get => _noneProbeBtnBackground; set { _noneProbeBtnBackground = value; onPropertyChanged(nameof(noneProbeBtnBackground)); } }
         public double lineThickness
         {
             get => _lineThickness;
@@ -127,10 +133,6 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             updateStyleCommand = new RelayCommand(updateStyle);
             changeSelectedStructureCommand = new RelayCommand(changeSelectedStructure);
             updateProbeCommand = new RelayCommand(updateProbe);
-        }
-        ~InterpolatePanelViewModel()
-        {
-
         }
         public override void Dispose()
         {
@@ -243,16 +245,23 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         }
         private void updateProbe(object message)
         {
+            xProbeBtnBackground = "#C2C2C2";
+            yProbeBtnBackground = "#C2C2C2";
+            noneProbeBtnBackground = "#C2C2C2";
+
             switch ((string)message)
             {
                 case "None":
                     _canvasStore.probeType = CanvasStore.ProbeTypes.none;
+                    noneProbeBtnBackground = "#D2B4DE";
                     break;
                 case "X":
                     _canvasStore.probeType = CanvasStore.ProbeTypes.x;
+                    xProbeBtnBackground = "#D2B4DE";
                     break;
                 case "Y":
                     _canvasStore.probeType = CanvasStore.ProbeTypes.y;
+                    yProbeBtnBackground = "#D2B4DE";
                     break;
 
             }
