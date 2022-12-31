@@ -38,8 +38,6 @@ namespace PQM_V2.Views.HomeViews
             _navigationStore = (Application.Current as App).navigationStore;
             grid.Children.Add(_canvasStore.canvas);
 
-
-
             _resizeTimer = new DispatcherTimer();
             _resizeTimer.Interval = TimeSpan.FromMilliseconds(100);
             _resizeTimer.IsEnabled = false;

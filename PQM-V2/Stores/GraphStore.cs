@@ -23,6 +23,12 @@ namespace PQM_V2.Stores
                 onGraphChanged();
             }
         }
+
+        public GraphStore()
+        {
+            _graph = null;
+        }
+
         private void onGraphChanged()
         {
             graphChanged?.Invoke();

@@ -1,5 +1,6 @@
 ﻿using PQM_V2.Stores;
 using PQM_V2.ViewModels;
+using PQM_V2.ViewModels.HomeViewModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -19,6 +20,8 @@ namespace PQM_V2
         public GraphStore graphStore { get; set; }
         public NavigationStore navigationStore { get; set; }
         public CanvasStore canvasStore { get; set; }
+        public BaseViewModel homeViewModel { get; set; }
+        public BaseViewModel startupViewModel { get; set; }
         protected override void OnStartup(StartupEventArgs e)
         {
             navigationStore = new NavigationStore();
@@ -27,7 +30,9 @@ namespace PQM_V2
 
             graphCustomizeStore = new GraphCustomizeStore();
 
-            navigationStore.selectedViewModel = new StartupViewModel();
+            startupViewModel = new StartupViewModel();
+            homeViewModel = new HomeViewModel();
+            navigationStore.OnChangePage(CurrentPage.startup);
             
             MainWindow = new MainWindow()
             {

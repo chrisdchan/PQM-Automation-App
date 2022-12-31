@@ -52,7 +52,7 @@ namespace PQM_V2.ViewModels
                 if(result == "passed")
                 {
                     _graphStore.graph = new Graph(openFileDialog.FileNames);
-                    _navigationStore.selectedViewModel = new HomeViewModel();
+                    _navigationStore.OnChangePage(CurrentPage.home);
                 }
                 else
                 {
@@ -73,7 +73,7 @@ namespace PQM_V2.ViewModels
                     if(message == "passed")
                     {
                         _graphStore.graph = new Graph(Directory.GetFiles(path));
-                        _navigationStore.selectedViewModel = new HomeViewModel();
+                        _navigationStore.OnChangePage(CurrentPage.home);
                     }
                     else
                     {

@@ -92,7 +92,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
          */
         private void navigateStartup(object message)
         {
-            _navigationStore.selectedViewModel = new StartupViewModel();
+            _navigationStore.OnChangePage(CurrentPage.startup);
         }
         private void onLayoutUpdated()
         {
@@ -150,7 +150,6 @@ namespace PQM_V2.ViewModels.HomeViewModels
                 if(result == "passed")
                 {
                     _graphStore.graph = new Graph(openFileDialog.FileNames);
-                    _navigationStore.selectedViewModel = new HomeViewModel();
                 }
                 else
                 {
@@ -171,7 +170,6 @@ namespace PQM_V2.ViewModels.HomeViewModels
                     if(message == "passed")
                     {
                         _graphStore.graph = new Graph(Directory.GetFiles(path));
-                        _navigationStore.selectedViewModel = new HomeViewModel();
                     }
                     else
                     {
