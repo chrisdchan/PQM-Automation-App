@@ -63,7 +63,11 @@ namespace PQM_V2.ViewModels.HomeViewModels
         {
             int index = (param == null) ? structureIndex : (int)param;
             Structure structure = _graphStore.graph.structures[index];
-            structure.visible = !structure.visible;
+            setVisibility(structure, !structure.visible);
+        }
+        private void setVisibility(Structure structure, bool isVisible)
+        {
+            structure.visible = isVisible;
             _graphStore.onGraphUpdated();
             onPropertyChanged(nameof(structureList));
         }
@@ -78,6 +82,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
         {
             int index = (param == null) ? structureIndex : (int)param;
             _graphStore.graph.selectStructure(index);
+            setVisibility(_graphStore.graph.selectedStructure, true);
             _graphStore.onSelectedStructureChanged();
             onPropertyChanged(nameof(structureList));
         }

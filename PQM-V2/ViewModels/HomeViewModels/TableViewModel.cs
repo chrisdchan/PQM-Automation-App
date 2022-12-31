@@ -38,6 +38,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
             loadGraph();
 
             _graphStore.graphChanged += loadGraph;
+            _graphStore.graphUpdated += loadGraph;
         }
 
         private void loadGraph()
@@ -45,7 +46,9 @@ namespace PQM_V2.ViewModels.HomeViewModels
             _tableRowsList.Clear();
             foreach(Structure structure in _graphStore.graph.structures)
             {
-                addRow(structure);
+                if (structure.visible) {
+                    addRow(structure);
+                }
             }
         }
         private void addRow(Structure structure)

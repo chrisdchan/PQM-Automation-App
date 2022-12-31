@@ -138,6 +138,19 @@ namespace PQM_V2.ViewModels.HomeViewModels
             }
         }
 
+        private void exportTable(object message)
+        {
+            var saveDialog = new System.Windows.Forms.SaveFileDialog();
+            saveDialog.Filter = "CSV Files|*.csv";
+            saveDialog.DefaultExt = "csv";
+
+            DialogResult result = saveDialog.ShowDialog();
+            if(result == DialogResult.OK)
+            {
+                _graphStore.graph.saveTableToCSV(saveDialog.FileName);
+            }
+        }
+
         public void openFileDialog(object message)
         {
             Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();

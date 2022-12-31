@@ -193,6 +193,30 @@ namespace PQM_V2.Models
                 }
             }
         }
+
+        public void saveTableToCSV(string fileName)
+        {
+            using(StreamWriter writer = new StreamWriter(fileName))
+            {
+                writer.WriteLine("Structure Name,100%,95%,90%,50%,5%,0.03cc");
+                foreach(Structure structure in structures)
+                {
+                    if (structure.visible)
+                    {
+                        string line = string.Format("{},{},{},{},{},{},{}",
+                            structure.name,
+                            Math.Round( structure.aucFromY(100), 2),
+                            Math.Round( structure.aucFromY(95), 2),
+                            Math.Round( structure.aucFromY(90), 2),
+                            Math.Round( structure.aucFromY(50), 2),
+                            Math.Round( structure.aucFromY(5), 2),
+                            Math.Round( structure.interpolate(0.03), 2)
+                            );
+                        writer.WriteLine();
+                    }
+                }
+            }
+        }
     }
 
 }

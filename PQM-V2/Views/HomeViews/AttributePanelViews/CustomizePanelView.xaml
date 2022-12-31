@@ -72,7 +72,7 @@
                     <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
                 </StackPanel>
                 <StackPanel Style="{StaticResource attribSP}">
-                        <TextBlock Style="{StaticResource attribTextBlockLabel}">Axis Thickness</TextBlock>
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}">Axis Thickness</TextBlock>
                     <TextBox Style="{StaticResource attribTextBox}"
                              Text="{Binding Path=axesThickness, Mode=TwoWay}"/>
                     <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
@@ -173,7 +173,7 @@
                 </StackPanel>
             </Expander>
             <Expander Expanded="Expander_Expanded"
-                      Style="{StaticResource indentedExpander}" Header="Structure Color Settings">
+                      Style="{StaticResource indentedExpander}" Header="Structure Settings">
                 <StackPanel>
                     <TextBlock Foreground="White"
                                 Margin="0, 30, 0, 0"
@@ -211,6 +211,12 @@
                         <xtck:ColorPicker Style="{StaticResource colorPicker}" 
                                           SelectedColor="{Binding structureColorSelect, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         </xtck:ColorPicker>
+                        <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource attribSP}">
+                        <TextBlock Style="{StaticResource attribTextBlockLabel}">Line Thickness</TextBlock>
+                        <TextBox Style="{StaticResource attribTextBox}"
+                                 Text="{Binding Path=axesThickness, Mode=TwoWay}"/>
                         <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
                     </StackPanel>
                     <Button Style="{StaticResource updateButton}" Content="Update Style"
