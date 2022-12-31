@@ -75,8 +75,10 @@
             </Menu>
             <Menu>
                 <MenuItem Header="Export" Style="{StaticResource navMenuItem}">
-                    <MenuItem Header="As .png"
+                    <MenuItem Header="Graph as .png"
                               Command="{Binding exportGraphCommand}"/>
+                    <MenuItem Header="Table as .csv"
+                              Command="{Binding exportTableCommand}"/>
                 </MenuItem>
             </Menu>
         </StackPanel>

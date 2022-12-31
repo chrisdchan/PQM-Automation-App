@@ -203,7 +203,7 @@ namespace PQM_V2.Models
                 {
                     if (structure.visible)
                     {
-                        string line = string.Format("{},{},{},{},{},{},{}",
+                        string line = string.Format("{0},{1},{2},{3},{4},{5},{6}",
                             structure.name,
                             Math.Round( structure.aucFromY(100), 2),
                             Math.Round( structure.aucFromY(95), 2),
@@ -212,10 +212,11 @@ namespace PQM_V2.Models
                             Math.Round( structure.aucFromY(5), 2),
                             Math.Round( structure.interpolate(0.03), 2)
                             );
-                        writer.WriteLine();
+                        writer.WriteLine(line);
                     }
                 }
             }
+            System.Diagnostics.Process.Start(fileName);
         }
     }
 

@@ -32,6 +32,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
         public RelayCommand exitApplicationCommand { get; private set; }
         public RelayCommand openFilesCommand { get; private set; }
         public RelayCommand exportGraphCommand { get; private set; }
+        public RelayCommand exportTableCommand { get; private set; }
         public bool graphVisible
         {
             get => _graphVisible;
@@ -83,6 +84,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
             openFilesCommand = new RelayCommand(openFileDialog);
 
             exportGraphCommand = new RelayCommand(exportGraph);
+            exportTableCommand = new RelayCommand(exportTable);
 
             _graphStore.graphChanged += onGraphChanged;
         }
@@ -131,6 +133,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
             if(result.HasValue && result.Value)
             {
                 System.IO.File.WriteAllBytes(saveFileDialog.FileName, ms.ToArray());
+                System.Diagnostics.Process.Start(saveFileDialog.FileName);
             }
             else
             {
