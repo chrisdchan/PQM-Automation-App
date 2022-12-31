@@ -31,6 +31,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
         public RelayCommand navigateStartupCommand { get; private set; }
         public RelayCommand exitApplicationCommand { get; private set; }
         public RelayCommand openFilesCommand { get; private set; }
+        public RelayCommand openFolderCommand { get; private set; }
         public RelayCommand exportGraphCommand { get; private set; }
         public RelayCommand exportTableCommand { get; private set; }
         public bool graphVisible
@@ -82,6 +83,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
             navigateStartupCommand = new RelayCommand(navigateStartup);
             exitApplicationCommand = new RelayCommand(exitApplication);
             openFilesCommand = new RelayCommand(openFileDialog);
+            openFolderCommand = new RelayCommand(openFolderDialog);
 
             exportGraphCommand = new RelayCommand(exportGraph);
             exportTableCommand = new RelayCommand(exportTable);
