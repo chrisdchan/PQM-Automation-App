@@ -150,3 +150,5 @@ C:\Users\chris\source\repos\PQM-V2.1\PQM-Automation-App\PQM-V2\obj\Debug\PQM-V2.
 C:\Users\chris\source\repos\PQM-V2.1\PQM-Automation-App\PQM-V2\obj\Debug\PQM-V2.csproj.CopyComplete
 C:\Users\chris\source\repos\PQM-V2.1\PQM-Automation-App\PQM-V2\obj\Debug\PQM-V2.exe
 C:\Users\chris\source\repos\PQM-V2.1\PQM-Automation-App\PQM-V2\obj\Debug\PQM-V2.pdb
+C:\Users\chris\source\repos\PQM-V2.1\PQM-Automation-App\PQM-V2\obj\Debug\Views\HomeViews\AttributePanelViews\CustomizeStructureView.g.cs
+C:\Users\chris\source\repos\PQM-V2.1\PQM-Automation-App\PQM-V2\obj\Debug\Views\HomeViews\AttributePanelViews\CustomizeStructureView.baml

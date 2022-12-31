@@ -24,6 +24,9 @@
             <Expander Style="{StaticResource expander}" Header="Customize" Expanded="Expander_Expanded">
                 <local:CustomizePanelView></local:CustomizePanelView>
             </Expander>
+            <Expander Style="{StaticResource expander}" Header="Customize Structure" Expanded="Expander_Expanded">
+                <local:CustomizeStructureView></local:CustomizeStructureView>
+            </Expander>
         </StackPanel>
     </Grid>
 </UserControl>

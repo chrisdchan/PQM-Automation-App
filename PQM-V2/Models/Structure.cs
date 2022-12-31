@@ -11,17 +11,18 @@ using System.Windows.Media;
 
 namespace PQM_V2.Models
 {
+    public enum LineType { solid=0, dashed=1, dotted=2 }
     public class Structure
     {
         private string _filePath;
         private string _metric;
-        private bool _invalidReadFlag;
         private double _maxX;
         private List<Spline> _splines;
 
         public SolidColorBrush color { get; set; }
 
         public double lineThickness { get; set; }
+        public LineType lineType { get; set; }
         public string name { get; set; }
         public bool visible { get; set; }
         public bool selected { get; set; }
@@ -36,6 +37,7 @@ namespace PQM_V2.Models
             visible = true;
             selected = false;
             lineThickness = 1;
+            lineType = LineType.solid;
             _splines = new List<Spline>();
 
             setSplines();
@@ -96,7 +98,6 @@ namespace PQM_V2.Models
             if (newX.Count == 0 || newY.Count == 0)
             {
                 MessageBox.Show("Can not parse file at " + _filePath);
-                _invalidReadFlag = true;
                 _splines = null;
                 return;
             }

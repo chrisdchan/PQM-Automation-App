@@ -127,6 +127,9 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    <Style x:Key="comboBox" TargetType="{x:Type ComboBox}">
+        <Setter Property="Width" Value="150"/>
+    </Style>
 
     <converters:BooleanVisibilityConverter x:Key="booleanVisibilityConverter"/>
 </ResourceDictionary>

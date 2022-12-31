@@ -124,6 +124,7 @@
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModels\AttributePanelViewModels\AttributePanelViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModels\AttributePanelViewModels\CustomizePanelViewModel.cs" />
+    <Compile Include="ViewModels\HomeViewModels\AttributePanelViewModels\CustomizeStructureViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModels\AttributePanelViewModels\GraphGenerationViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModels\AttributePanelViewModels\InterpolatePanelViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModels\GraphViewModel.cs" />
@@ -137,6 +138,9 @@
     </Compile>
     <Compile Include="Views\HomeViews\AttributePanelViews\CustomizePanelView.xaml.cs">
       <DependentUpon>CustomizePanelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HomeViews\AttributePanelViews\CustomizeStructureView.xaml.cs">
+      <DependentUpon>CustomizeStructureView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HomeViews\AttributePanelViews\GraphGenerationPanelView.xaml.cs">
       <DependentUpon>GraphGenerationPanelView.xaml</DependentUpon>
@@ -180,6 +184,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\HomeViews\AttributePanelViews\CustomizePanelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HomeViews\AttributePanelViews\CustomizeStructureView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
