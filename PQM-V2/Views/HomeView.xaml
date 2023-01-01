@@ -85,11 +85,13 @@
 
         <GridSplitter Grid.Row="{Binding layout.rowSplit.row}" Grid.Column="{Binding layout.rowSplit.column}" 
                       Grid.RowSpan="{Binding layout.rowSplit.rowSpan}" Grid.ColumnSpan="{Binding layout.rowSplit.colSpan}"
+                      Visibility="{Binding Path=layout.rowVisibility, Converter={StaticResource BooleanVisibilityConverter}}"
                       HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                       Height="4"
                       Background="#DEDEDE"/>
         <GridSplitter Grid.Row="{Binding layout.colSplit.row}" Grid.Column="{Binding layout.colSplit.column}" 
                       Grid.RowSpan="{Binding layout.colSplit.rowSpan}" Grid.ColumnSpan="{Binding layout.colSplit.colSpan}"
+                      Visibility="{Binding Path=layout.colVisibility, Converter={StaticResource BooleanVisibilityConverter}}"
                       Background="#DEDEDE"
                       HorizontalAlignment="Center" VerticalAlignment="Stretch"
                       Width="4"/>
@@ -97,7 +99,7 @@
                       Grid.RowSpan="3"
                       HorizontalAlignment="Center" VerticalAlignment="Stretch"
                       Background="#DEDEDE"
-                      Width="4"/>
+                      Width="10"/>
 
         <homeViews:StructuresLegendView
             Grid.Column="0" Grid.Row="1"

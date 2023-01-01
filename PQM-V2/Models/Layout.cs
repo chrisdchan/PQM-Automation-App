@@ -60,7 +60,7 @@ namespace PQM_V2.Stores
         public Position rowSplit{ get; set; }
         public Position colSplit{ get; set; }
         public bool rowVisibility { get; private set; }
-        public bool colVisitbility { get; private set; }
+        public bool colVisibility { get; private set; }
         public Layout(Position graph, Position table, Position attributes, Position rowSplit, Position colSplit)
         {
             this.graph = graph;
@@ -70,7 +70,7 @@ namespace PQM_V2.Stores
             this.colSplit = colSplit;
 
             rowVisibility = (rowSplit == Positions.none)? false : true;
-            colVisitbility = (colSplit == Positions.none)? false : true;
+            colVisibility = (colSplit == Positions.none)? false : true;
         }
     }
 

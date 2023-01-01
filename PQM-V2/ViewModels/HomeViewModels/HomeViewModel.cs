@@ -142,7 +142,6 @@ namespace PQM_V2.ViewModels.HomeViewModels
                 (System.Windows.Application.Current as App).displayMessage("Error saving file");
             }
         }
-
         private void exportTable(object message)
         {
             var saveDialog = new System.Windows.Forms.SaveFileDialog();
@@ -155,7 +154,6 @@ namespace PQM_V2.ViewModels.HomeViewModels
                 _graphStore.graph.saveTableToCSV(saveDialog.FileName);
             }
         }
-
         public void openFileDialog(object message)
         {
             Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
