@@ -99,7 +99,7 @@
                       Grid.RowSpan="3"
                       HorizontalAlignment="Center" VerticalAlignment="Stretch"
                       Background="#DEDEDE"
-                      Width="10"/>
+                      Width="4"/>
 
         <homeViews:StructuresLegendView
             Grid.Column="0" Grid.Row="1"

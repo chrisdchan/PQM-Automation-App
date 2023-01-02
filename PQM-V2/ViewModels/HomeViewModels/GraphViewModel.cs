@@ -89,9 +89,11 @@ namespace PQM_V2.ViewModels.HomeViewModels
 
             _canvasStore.canvas.Children.Add(_baseCanvas);
             _canvasStore.canvas.Children.Add(_displayCanvas);
+            _canvasStore.displayCanvas = _displayCanvas;
             Grid.SetZIndex(_baseCanvas, 1);
 
             initStructureCanvases();
+
 
             setProbeLabel("");
 

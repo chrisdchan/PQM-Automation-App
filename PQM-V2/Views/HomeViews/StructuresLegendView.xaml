@@ -79,9 +79,6 @@
                                 <MenuItem Header="Isolate"
                                           Command="{Binding DataContext.isolateStructureCommand, Source={x:Reference structureListItemsControl}}"
                                           />
-                                <MenuItem Header="Delete"
-                                          Command="{Binding DataContext.deleteStructureCommand, Source={x:Reference structureListItemsControl}}"
-                                          />
                                 <MenuItem Header="Select"
                                           Command="{Binding DataContext.selectStructureCommand, Source={x:Reference structureListItemsControl}}"
                                           />

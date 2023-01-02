@@ -117,11 +117,6 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         public string xProbeBtnBackground { get => _xProbeBtnBackground; set { _xProbeBtnBackground = value; onPropertyChanged(nameof(xProbeBtnBackground)); } }
         public string yProbeBtnBackground { get => _yProbeBtnBackground; set { _yProbeBtnBackground = value; onPropertyChanged(nameof(yProbeBtnBackground)); } }
         public string noneProbeBtnBackground { get => _noneProbeBtnBackground; set { _noneProbeBtnBackground = value; onPropertyChanged(nameof(noneProbeBtnBackground)); } }
-        public double lineThickness
-        {
-            get => _lineThickness;
-            set { _lineThickness = value; onPropertyChanged(nameof(lineThickness)); }
-        }
         public InterpolatePanelViewModel()
         {
             _graphStore = (Application.Current as App).graphStore;
@@ -134,15 +129,9 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             changeSelectedStructureCommand = new RelayCommand(changeSelectedStructure);
             updateProbeCommand = new RelayCommand(updateProbe);
         }
-        public override void Dispose()
-        {
-            _graphStore.selectedStructureChanged -= onSelectedStructureChanged;
-        }
-
         private void onSelectedStructureChanged()
         {
             selectedStructure = _graph.selectedStructure;
-            lineThickness = selectedStructure.lineThickness;
             color = selectedStructure.color.ToString();
         }
 
@@ -237,7 +226,6 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             if (_selectedStructure != null)
             {
                 selectedStructure.color = new SolidColorBrush((Color)ColorConverter.ConvertFromString(color));
-                selectedStructure.lineThickness = lineThickness;
 
                 _graphStore.onGraphUpdated();
                 onPropertyChanged(nameof(selectedStructure));

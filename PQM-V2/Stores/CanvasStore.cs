@@ -15,11 +15,17 @@ namespace PQM_V2.Stores
         public enum ProbeTypes { none, x, y };
 
         private Canvas _canvas;
+        private Canvas _displayCanvas;
         private ProbeTypes _probeType;
         public Canvas canvas
         {
             get => _canvas;
             set => _canvas = value;
+        }
+        public Canvas displayCanvas
+        {
+            get => _displayCanvas;
+            set => _displayCanvas = value;
         }
         public ProbeTypes probeType
         {

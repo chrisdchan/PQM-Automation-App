@@ -37,7 +37,6 @@ namespace PQM_V2.ViewModels.HomeViewModels
             changeVisibilityCommand = new RelayCommand(changeVisibility);
             isolateStructureCommand = new RelayCommand(isolateStructure);
             selectStructureCommand = new RelayCommand(selectStructure);
-            deleteStructureCommand = new RelayCommand(deleteStructure);
             setStructureIndexCommand = new RelayCommand(setStructureIndex);
 
             _graphStore.graphChanged += loadGraph;
@@ -83,13 +82,6 @@ namespace PQM_V2.ViewModels.HomeViewModels
             int index = (param == null) ? structureIndex : (int)param;
             _graphStore.graph.selectStructure(index);
             setVisibility(_graphStore.graph.selectedStructure, true);
-            _graphStore.onSelectedStructureChanged();
-            onPropertyChanged(nameof(structureList));
-        }
-        private void deleteStructure(object param)
-        {
-            int index = (param == null) ? structureIndex : (int)param;
-            _graphStore.graph.selectStructure(index);
             _graphStore.onSelectedStructureChanged();
             onPropertyChanged(nameof(structureList));
         }

@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
+using System.Windows.Markup;
 using System.Windows.Media.Imaging;
 
 namespace PQM_V2.ViewModels.HomeViewModels
@@ -114,8 +115,10 @@ namespace PQM_V2.ViewModels.HomeViewModels
         private void exportGraph(object message)
         {
             Canvas canvas = _canvasStore.canvas;
+            canvas.Children.Remove(_canvasStore.displayCanvas);
+
             Rect rect = new Rect(canvas.RenderSize);
-           RenderTargetBitmap rtb = new RenderTargetBitmap((int)rect.Right,
+            RenderTargetBitmap rtb = new RenderTargetBitmap((int)rect.Right,
              (int)rect.Bottom, 96d, 96d, System.Windows.Media.PixelFormats.Default);
             rtb.Render(canvas);
             //endcode as PNG
@@ -141,6 +144,8 @@ namespace PQM_V2.ViewModels.HomeViewModels
             {
                 (System.Windows.Application.Current as App).displayMessage("Error saving file");
             }
+
+            _canvasStore.canvas.Children.Add(_canvasStore.displayCanvas);
         }
         private void exportTable(object message)
         {
