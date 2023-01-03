@@ -12,12 +12,32 @@ using System.Windows.Media;
 
 namespace PQM_V2.ViewModels.HomeViewModels
 {
+    public class StructureView : BaseViewModel
+    {
+        public const string AVALIBLE_COLOR = "#000000";
+        public const string UNAVALIBLE_COLOR = "#000000";
+
+        private string _showMenuColor;
+        private string _hideMenuColor;
+        public Structure structure { get; set; }
+
+        public string showMenuColor { get => _showMenuColor; set { _showMenuColor = value; onPropertyChanged(nameof(showMenuColor)); }}
+        public string hideMenuColor { get => _hideMenuColor; set { _hideMenuColor = value; onPropertyChanged(nameof(hideMenuColor)); }}
+
+        public StructureView(Structure structure)
+        {
+            this.structure = structure;
+            showMenuColor = UNAVALIBLE_COLOR;
+            hideMenuColor = AVALIBLE_COLOR;
+        }
+
+    }
     public class StructuresLegendViewModel : BaseViewModel
         {
         private readonly GraphStore _graphStore;
 
-        private readonly ObservableCollection<Structure> _structureList;
-        public ObservableCollection<Structure> structureList => _structureList;
+        private readonly ObservableCollection<StructureView> _structureViewList;
+        public ObservableCollection<StructureView> structureViewList => _structureViewList;
         private int structureIndex;
 
         public RelayCommand setStructureIndexCommand { get; private set; }
@@ -30,7 +50,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
         {
             _graphStore = (Application.Current as App).graphStore;
 
-            _structureList = new ObservableCollection<Structure>();
+            _structureViewList = new ObservableCollection<StructureView>();
 
             loadGraph();
 
@@ -47,7 +67,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
 
         private void loadGraph()
         {
-            _structureList.Clear();
+            _structureViewList.Clear();
             foreach(Structure structure in _graphStore.graph.structures)
             {
                 addStructure(structure);
@@ -55,35 +75,37 @@ namespace PQM_V2.ViewModels.HomeViewModels
         }
         private void addStructure(Structure structure)
         {
-            _structureList.Add(structure);
+            _structureViewList.Add(new StructureView(structure));
         }
 
         private void changeVisibility(object param)
         {
             int index = (param == null) ? structureIndex : (int)param;
-            Structure structure = _graphStore.graph.structures[index];
-            setVisibility(structure, !structure.visible);
+            StructureView view = _structureViewList[index];
+            setVisibility(view, !view.structure.visible);
         }
-        private void setVisibility(Structure structure, bool isVisible)
+        private void setVisibility(StructureView view, bool isVisible)
         {
-            structure.visible = isVisible;
+            view.structure.visible = isVisible;
+            view.showMenuColor = (isVisible) ? StructureView.UNAVALIBLE_COLOR : StructureView.AVALIBLE_COLOR;
+            view.hideMenuColor = (isVisible) ? StructureView.AVALIBLE_COLOR : StructureView.UNAVALIBLE_COLOR;
+
             _graphStore.onGraphUpdated();
-            onPropertyChanged(nameof(structureList));
+            onPropertyChanged(nameof(structureViewList));
         }
         private void isolateStructure(object param)
         {
             int index = (param == null) ? structureIndex : (int)param;
             _graphStore.graph.isolate(index);
             _graphStore.onGraphUpdated();
-            onPropertyChanged(nameof(structureList));
+            onPropertyChanged(nameof(structureViewList));
         }
         private void selectStructure(object param)
         {
             int index = (param == null) ? structureIndex : (int)param;
             _graphStore.graph.selectStructure(index);
-            setVisibility(_graphStore.graph.selectedStructure, true);
             _graphStore.onSelectedStructureChanged();
-            onPropertyChanged(nameof(structureList));
+            onPropertyChanged(nameof(structureViewList));
         }
         private void setStructureIndex(object param)
         {

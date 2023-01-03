@@ -11,8 +11,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="AttributeStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-        <converter:BooleanVisibilityConverter x:Key="booleanVisibilityConverter"/>
-        <converter:BooleanBackgroundConverter x:Key="booleanBackgroundConverter"/>
 
             <Style x:Key="attribTextBlockValue" TargetType="{x:Type TextBlock}">
             <Setter Property="Padding" Value="10, 0, 0, 0"/>

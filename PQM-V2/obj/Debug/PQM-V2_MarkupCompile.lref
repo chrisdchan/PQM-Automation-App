@@ -4,6 +4,7 @@ FC:\Users\chris\source\repos\PQM-V2.1\PQM-Automation-App\PQM-V2\MainWindow.xaml;
 FC:\Users\chris\source\repos\PQM-V2.1\PQM-Automation-App\PQM-V2\Views\HomeViews\AttributePanelViews\AttributePanelView.xaml;;
 FC:\Users\chris\source\repos\PQM-V2.1\PQM-Automation-App\PQM-V2\Views\HomeViews\AttributePanelViews\AttributeStyles.xaml;;
 FC:\Users\chris\source\repos\PQM-V2.1\PQM-Automation-App\PQM-V2\Views\HomeViews\AttributePanelViews\CustomizePanelView.xaml;;
+FC:\Users\chris\source\repos\PQM-V2.1\PQM-Automation-App\PQM-V2\Views\HomeViews\AttributePanelViews\CustomizeStructureView.xaml;;
 FC:\Users\chris\source\repos\PQM-V2.1\PQM-Automation-App\PQM-V2\Views\HomeViews\AttributePanelViews\GraphGenerationPanelView.xaml;;
 FC:\Users\chris\source\repos\PQM-V2.1\PQM-Automation-App\PQM-V2\Views\HomeViews\AttributePanelViews\InterpolatePanelView.xaml;;
 FC:\Users\chris\source\repos\PQM-V2.1\PQM-Automation-App\PQM-V2\Views\HomeViews\GraphView.xaml;;
@@ -11,5 +12,4 @@ FC:\Users\chris\source\repos\PQM-V2.1\PQM-Automation-App\PQM-V2\Views\HomeView.x
 FC:\Users\chris\source\repos\PQM-V2.1\PQM-Automation-App\PQM-V2\Views\HomeViews\TableView.xaml;;
 FC:\Users\chris\source\repos\PQM-V2.1\PQM-Automation-App\PQM-V2\Views\StartupView.xaml;;
 FC:\Users\chris\source\repos\PQM-V2.1\PQM-Automation-App\PQM-V2\Views\HomeViews\StructuresLegendView.xaml;;
-FC:\Users\chris\source\repos\PQM-V2.1\PQM-Automation-App\PQM-V2\Views\HomeViews\AttributePanelViews\CustomizeStructureView.xaml;;
 

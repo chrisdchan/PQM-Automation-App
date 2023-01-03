@@ -12,10 +12,6 @@
     <UserControl.Resources>
         <converters:InverseBooleanConverter x:Key="inverseBooleanConverter"/>
         <converters:BooleanVisibilityConverter x:Key="booleanVisibilityConverter"/>
-        <converters:BooleanForegroundConverter x:Key="booleanForegroundConverter"/>
-        <converters:CombiningConverter x:Key="notBooleanForegroundConverter"
-                                       Converter1="{StaticResource inverseBooleanConverter}"
-                                       Converter2="{StaticResource booleanForegroundConverter}"/>
         <converters:CombiningConverter x:Key="notBooleanVisibilityConverter"
                                        Converter1="{StaticResource inverseBooleanConverter}"
                                        Converter2="{StaticResource booleanVisibilityConverter}"/>
@@ -42,40 +38,40 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-            <ItemsControl ItemsSource="{Binding structureList}" 
+            <ItemsControl ItemsSource="{Binding structureViewList}" 
                       x:Name="structureListItemsControl" AlternationCount="4">
             <ItemsControl.ItemTemplate>
                 <DataTemplate x:Name="dataTemplate">
                     <StackPanel Orientation="Horizontal" Margin="0" Style="{StaticResource stackPanel}"
                                 PreviewMouseRightButtonDown="stackPanel_PreviewMouseRightButtonDown"
-                                x:Name="stackPanel" Tag="{Binding index}"
+                                x:Name="stackPanel" Tag="{Binding structure.index}"
                                 Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}}">
-                        <TextBlock Text="{Binding name}" Foreground="#ffffff" FontSize="15" Width="150" Margin="5, 0, 5, 0"/>
-                        <Rectangle Fill="{Binding color}" Height="10" Width="30" Margin="5, 0, 5, 0"/>
+                        <TextBlock Text="{Binding structure.name}" Foreground="#ffffff" FontSize="15" Width="150" Margin="5, 0, 5, 0"/>
+                        <Rectangle Fill="{Binding structure.color}" Height="10" Width="30" Margin="5, 0, 5, 0"/>
                         <Button Style="{StaticResource faButton}"  
                                 Command="{Binding ElementName=structureListItemsControl, Path=DataContext.changeVisibilityCommand}"
-                                CommandParameter="{Binding index}"
-                                Visibility="{Binding visible, Converter={StaticResource booleanVisibilityConverter}}">
+                                CommandParameter="{Binding structure.index}"
+                                Visibility="{Binding structure.visible, Converter={StaticResource booleanVisibilityConverter}}">
                             <fa:ImageAwesome Foreground="White" Icon="Eye"/>
                         </Button>
                         <Button Style="{StaticResource faButton}" 
                                 Command="{Binding ElementName=structureListItemsControl, Path=DataContext.changeVisibilityCommand}"
-                                CommandParameter="{Binding index}"
-                                Visibility="{Binding visible, Converter={StaticResource notBooleanVisibilityConverter}}">
+                                CommandParameter="{Binding structure.index}"
+                                Visibility="{Binding structure.visible, Converter={StaticResource notBooleanVisibilityConverter}}">
                             <fa:ImageAwesome Foreground="White" Icon="EyeSlash"/>
                         </Button>
                         <fa:ImageAwesome Foreground="blue" Icon="Check" Width="15" Height="15" Margin="10, 0, 5, 0"
-                                         Visibility="{Binding selected, Converter={StaticResource booleanVisibilityConverter}}"/>
+                                         Visibility="{Binding structure.selected, Converter={StaticResource booleanVisibilityConverter}}"/>
                         <StackPanel.ContextMenu>
                             <ContextMenu Placement="MousePoint">
                                 <MenuItem Header="Show" 
                                           Command="{Binding DataContext.changeVisibilityCommand, Source={x:Reference structureListItemsControl}}"
-                                          IsEnabled="{Binding visible, Converter={StaticResource inverseBooleanConverter}}"
-                                          Foreground="{Binding visible, Converter={StaticResource booleanForegroundConverter}}"/>
+                                          IsEnabled="{Binding structure.visible, Converter={StaticResource inverseBooleanConverter}}"
+                                          Foreground="{Binding showMenuColor}"/>
                                 <MenuItem Header="Hide"
                                           Command="{Binding DataContext.changeVisibilityCommand, Source={x:Reference structureListItemsControl}}"
-                                          IsEnabled="{Binding visible}"
-                                          Foreground="{Binding visible, Converter={StaticResource notBooleanForegroundConverter}}"/>
+                                          IsEnabled="{Binding structure.visible}"
+                                          Foreground="{Binding hideMenuColor}"/>
                                 <MenuItem Header="Isolate"
                                           Command="{Binding DataContext.isolateStructureCommand, Source={x:Reference structureListItemsControl}}"
                                           />
@@ -86,7 +82,7 @@
                         </StackPanel.ContextMenu>
                         <StackPanel.InputBindings>
                             <MouseBinding Command="{Binding ElementName=structureListItemsControl, Path=DataContext.selectStructureCommand}"
-                                          CommandParameter="{Binding Path=index}"
+                                          CommandParameter="{Binding Path=structure.index}"
                                           MouseAction="LeftClick">
                             </MouseBinding>
                         </StackPanel.InputBindings>
