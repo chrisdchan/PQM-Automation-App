@@ -34,7 +34,6 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         private string _interpolateYError;
 
         private string _color;
-        private double _lineThickness;
 
         private string _xProbeBtnBackground;
         private string _yProbeBtnBackground;
@@ -122,6 +121,9 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             _graphStore = (Application.Current as App).graphStore;
             _canvasStore = (Application.Current as App).canvasStore;
             _selectedStructure = _graph.selectedStructure;
+            xProbeBtnBackground = "#C2C2C2";
+            yProbeBtnBackground = "#C2C2C2";
+            noneProbeBtnBackground = "#C2C2C2";
 
             _graphStore.selectedStructureChanged += onSelectedStructureChanged;
 

@@ -88,14 +88,13 @@ namespace PQM_V2.ViewModels.HomeViewModels
 
 
             _canvasStore.canvas.Children.Add(_baseCanvas);
-            _canvasStore.canvas.Children.Add(_displayCanvas);
             _canvasStore.displayCanvas = _displayCanvas;
+            _canvasStore.canvas.Children.Add(_displayCanvas);
             Grid.SetZIndex(_baseCanvas, 1);
 
             initStructureCanvases();
 
 
-            setProbeLabel("");
 
             _canvasStore.canvas.PreviewMouseMove += updateProbeLabel;
         }
@@ -127,6 +126,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
             _canvasStore.canvas.Background = stringToBrush(_graphCustomizeStore.backgroundColor);
 
             setBaseCanvas();
+            setDisplayCanvas();
             setStructureCanvases();
         }
 
@@ -360,10 +360,10 @@ namespace PQM_V2.ViewModels.HomeViewModels
         {
             Point p = e.GetPosition(_displayCanvas as IInputElement);
             double x = _invMap.x(p.X);
-            double y = _invMap.y(_canvasStore.canvas.ActualHeight + p.Y);
+            double y = _invMap.y(p.Y);
             _probeLabel.Content = "";
             if (x < _graphCustomizeStore.xmin || _graphCustomizeStore.xmax < x) return;
-            if (y < 0 || 100 < x) return;
+            if (y < 0 || y > 100) return;
 
             Structure selectedStructure = _graphStore.graph.selectedStructure;
             if (selectedStructure != null)
@@ -378,6 +378,10 @@ namespace PQM_V2.ViewModels.HomeViewModels
                 {
                     double fy = selectedStructure.invInterpolate(y);
                     updateProbeCanvas(fy, y);
+                }
+                else
+                {
+                    _displayCanvas.Children.Clear();
                 }
             }
         }
