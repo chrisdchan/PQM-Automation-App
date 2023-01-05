@@ -44,10 +44,6 @@ namespace PQM_V2.Views.HomeViews
             _resizeTimer.Tick += onResizeTimerEnd;
         }
 
-        private void disposeGraph()
-        {
-            _resizeTimer.Tick -= onResizeTimerEnd;
-        }
 
         private void onResizeTimerEnd(object sender, EventArgs e)
         {

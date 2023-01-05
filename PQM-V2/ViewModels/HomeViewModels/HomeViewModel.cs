@@ -14,6 +14,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Markup;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace PQM_V2.ViewModels.HomeViewModels
@@ -118,8 +119,12 @@ namespace PQM_V2.ViewModels.HomeViewModels
             canvas.Children.Remove(_canvasStore.displayCanvas);
 
             Rect rect = new Rect(canvas.RenderSize);
-            RenderTargetBitmap rtb = new RenderTargetBitmap((int)rect.Right,
-             (int)rect.Bottom, 600d, 600d, System.Windows.Media.PixelFormats.Default);
+            int dpi = 600;
+            int sizeW = (int)(rect.Right * (dpi / 96.0));
+            int sizeH = (int)(rect.Bottom * (dpi / 96.0));
+
+            RenderTargetBitmap rtb = new RenderTargetBitmap(sizeW,
+             sizeH, dpi, dpi, System.Windows.Media.PixelFormats.Default);
             rtb.Render(canvas);
             //endcode as PNG
             BitmapEncoder pngEncoder = new PngBitmapEncoder();
@@ -146,6 +151,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
             }
 
             _canvasStore.canvas.Children.Add(_canvasStore.displayCanvas);
+            Canvas.SetZIndex(_canvasStore.displayCanvas, 2);
         }
         private void exportTable(object message)
         {

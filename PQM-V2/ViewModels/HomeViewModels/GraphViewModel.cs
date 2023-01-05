@@ -56,12 +56,6 @@ namespace PQM_V2.ViewModels.HomeViewModels
             _graphStore.graphChanged += init;
         }
 
-        public override void Dispose()
-        {
-            _graphCustomizeStore.graphCustomizeChanged -= update;
-            _graphStore.graphUpdated -= update;
-            _graphStore.graphChanged -= init;
-        }
 
         // -------- Event Handlers -----------------------
         // -------- Init New Structures ------------------
@@ -90,11 +84,8 @@ namespace PQM_V2.ViewModels.HomeViewModels
             _canvasStore.canvas.Children.Add(_baseCanvas);
             _canvasStore.displayCanvas = _displayCanvas;
             _canvasStore.canvas.Children.Add(_displayCanvas);
-            Grid.SetZIndex(_baseCanvas, 1);
 
             initStructureCanvases();
-
-
 
             _canvasStore.canvas.PreviewMouseMove += updateProbeLabel;
         }
@@ -123,7 +114,10 @@ namespace PQM_V2.ViewModels.HomeViewModels
                 x: (_borders.right - _borders.left) / (_graphCustomizeStore.xmax - _graphCustomizeStore.xmin),
                 y: (_borders.top - _borders.bottom) / 100);
 
-            _canvasStore.canvas.Background = stringToBrush(_graphCustomizeStore.backgroundColor);
+            //_canvasStore.canvas.Background = stringToBrush(_graphCustomizeStore.backgroundColor);
+            _baseCanvas.Background = stringToBrush(_graphCustomizeStore.backgroundColor);
+            Canvas.SetZIndex(_baseCanvas, 1);
+            Canvas.SetZIndex(_displayCanvas, 2);
 
             setBaseCanvas();
             setDisplayCanvas();
