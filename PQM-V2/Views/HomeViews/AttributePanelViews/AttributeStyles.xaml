@@ -5,7 +5,7 @@
         <Setter Property="HeaderTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <TextBlock FontSize="20" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Expander}}"
+                    <TextBlock FontSize="20" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"
                                Text="{Binding}">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
@@ -27,7 +27,7 @@
         <Setter Property="HeaderTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <TextBlock FontSize="18" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Expander}}"
+                    <TextBlock FontSize="18" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"
                                Text="{Binding}">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">

@@ -48,7 +48,7 @@
                        Visibility="{Binding selectStructureError, Converter={StaticResource errorStringVisibilityConverter}}"/>
             <StackPanel Style="{StaticResource attribSP}">
                 <TextBlock Style="{StaticResource attribTextBlockLabel}">Structure Color</TextBlock>
-                <xtck:ColorPicker Style="{StaticResource colorPicker}" 
+                <xtck:ColorPicker Style="{StaticResource colorPicker}" Visibility="{Binding colorSelect, Converter={StaticResource errorStringVisibilityConverter}}"
                                   SelectedColor="{Binding colorSelect, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 </xtck:ColorPicker>
                 <TextBlock Style="{StaticResource attribTextBlockLabel}"/>

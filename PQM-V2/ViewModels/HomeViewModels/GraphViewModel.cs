@@ -78,14 +78,13 @@ namespace PQM_V2.ViewModels.HomeViewModels
             _canvasStore.canvas.LayoutTransform = new ScaleTransform(1, -1);
 
             _displayCanvas = new Canvas();
+            _canvasStore.displayCanvas = _displayCanvas;
             _baseCanvas = new Canvas();
 
 
             _canvasStore.canvas.Children.Add(_baseCanvas);
-            _canvasStore.displayCanvas = _displayCanvas;
-            _canvasStore.canvas.Children.Add(_displayCanvas);
-
             initStructureCanvases();
+            _canvasStore.canvas.Children.Add(_displayCanvas);
 
             _canvasStore.canvas.PreviewMouseMove += updateProbeLabel;
         }
@@ -95,6 +94,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
             for (int i = 0; i < _graphStore.graph.structures.Count; i++)
             {
                 Canvas structureCanvas = new Canvas();
+                structureCanvas.Visibility = Visibility.Visible;
                 _structureCanvases.Add(structureCanvas);
                 _canvasStore.canvas.Children.Add(structureCanvas);
             }
@@ -114,10 +114,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
                 x: (_borders.right - _borders.left) / (_graphCustomizeStore.xmax - _graphCustomizeStore.xmin),
                 y: (_borders.top - _borders.bottom) / 100);
 
-            //_canvasStore.canvas.Background = stringToBrush(_graphCustomizeStore.backgroundColor);
-            _baseCanvas.Background = stringToBrush(_graphCustomizeStore.backgroundColor);
-            Canvas.SetZIndex(_baseCanvas, 1);
-            Canvas.SetZIndex(_displayCanvas, 2);
+            _canvasStore.canvas.Background = stringToBrush(_graphCustomizeStore.backgroundColor);
 
             setBaseCanvas();
             setDisplayCanvas();
@@ -273,6 +270,8 @@ namespace PQM_V2.ViewModels.HomeViewModels
                 Canvas.SetTop(textBlock, _map.y(y) + height * 0.35);
                 y += dy;
             }
+            Canvas.SetZIndex(_baseCanvas, 2);
+            Canvas.SetZIndex(_displayCanvas, 1);
         }
         private void setLegend()
         {

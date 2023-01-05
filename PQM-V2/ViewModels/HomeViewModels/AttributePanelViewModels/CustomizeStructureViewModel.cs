@@ -91,7 +91,7 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             _graphCustomizeStore = (Application.Current as App).graphCustomizeStore;
             _graphStore = (Application.Current as App).graphStore;
 
-            colorSelect = (selectedStructure != null) ? selectedStructure.color.ToString() : null;
+            colorSelect = (selectedStructure != null) ? selectedStructure.color.ToString() : "transparent";
             lineType = (selectedStructure == null) ? -1 : (int)selectedStructure.lineType;
 
             name = (selectedStructure != null) ? selectedStructure.name : "";

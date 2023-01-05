@@ -45,7 +45,7 @@
                     <StackPanel Orientation="Horizontal" Margin="0" Style="{StaticResource stackPanel}"
                                 PreviewMouseRightButtonDown="stackPanel_PreviewMouseRightButtonDown"
                                 x:Name="stackPanel" Tag="{Binding structure.index}"
-                                Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType=ListView}}">
+                                Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType=ItemsControl}}">
                         <TextBlock Text="{Binding structure.name}" Foreground="#ffffff" FontSize="15" Width="150" Margin="5, 0, 5, 0"/>
                         <Rectangle Fill="{Binding structure.color}" Height="10" Width="30" Margin="5, 0, 5, 0"/>
                         <Button Style="{StaticResource faButton}"  
