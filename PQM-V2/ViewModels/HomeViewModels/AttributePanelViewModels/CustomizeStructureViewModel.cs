@@ -20,16 +20,20 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         private string _colorSelect;
 
         private int _lineType;
+
+        private string _name;
         private double _lineThickness;
         private double _dashLength;
         private double _dotGapLength;
         private double _dotRadius;
 
+        private bool _nameVisible;
         private bool _lineThicknessVisible;
         private bool _dashLengthVisible;
         private bool _dotGapLengthVisible;
         private bool _dotRadiusVisible;
 
+        private string _nameError;
         private string _selectStructureError;
         private string _lineThicknessError;
         private string _dashLengthError;
@@ -44,6 +48,11 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
                 onPropertyChanged(nameof(colorSelect)); 
             } }
         public int lineType { get => _lineType; set { _lineType = value; onPropertyChanged(nameof(lineType)); } }
+
+        public string name { get => _name; set { 
+                _name = value;
+                nameError = null;
+                onPropertyChanged(nameof(name)); }}
         public double lineThickness { get => _lineThickness; set { 
                 _lineThickness = value;
                 lineThicknessError = null;
@@ -67,6 +76,7 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         public bool dotRadiusVisible { get => _dotRadiusVisible; set { _dotRadiusVisible = value; onPropertyChanged(nameof(dotRadiusVisible)); } }
 
         public string selectStructureError { get => _selectStructureError; set { _selectStructureError = value; onPropertyChanged(nameof(selectStructureError));  }}
+        public string nameError { get => _nameError; set { _nameError = value; onPropertyChanged(nameof(nameError)); } }
         public string lineThicknessError { get => _lineThicknessError; set { _lineThicknessError = value; onPropertyChanged(nameof(lineThicknessError)); } }
         public string dashLengthError { get => _dashLengthError; set { _dashLengthError = value; onPropertyChanged(nameof(dashLengthError)); } }
         public string dotGapLengthError { get => _dotGapLengthError; set { _dotGapLengthError = value; onPropertyChanged(nameof(dotGapLengthError)); } }
@@ -84,6 +94,7 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             colorSelect = (selectedStructure != null) ? selectedStructure.color.ToString() : null;
             lineType = (selectedStructure == null) ? -1 : (int)selectedStructure.lineType;
 
+            name = (selectedStructure != null) ? selectedStructure.name : "";
             lineThickness = (selectedStructure != null) ? selectedStructure.lineThickness : 0;
             dashLength = (selectedStructure != null) ? selectedStructure.dashLength : 0;
             dotRadius = (selectedStructure != null) ? selectedStructure.dotRadius : 0;
@@ -115,6 +126,7 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         {
             selectedStructure = _graphStore.graph.selectedStructure;
             colorSelect = selectedStructure.color.ToString();
+            name = selectedStructure.name;
             lineType = (int)selectedStructure.lineType;
 
             lineThickness = selectedStructure.lineThickness;
@@ -138,6 +150,7 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         private void update(object _)
         {
             if (selectedStructure == null) { selectStructureError = "Please select a structure"; return; }
+            if (string.IsNullOrEmpty(name)) { nameError = "Structure must have a name"; return; }
             if (lineThicknessVisible && lineThickness < 0) { lineThicknessError = "Line thickness cannot be negative"; return; }
             if (lineThicknessVisible && lineThickness == 0) { lineThicknessError = "Line thickness cannot be 0"; return; }
             if (dashLengthVisible && dashLength < 0) { dashLengthError = "Dash length cannot be negative"; return; }
@@ -149,6 +162,7 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             if (dotGapLengthVisible && dotGapLength == 0) { dotGapLengthError = "Dot radius cannot be 0"; return; }
 
             selectedStructure.color = new SolidColorBrush((Color)ColorConverter.ConvertFromString(colorSelect));
+            selectedStructure.name = name;
             selectedStructure.lineType = (LineType)Enum.ToObject(typeof(LineType), lineType);
             selectedStructure.lineThickness = lineThickness;
             selectedStructure.dashLength = _dashLength;

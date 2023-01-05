@@ -53,6 +53,16 @@
                 </xtck:ColorPicker>
                 <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
             </StackPanel>
+
+            <TextBlock Style="{StaticResource errorMessage}" Text="{Binding nameError}"
+                       Visibility="{Binding nameError, Converter={StaticResource errorStringVisibilityConverter}}"/>
+            <StackPanel Style="{StaticResource attribSP}">
+                <TextBlock Style="{StaticResource attribTextBlockLabel}">Rename</TextBlock>
+                <TextBox Style="{StaticResource attribTextBox}"
+                         Text="{Binding Path=name, Mode=TwoWay}"/>
+                <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+            </StackPanel>
+            
             <StackPanel Style="{StaticResource attribSP}">
                 <TextBlock Style="{StaticResource attribTextBlockLabel}">Line Type</TextBlock>
                 <customcontrols:CommandComboBox 
