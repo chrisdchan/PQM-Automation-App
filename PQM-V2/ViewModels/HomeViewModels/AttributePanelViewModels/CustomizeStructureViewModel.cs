@@ -115,8 +115,12 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         {
             selectedStructure = _graphStore.graph.selectedStructure;
             colorSelect = selectedStructure.color.ToString();
-            lineThickness = selectedStructure.lineThickness;
             lineType = (int)selectedStructure.lineType;
+
+            lineThickness = selectedStructure.lineThickness;
+            dashLength = selectedStructure.dashLength;
+            dotGapLength = selectedStructure.dotGapLength;
+            dotRadius = selectedStructure.dotRadius;
         }
         private void changeStructure(object param)
         {
@@ -141,6 +145,8 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             if (dashLengthVisible && dashLength >= selectedStructure.maxX) { dashLengthError = "Dash length is too big"; return; }
             if (dotRadiusVisible && dotRadius < 0) { dotRadiusError = "Dot radius cannot be negative"; return; }
             if (dotRadiusVisible && dotRadius == 0) { dotRadiusError = "Dot radius cannot be 0"; return; }
+            if (dotGapLengthVisible && dotGapLength < 0) { dotGapLengthError = "Dot radius cannot be negative"; return; }
+            if (dotGapLengthVisible && dotGapLength == 0) { dotGapLengthError = "Dot radius cannot be 0"; return; }
 
             selectedStructure.color = new SolidColorBrush((Color)ColorConverter.ConvertFromString(colorSelect));
             selectedStructure.lineType = (LineType)Enum.ToObject(typeof(LineType), lineType);

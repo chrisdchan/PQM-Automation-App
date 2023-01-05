@@ -458,8 +458,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
                 }
                 else if(structure.lineType == LineType.dashed)
                 {
-                    double segLen = 10;
-                    var brokenLines = getDashedLine(mx1, my1, mx2, my2, structure, segLen, ref draw, ref remain);
+                    var brokenLines = getDashedLine(mx1, my1, mx2, my2, structure, ref draw, ref remain);
                     foreach(Line line in brokenLines)
                     {
                         canvas.Children.Add(line);
@@ -467,9 +466,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
                 }
                 else
                 {
-                    double segLen = 5;
-                    double rad = 1;
-                    var dots = getDottedLine(mx1, my1, mx2, my2, structure, segLen, rad, ref remain);
+                    var dots = getDottedLine(mx1, my1, mx2, my2, structure, ref remain);
                     foreach((Ellipse dot, double left, double top) in dots)
                     {
                         canvas.Children.Add(dot);
@@ -514,10 +511,10 @@ namespace PQM_V2.ViewModels.HomeViewModels
             line.Stroke = structure.color;
             return line;
         }
-
-        private List<Line> getDashedLine(double x1, double y1, double x2, double y2, Structure structure, double r, ref bool draw, ref double remain)
+        private List<Line> getDashedLine(double x1, double y1, double x2, double y2, Structure structure, ref bool draw, ref double remain)
         {
             double length = Math.Sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
+            double r = structure.dashLength;
             double lengthLeft = length;
             double xk = (x2 != x1) ? (x2 - x1) / Math.Abs(x2 - x1) : 1;
             double yk = (y2 != y1) ? (y2 - y1) / Math.Abs(y2 - y1) : 1;
@@ -561,21 +558,20 @@ namespace PQM_V2.ViewModels.HomeViewModels
         private Ellipse getEllipse(Structure structure)
         {
             Ellipse dot = new Ellipse();
-            dot.Height = structure.lineThickness * 2;
-            dot.Width = structure.lineThickness * 2;
+            dot.Height = structure.dotRadius * 2;
+            dot.Width = structure.dotRadius * 2;
             dot.Fill = structure.color;
             return dot;
         }
-        private List<(Ellipse, double, double)> getDottedLine(double x1, double y1, double x2, double y2, Structure structure, double r, double radius, ref double remain) { 
+        private List<(Ellipse, double, double)> getDottedLine(double x1, double y1, double x2, double y2, Structure structure, ref double remain) { 
             double length = Math.Sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
             double lengthLeft = length;
+            double r = structure.dotGapLength;
             double xk = (x2 != x1) ? (x2 - x1) / Math.Abs(x2 - x1) : 1;
-            double yk = (y2 != y1) ? (y2 - y1) / Math.Abs(y2 - y1) : 1;
             (double x, double y) = (x1, y1);
             double dy = (y2 - y1) / (x2 - x1);
 
             var dots = new List<(Ellipse, double, double)>();
-
 
             if(length < remain)
             {
