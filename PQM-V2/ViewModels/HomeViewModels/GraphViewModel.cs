@@ -558,11 +558,11 @@ namespace PQM_V2.ViewModels.HomeViewModels
             return lines;
         }
 
-        private Ellipse getEllipse(double radius, Structure structure)
+        private Ellipse getEllipse(Structure structure)
         {
             Ellipse dot = new Ellipse();
-            dot.Height = radius * 2;
-            dot.Width = radius * 2;
+            dot.Height = structure.lineThickness * 2;
+            dot.Width = structure.lineThickness * 2;
             dot.Fill = structure.color;
             return dot;
         }
@@ -584,18 +584,18 @@ namespace PQM_V2.ViewModels.HomeViewModels
             }
 
             (x, y) = (x + xk * remain / Math.Sqrt(1 + dy * dy), y + remain * dy / Math.Sqrt(1 + dy * dy));
-            dots.Add((getEllipse(radius, structure), x, y));
+            dots.Add((getEllipse(structure), x, y));
             lengthLeft -= remain;
 
 
             while(r < lengthLeft)
             {
                 (x, y) = (x + xk * r / Math.Sqrt(1 + dy * dy), y + r * dy / Math.Sqrt(1 + dy * dy));
-                dots.Add((getEllipse(radius, structure), x, y));
+                dots.Add((getEllipse(structure), x, y));
                 lengthLeft -= r;
             }
 
-            dots.Add((getEllipse(radius, structure), x, y));
+            dots.Add((getEllipse(structure), x, y));
             remain = r - lengthLeft;
 
             return dots;

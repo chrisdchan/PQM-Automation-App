@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:PQM_V2.Views.HomeViews.AttributePanelViews" xmlns:fa="http://schemas.fontawesome.io/icons/" xmlns:xtck="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:local="clr-namespace:PQM_V2.Views.HomeViews.AttributePanelViews" xmlns:fa="http://schemas.fontawesome.io/icons/" xmlns:xtck="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:customcontrols="clr-namespace:PQM_V2.CustomControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -54,20 +54,47 @@
                 <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
             </StackPanel>
             <StackPanel Style="{StaticResource attribSP}">
+                <TextBlock Style="{StaticResource attribTextBlockLabel}">Line Type</TextBlock>
+                <customcontrols:CommandComboBox 
+                          Style="{StaticResource comboBox}"
+                          Command="{Binding changeLineTypeInputCommand}"
+                          SelectionChanged="CommandComboBox_SelectionChanged"
+                          SelectedIndex="{Binding Path=lineType, Mode=TwoWay}">
+                    <ComboBoxItem>Solid</ComboBoxItem>
+                    <ComboBoxItem>Dashed</ComboBoxItem>
+                    <ComboBoxItem>Dotted</ComboBoxItem>
+                </customcontrols:CommandComboBox>
+                <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+            </StackPanel>
+            <StackPanel Style="{StaticResource attribSP}"
+                        Visibility="{Binding Path=lineThicknessVisible, Converter={StaticResource booleanVisibilityConverter} }">
                 <TextBlock Style="{StaticResource attribTextBlockLabel}">Line Thickness</TextBlock>
                 <TextBox Style="{StaticResource attribTextBox}"
                          Text="{Binding Path=lineThickness, Mode=TwoWay}"/>
                 <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
             </StackPanel>
-            <StackPanel Style="{StaticResource attribSP}">
-                <TextBlock Style="{StaticResource attribTextBlockLabel}">Line Thickness</TextBlock>
-                <ComboBox Style="{StaticResource comboBox}" SelectedIndex="{Binding Path=lineType, Mode=TwoWay}">
-                    <ComboBoxItem>Solid</ComboBoxItem>
-                    <ComboBoxItem>Dashed</ComboBoxItem>
-                    <ComboBoxItem>Dotted</ComboBoxItem>
-                </ComboBox>
+            <StackPanel Visibility="{Binding Path=dashLengthVisible, Converter={StaticResource booleanVisibilityConverter}}" 
+                        Style="{StaticResource attribSP}">
+                <TextBlock Style="{StaticResource attribTextBlockLabel}">Dash Length</TextBlock>
+                <TextBox Style="{StaticResource attribTextBox}"
+                         Text="{Binding Path=dashLength, Mode=TwoWay}"/>
                 <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
             </StackPanel>
+            <StackPanel Visibility="{Binding Path=dotRadiusVisible, Converter={StaticResource booleanVisibilityConverter}}" 
+                        Style="{StaticResource attribSP}">
+                <TextBlock Style="{StaticResource attribTextBlockLabel}">Dot Radius</TextBlock>
+                <TextBox Style="{StaticResource attribTextBox}"
+                         Text="{Binding Path=dotRadius, Mode=TwoWay}"/>
+                <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+            </StackPanel>
+            <StackPanel Visibility="{Binding Path=dotGapLengthVisible, Converter={StaticResource booleanVisibilityConverter}}" 
+                        Style="{StaticResource attribSP}">
+                <TextBlock Style="{StaticResource attribTextBlockLabel}">Gap Length</TextBlock>
+                <TextBox Style="{StaticResource attribTextBox}"
+                         Text="{Binding Path=dotGapLength, Mode=TwoWay}"/>
+                <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+            </StackPanel>
+
             <TextBlock Style="{StaticResource errorMessage}" Text="{Binding lineTypeError}"
                        Visibility="{Binding showLineTypeError, Converter={StaticResource booleanVisibilityConverter}}"/>
             <Button Style="{StaticResource updateButton}" Content="Update Style"

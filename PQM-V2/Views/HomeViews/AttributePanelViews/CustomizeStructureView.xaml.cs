@@ -1,4 +1,5 @@
-﻿using PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels;
+﻿using PQM_V2.CustomControls;
+using PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,13 @@ namespace PQM_V2.Views.HomeViews.AttributePanelViews
         {
             InitializeComponent();
             DataContext = new CustomizeStructureViewModel();
+        }
+
+        private void CommandComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CommandComboBox comboBox = (CommandComboBox)sender;
+            ICommand command = comboBox.Command;
+            command.Execute("");
         }
     }
 }

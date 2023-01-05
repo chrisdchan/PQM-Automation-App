@@ -22,6 +22,11 @@ namespace PQM_V2.Models
         public SolidColorBrush color { get; set; }
 
         public double lineThickness { get; set; }
+        public double dotGapLength { get; set; }
+        public double dashLength { get; set; }
+        public double dotRadius { get; set; }
+
+
         public LineType lineType { get; set; }
         public string name { get; set; }
         public bool visible { get; set; }
@@ -36,9 +41,13 @@ namespace PQM_V2.Models
             _filePath = filePath;
             visible = true;
             selected = false;
-            lineThickness = 1;
-            lineType = LineType.solid;
             _splines = new List<Spline>();
+
+            lineType = LineType.solid;
+            lineThickness = 1;
+            dotGapLength = 5;
+            dashLength = 5;
+            dotRadius = 1;
 
             setSplines();
             _maxX = _splines[_splines.Count - 1].x2;
