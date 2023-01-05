@@ -66,6 +66,9 @@
                 </customcontrols:CommandComboBox>
                 <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
             </StackPanel>
+            
+            <TextBlock Style="{StaticResource errorMessage}" Text="{Binding lineThicknessError}"
+                       Visibility="{Binding lineThicknessError, Converter={StaticResource errorStringVisibilityConverter}}"/>
             <StackPanel Style="{StaticResource attribSP}"
                         Visibility="{Binding Path=lineThicknessVisible, Converter={StaticResource booleanVisibilityConverter} }">
                 <TextBlock Style="{StaticResource attribTextBlockLabel}">Line Thickness</TextBlock>
@@ -73,6 +76,9 @@
                          Text="{Binding Path=lineThickness, Mode=TwoWay}"/>
                 <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
             </StackPanel>
+
+            <TextBlock Style="{StaticResource errorMessage}" Text="{Binding dashLengthError}"
+                       Visibility="{Binding dashLengthError, Converter={StaticResource errorStringVisibilityConverter}}"/>
             <StackPanel Visibility="{Binding Path=dashLengthVisible, Converter={StaticResource booleanVisibilityConverter}}" 
                         Style="{StaticResource attribSP}">
                 <TextBlock Style="{StaticResource attribTextBlockLabel}">Dash Length</TextBlock>
@@ -80,6 +86,9 @@
                          Text="{Binding Path=dashLength, Mode=TwoWay}"/>
                 <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
             </StackPanel>
+
+            <TextBlock Style="{StaticResource errorMessage}" Text="{Binding dotRadiusError}"
+                       Visibility="{Binding dotRadiusError, Converter={StaticResource errorStringVisibilityConverter}}"/>
             <StackPanel Visibility="{Binding Path=dotRadiusVisible, Converter={StaticResource booleanVisibilityConverter}}" 
                         Style="{StaticResource attribSP}">
                 <TextBlock Style="{StaticResource attribTextBlockLabel}">Dot Radius</TextBlock>
@@ -87,6 +96,9 @@
                          Text="{Binding Path=dotRadius, Mode=TwoWay}"/>
                 <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
             </StackPanel>
+
+            <TextBlock Style="{StaticResource errorMessage}" Text="{Binding dotGapLengthError}"
+                       Visibility="{Binding dotGapLengthError, Converter={StaticResource errorStringVisibilityConverter}}"/>
             <StackPanel Visibility="{Binding Path=dotGapLengthVisible, Converter={StaticResource booleanVisibilityConverter}}" 
                         Style="{StaticResource attribSP}">
                 <TextBlock Style="{StaticResource attribTextBlockLabel}">Gap Length</TextBlock>
@@ -94,9 +106,6 @@
                          Text="{Binding Path=dotGapLength, Mode=TwoWay}"/>
                 <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
             </StackPanel>
-
-            <TextBlock Style="{StaticResource errorMessage}" Text="{Binding lineTypeError}"
-                       Visibility="{Binding lineTypeError, Converter={StaticResource errorStringVisibilityConverter}}"/>
             <Button Style="{StaticResource updateButton}" Content="Update Style"
                     Command="{Binding updateCommand}"/>
         </StackPanel>
