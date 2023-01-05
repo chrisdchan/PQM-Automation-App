@@ -132,4 +132,5 @@
     </Style>
 
     <converters:BooleanVisibilityConverter x:Key="booleanVisibilityConverter"/>
+    <converters:ErrorStringVisibilityConverter x:Key="errorStringVisibilityConverter"/>
 </ResourceDictionary>

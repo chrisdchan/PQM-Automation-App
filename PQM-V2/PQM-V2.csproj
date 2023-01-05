@@ -106,6 +106,7 @@
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Converters\BooleanVisibilityConverter.cs" />
     <Compile Include="Converters\CombiningConverter.cs" />
+    <Compile Include="Converters\ErrorStringVisibilityConverter.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Converters\ProbeTypeBorderConverter.cs" />
     <Compile Include="CustomControls\CommandComboBox.cs" />

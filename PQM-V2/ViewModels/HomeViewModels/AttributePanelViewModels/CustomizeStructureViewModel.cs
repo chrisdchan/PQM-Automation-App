@@ -30,8 +30,7 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         private bool _dotGapLengthVisible;
         private bool _dotRadiusVisible;
 
-        private bool _showColorError;
-        private string _colorError;
+        private string _selectStructureError;
         private bool _showLineTypeError;
         private string _lineTypeError;
 
@@ -39,12 +38,11 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         public Structure selectedStructure { get => _selectedStructure; set { _selectedStructure = value; onPropertyChanged(nameof(selectedStructure));  }}
         public string colorSelect { get => _colorSelect; set {
                 _colorSelect = value;
-                showColorError = false;
+                selectStructureError = null;
                 onPropertyChanged(nameof(colorSelect)); 
             } }
         public int lineType { get => _lineType; set { _lineType = value; onPropertyChanged(nameof(lineType)); } }
-        public string colorError { get => _colorError; set { _colorError = value; onPropertyChanged(nameof(colorError));  }}
-        public bool showColorError { get => _showColorError; set { _showColorError = value; onPropertyChanged(nameof(showColorError));  }}
+        public string selectStructureError { get => _selectStructureError; set { _selectStructureError = value; onPropertyChanged(nameof(selectStructureError));  }}
         public string lineTypeError { get => _lineTypeError; set { _lineTypeError = value; onPropertyChanged(nameof(lineTypeError));  }}
         public bool showLineTypeError { get => _showLineTypeError; set { _showLineTypeError = value; onPropertyChanged(nameof(showLineTypeError));  }}
 
@@ -106,8 +104,7 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         {
             if (selectedStructure == null)
             {
-                showColorError = true;
-                colorError = "Please Select a Structure";
+                selectStructureError = "Please Select a Structure";
             }
             else if(lineType == -1)
             {
