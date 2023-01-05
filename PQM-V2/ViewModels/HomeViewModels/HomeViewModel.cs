@@ -119,7 +119,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
 
             Rect rect = new Rect(canvas.RenderSize);
             RenderTargetBitmap rtb = new RenderTargetBitmap((int)rect.Right,
-             (int)rect.Bottom, 96d, 96d, System.Windows.Media.PixelFormats.Default);
+             (int)rect.Bottom, 600d, 600d, System.Windows.Media.PixelFormats.Default);
             rtb.Render(canvas);
             //endcode as PNG
             BitmapEncoder pngEncoder = new PngBitmapEncoder();

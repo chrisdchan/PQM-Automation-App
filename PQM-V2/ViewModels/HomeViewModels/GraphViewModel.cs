@@ -292,21 +292,44 @@ namespace PQM_V2.ViewModels.HomeViewModels
                 StackPanel horizontalSP = new StackPanel();
                 horizontalSP.Orientation = Orientation.Horizontal;
 
-                Rectangle rectangle = new Rectangle();
-                rectangle.Fill = structure.color;
+                double totalWidth = 12;
+                double lineHeight = 2;
+
+                if(structure.lineType == LineType.solid)
+                {
+                    horizontalSP.Children.Add(getRectangle(12, 2, structure));
+                }
+                else if (structure.lineType == LineType.dashed)
+                {
+                    for (int i = 0; i < 2; i++)
+                    {
+                        var r = getRectangle(totalWidth / 4, lineHeight, structure);
+                        r.Margin = new Thickness(0, 0, totalWidth / 4, 0);
+                        horizontalSP.Children.Add(r);
+                    }
+                }
+                else
+                {
+                    double radius = 1;
+                    for(int i = 0; i <  totalWidth / (4 * radius); i++)
+                    {
+                        var ellipse = getEllipse(radius, structure);
+                        ellipse.Margin = new Thickness(radius, 0, radius, 0);
+                        horizontalSP.Children.Add(ellipse);
+                    }
+                }
+
 
                 TextBlock textBlock = new TextBlock();
                 textBlock.FontSize = _graphCustomizeStore.legendSize;
                 textBlock.Foreground = stringToBrush(_graphCustomizeStore.foregroundColor);
                 textBlock.Margin = new Thickness(5, 0, 0, 0);
                 textBlock.Text = structure.name;
+                textBlock.Width = textBlock.FontSize * (48.0 / 72.0) * textBlock.Text.Length;
+                textBlock.Height = textBlock.FontSize * (96.0 / 72.0);
 
-                fixLegendBlockHeightAndWidth(textBlock, rectangle);
                 height = textBlock.Height;
-
-                horizontalSP.Children.Add(rectangle);
                 horizontalSP.Children.Add(textBlock);
-
                 stackPanel.Children.Add(horizontalSP);
             }
             _baseCanvas.Children.Add(stackPanel);
@@ -314,6 +337,15 @@ namespace PQM_V2.ViewModels.HomeViewModels
             double totalHeight = height * _graphStore.graph.structures.Count;
             Canvas.SetTop(stackPanel, (_borders.top + _borders.bottom + totalHeight) / 2.0);
         }
+        private Rectangle getRectangle(double width, double height, Structure structure)
+        {
+            var rect = new Rectangle();
+            rect.Height = height;
+            rect.Width = width;
+            rect.Fill = structure.color;
+            return rect;
+        }
+
         private void setTitleSize(TextBlock textBlock, double fontSize)
         {
             int textLength = textBlock.Text.Length;
@@ -555,6 +587,14 @@ namespace PQM_V2.ViewModels.HomeViewModels
             return lines;
         }
 
+        private Ellipse getEllipse(double rad, Structure structure)
+        {
+            Ellipse dot = new Ellipse();
+            dot.Height = rad * 2;
+            dot.Width = rad * 2;
+            dot.Fill = structure.color;
+            return dot;
+        }
         private Ellipse getEllipse(Structure structure)
         {
             Ellipse dot = new Ellipse();
