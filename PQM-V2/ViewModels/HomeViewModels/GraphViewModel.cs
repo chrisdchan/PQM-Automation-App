@@ -458,7 +458,8 @@ namespace PQM_V2.ViewModels.HomeViewModels
                 }
                 else if(structure.lineType == LineType.dashed)
                 {
-                    var brokenLines = getDashedLine(mx1, my1, mx2, my2, structure, 10, ref draw, ref remain);
+                    double segLen = 10;
+                    var brokenLines = getDashedLine(mx1, my1, mx2, my2, structure, segLen, ref draw, ref remain);
                     foreach(Line line in brokenLines)
                     {
                         canvas.Children.Add(line);
@@ -466,11 +467,17 @@ namespace PQM_V2.ViewModels.HomeViewModels
                 }
                 else
                 {
-                    addDottedLine(mx1, my1, mx2, my2, structure, 2, 2, canvas);
+                    double segLen = 5;
+                    double rad = 1;
+                    var dots = getDottedLine(mx1, my1, mx2, my2, structure, segLen, rad, ref remain);
+                    foreach((Ellipse dot, double left, double top) in dots)
+                    {
+                        canvas.Children.Add(dot);
+                        Canvas.SetLeft(dot, left);
+                        Canvas.SetTop(dot, top);
+                    }
                 }
-
             }
-
         }
 
         // ------------ Helper Methods --------------------------------------------------
@@ -551,35 +558,47 @@ namespace PQM_V2.ViewModels.HomeViewModels
             return lines;
         }
 
-        private void addDottedLine(double x1, double y1, double x2, double y2, Structure structure, double r, double space, Canvas canvas)
+        private Ellipse getEllipse(double radius, Structure structure)
         {
+            Ellipse dot = new Ellipse();
+            dot.Height = radius * 2;
+            dot.Width = radius * 2;
+            dot.Fill = structure.color;
+            return dot;
+        }
+        private List<(Ellipse, double, double)> getDottedLine(double x1, double y1, double x2, double y2, Structure structure, double r, double radius, ref double remain) { 
             double length = Math.Sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
+            double lengthLeft = length;
             double xk = (x2 != x1) ? (x2 - x1) / Math.Abs(x2 - x1) : 1;
             double yk = (y2 != y1) ? (y2 - y1) / Math.Abs(y2 - y1) : 1;
-            double x, y;
-            double tx, ty;
+            (double x, double y) = (x1, y1);
             double dy = (y2 - y1) / (x2 - x1);
 
-            var dots = new List<Ellipse>();
+            var dots = new List<(Ellipse, double, double)>();
 
-            (tx, ty) = (x1, y1);
-            (x, y) = (tx + xk * r / Math.Sqrt(1 + dy * dy), ty + r * dy / Math.Sqrt(1 + dy * dy));
 
-            while(xk * (x - x1) < xk * (x2 - x1) && yk * (y - y1) < yk * (y2 - y1))
+            if(length < remain)
             {
-                (x, y) = (tx + xk * r / Math.Sqrt(1 + dy * dy), ty + r * dy / Math.Sqrt(1 + dy * dy));
-
-                var dot = new Ellipse();
-                dot.Width = 2 * r;
-                dot.Height = 2 * r;
-                dot.Fill = structure.color;
-                canvas.Children.Add(dot);
-
-                Canvas.SetLeft(dot, tx);
-                Canvas.SetRight(dot, ty);
-
-                (tx, ty) = (x, y);
+                remain -= length;
+                return dots;
             }
+
+            (x, y) = (x + xk * remain / Math.Sqrt(1 + dy * dy), y + remain * dy / Math.Sqrt(1 + dy * dy));
+            dots.Add((getEllipse(radius, structure), x, y));
+            lengthLeft -= remain;
+
+
+            while(r < lengthLeft)
+            {
+                (x, y) = (x + xk * r / Math.Sqrt(1 + dy * dy), y + r * dy / Math.Sqrt(1 + dy * dy));
+                dots.Add((getEllipse(radius, structure), x, y));
+                lengthLeft -= r;
+            }
+
+            dots.Add((getEllipse(radius, structure), x, y));
+            remain = r - lengthLeft;
+
+            return dots;
         }
         private void setCanvasHeightWidth(Canvas canvas) 
         {
