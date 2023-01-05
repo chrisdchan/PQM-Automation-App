@@ -83,7 +83,7 @@ namespace PQM_V2.Models
 
             (a, b, c, _) = getCoefficients();
 
-            double dydx = a * Math.Pow(globalX, 2) + b * globalX + c;
+            double dydx = 3 * a * Math.Pow(globalX, 2) + 2 * b * globalX + c;
             return dydx;
         }
         public double invInterpolate(double globalY)

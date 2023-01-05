@@ -298,6 +298,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
                 TextBlock textBlock = new TextBlock();
                 textBlock.FontSize = _graphCustomizeStore.legendSize;
                 textBlock.Foreground = stringToBrush(_graphCustomizeStore.foregroundColor);
+                textBlock.Margin = new Thickness(5, 0, 0, 0);
                 textBlock.Text = structure.name;
 
                 fixLegendBlockHeightAndWidth(textBlock, rectangle);
@@ -435,28 +436,41 @@ namespace PQM_V2.ViewModels.HomeViewModels
             double xmin = _graphCustomizeStore.xmin;
             double xmax = _graphCustomizeStore.xmax;
             int numPoints = _graphCustomizeStore.numPoints;
+            List<((double, double), (double, double))> lines;
 
-            List<(double x, double y)> points = structure.interpolateRange(xmin, xmax, numPoints);
+            lines = structure.interpolateSolid(xmin, xmax, numPoints - 1);
 
-            double x1, x2, y1, y2;
             double mx1, mx2, my1, my2;
 
-            for (int i = 0; i < points.Count - 1; i++)
+            bool draw = true;
+            double remain = 0;
+            foreach(((double x1, double y1), (double x2, double y2)) in lines)
             {
-                x1 = points[i].x;
-                y1 = points[i].y;
-                x2 = points[i + 1].x;
-                y2 = points[i + 1].y;
-
                 mx1 = _map.x(x1);
                 my1 = _map.y(y1);
                 mx2 = _map.x(x2);
                 my2 = _map.y(y2);
 
+                if(structure.lineType == LineType.solid)
+                {
+                    var line = getLine(mx1, my1, mx2, my2, structure);
+                    canvas.Children.Add(line);
+                }
+                else if(structure.lineType == LineType.dashed)
+                {
+                    var brokenLines = getDashedLine(mx1, my1, mx2, my2, structure, 10, ref draw, ref remain);
+                    foreach(Line line in brokenLines)
+                    {
+                        canvas.Children.Add(line);
+                    }
+                }
+                else
+                {
+                    addDottedLine(mx1, my1, mx2, my2, structure, 2, 2, canvas);
+                }
 
-                Line line = getLine(mx1, my1, mx2, my2, structure);
-                canvas.Children.Add(line);
             }
+
         }
 
         // ------------ Helper Methods --------------------------------------------------
@@ -492,6 +506,80 @@ namespace PQM_V2.ViewModels.HomeViewModels
             line.StrokeThickness = structure.lineThickness;
             line.Stroke = structure.color;
             return line;
+        }
+
+        private List<Line> getDashedLine(double x1, double y1, double x2, double y2, Structure structure, double r, ref bool draw, ref double remain)
+        {
+            double length = Math.Sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
+            double lengthLeft = length;
+            double xk = (x2 != x1) ? (x2 - x1) / Math.Abs(x2 - x1) : 1;
+            double yk = (y2 != y1) ? (y2 - y1) / Math.Abs(y2 - y1) : 1;
+            double x, y;
+            double tx, ty;
+            double dy = (y2 - y1) / (x2 - x1);
+
+            var lines = new List<Line>();
+
+
+            if(length < remain)
+            {
+                if(draw) lines.Add(getLine(x1, y1, x2, y2, structure));
+                remain -= length;
+                return lines;
+            }
+
+            (tx, ty) = (x1, y1);
+            (x, y) = (tx + xk * remain / Math.Sqrt(1 + dy * dy), ty + remain * dy / Math.Sqrt(1 + dy * dy));
+            if (draw) lines.Add(getLine(tx, ty, x, y, structure));
+            (tx, ty) = (x, y);
+            lengthLeft -= remain;
+            draw = !draw;
+
+
+            while(r < lengthLeft)
+            {
+                (x, y) = (tx + xk * r / Math.Sqrt(1 + dy * dy), ty + r * dy / Math.Sqrt(1 + dy * dy));
+                if(draw) lines.Add(getLine(tx, ty, x, y, structure));
+                lengthLeft -= r;
+                draw = !draw;
+                (tx, ty) = (x, y);
+            }
+
+            if (draw) lines.Add(getLine(tx, ty, x2, y2, structure));
+            remain = r - lengthLeft;
+
+            return lines;
+        }
+
+        private void addDottedLine(double x1, double y1, double x2, double y2, Structure structure, double r, double space, Canvas canvas)
+        {
+            double length = Math.Sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
+            double xk = (x2 != x1) ? (x2 - x1) / Math.Abs(x2 - x1) : 1;
+            double yk = (y2 != y1) ? (y2 - y1) / Math.Abs(y2 - y1) : 1;
+            double x, y;
+            double tx, ty;
+            double dy = (y2 - y1) / (x2 - x1);
+
+            var dots = new List<Ellipse>();
+
+            (tx, ty) = (x1, y1);
+            (x, y) = (tx + xk * r / Math.Sqrt(1 + dy * dy), ty + r * dy / Math.Sqrt(1 + dy * dy));
+
+            while(xk * (x - x1) < xk * (x2 - x1) && yk * (y - y1) < yk * (y2 - y1))
+            {
+                (x, y) = (tx + xk * r / Math.Sqrt(1 + dy * dy), ty + r * dy / Math.Sqrt(1 + dy * dy));
+
+                var dot = new Ellipse();
+                dot.Width = 2 * r;
+                dot.Height = 2 * r;
+                dot.Fill = structure.color;
+                canvas.Children.Add(dot);
+
+                Canvas.SetLeft(dot, tx);
+                Canvas.SetRight(dot, ty);
+
+                (tx, ty) = (x, y);
+            }
         }
         private void setCanvasHeightWidth(Canvas canvas) 
         {

@@ -271,6 +271,36 @@ namespace PQM_V2.Models
             double dy = _splines[spline].interpolateDerivative(x);
             return dy;
         }
+        
+        public List<((double, double), (double, double))> interpolateSolid(double xmin, double xmax, int numLines)
+        {
+            if (xmin >= xmax) throw new Exception("invalid xmin and xmax");
+            if (xmax > _maxX) xmax = _maxX;
+
+            var lines = new List<((double, double), (double, double))>();
+            int spline = 0;
+
+            double x1 = xmin;
+            while (_splines[spline].x2 < x1) spline++;
+            double y1 = _splines[spline].interpolate(x1);
+
+            double dx = (xmax - xmin) / numLines;
+
+            double x2;
+            double y2;
+
+            for(int i = 0; i < numLines; i++)
+            {
+                x2 = x1 + dx;
+                if (x2 > xmax) break;
+                while(_splines[spline].x2 < x2) spline++;
+                y2 = _splines[spline].interpolate(x2);
+                lines.Add(((x1, y1), (x2, y2)));
+                x1 = x2;
+                y1 = y2;
+            }
+            return lines;
+        }
         public List<(double, double)> interpolateRange(double xmin, double xmax, int numPoints)
         {
             if (xmin >= xmax) throw new Exception("invalid xmin and xmax");
