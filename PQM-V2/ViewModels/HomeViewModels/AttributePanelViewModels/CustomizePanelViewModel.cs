@@ -22,34 +22,37 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         private int _axesThickness;
         private int _numPoints;
         private int _axesTickSize;
+        private string _axesError;
 
         private int _titleSize;
         private int _titleLeftOffset;
         private int _titleTopOffset;
         private bool _titleBold;
         private bool _titleItalic;
+        private string _titleError;
 
         private int _xAxisTitleSize;
         private int _xAxisTitleLeftOffset;
         private int _xAxisTitleTopOffset;
         private bool _xAxisTitleBold;
         private bool _xAxisTitleItalic;
+        private string _xAxisTitleError;
 
         private int _yAxisTitleSize;
         private int _yAxisTitleLeftOffset;
         private int _yAxisTitleTopOffset;
         private bool _yAxisTitleBold;
         private bool _yAxisTitleItalic;
+        private string _yAxisTitleError;
 
         private int _legendSize;
+        private string _legendError;
 
         private string _backgroundColor;
         private string _foregroundColor;
 
-
         private bool _showSelectedStructureColorError;
         private string _selectedStructureColorError;
-
 
         public int numXAxisTicks { get => _numXAxisTicks; set { _numXAxisTicks = value; onPropertyChanged(nameof(numXAxisTicks)); } }
         public int numYAxisTicks { get => _numYAxisTicks; set { _numYAxisTicks = value; onPropertyChanged(nameof(numYAxisTicks)); } }
@@ -80,9 +83,15 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         public string backgroundColor { get => _backgroundColor; set { _backgroundColor = value; onPropertyChanged(nameof(backgroundColor)); } }
         public string foregroundColor { get => _foregroundColor; set { _foregroundColor = value; onPropertyChanged(nameof(foregroundColor)); } }
 
-
         public bool showSelectedStructureColorError { get => _showSelectedStructureColorError; set { _showSelectedStructureColorError = value; onPropertyChanged(nameof(showSelectedStructureColorError)); } }
         public string selectedStructureColorError { get => _selectedStructureColorError; set { _selectedStructureColorError = value; onPropertyChanged(nameof(selectedStructureColorError)); } }
+
+        public string axesError { get => _axesError; set { _axesError = value; onPropertyChanged(nameof(axesError)); } }
+        public string titleError { get => _titleError; set { _titleError = value; onPropertyChanged(nameof(titleError)); } }
+        public string xAxisTitleError { get => _xAxisTitleError; set { _xAxisTitleError = value; onPropertyChanged(nameof(xAxisTitleError)); } }
+        public string yAxisTitleError { get => _yAxisTitleError; set { _yAxisTitleError = value; onPropertyChanged(nameof(yAxisTitleError)); } }
+        public string legendError { get => _legendError; set { _legendError = value; onPropertyChanged(nameof(legendError)); } }
+
 
         public RelayCommand updateLegendSettingsCommand { get; private set; }
         public RelayCommand updateGraphColorSettingsCommand { get; private set; }
@@ -125,6 +134,12 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             foregroundColor = _graphCustomizeStore.foregroundColor;
             backgroundColor = _graphCustomizeStore.backgroundColor;
 
+            axesError = null;
+            titleError = null;
+            xAxisTitleError = null;
+            yAxisTitleError = null;
+            legendError = null;
+
             updateAxisSettingsCommand = new RelayCommand(updateAxesSettings);
             updateLegendSettingsCommand = new RelayCommand(updateLegendSettings);
             updateGraphColorSettingsCommand = new RelayCommand(updateGraphColorSettings);
@@ -135,15 +150,25 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
 
         private void updateAxesSettings(object _)
         {
-            _graphCustomizeStore.numXAxisTicks = _numXAxisTicks;
-            _graphCustomizeStore.numYAxisTicks = _numYAxisTicks;
-            _graphCustomizeStore.axesThickness = _axesThickness;
-            _graphCustomizeStore.axesTickSize = _axesTickSize;
-            _graphCustomizeStore.numPoints = _numPoints;
+            if(numXAxisTicks == 0 ) { axesError = "Axes ticks cannot be 0"; return; }
+            if(numYAxisTicks == 0 ) { axesError = "Axes ticks cannot be 0"; return; }
+            if(numXAxisTicks < 0 ) { axesError = "Axes ticks cannot be negative"; return; }
+            if(numYAxisTicks < 0 ) { axesError = "Axes ticks cannot be negative"; return; }
+            if(axesThickness <= 0) { axesError = "Axes thickness must be 1 or greater"; return; }
+            if(numPoints <= 1) { axesError = "Number of points must be 2 or greater"; return; }
+            if(numPoints > 1000) { axesError = "Too many points will make the app slow!"; return; }
+
+            _graphCustomizeStore.numXAxisTicks = numXAxisTicks;
+            _graphCustomizeStore.numYAxisTicks = numYAxisTicks;
+            _graphCustomizeStore.axesThickness = axesThickness;
+            _graphCustomizeStore.axesTickSize = axesTickSize;
+            _graphCustomizeStore.numPoints = numPoints;
             _graphCustomizeStore.onGraphCustomizeChanged();
         }
         private void updateTitleSettings(object _)
         {
+            if(titleSize <= 0) { titleError = "Title size must be greater than 0"; return; }
+
             _graphCustomizeStore.titleSize = _titleSize;
             _graphCustomizeStore.titleLeftOffset = _titleLeftOffset;
             _graphCustomizeStore.titleTopOffset = _titleTopOffset;
@@ -153,6 +178,8 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         }
         private void updateXAxisTitleSettings(object _)
         {
+            if(xAxisTitleSize <= 0) { xAxisTitleError = "Title size must be greater than 0"; return; }
+
             _graphCustomizeStore.xAxisTitleSize = _xAxisTitleSize;
             _graphCustomizeStore.xAxisTitleLeftOffset = _xAxisTitleLeftOffset;
             _graphCustomizeStore.xAxisTitleTopOffset = _xAxisTitleTopOffset;
@@ -162,6 +189,8 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         }
         private void updateYAxisTitleSettings(object _)
         {
+            if(yAxisTitleSize <= 0) { yAxisTitleError = "Title size must be greater than 0"; return; }
+
             _graphCustomizeStore.yAxisTitleSize = _yAxisTitleSize;
             _graphCustomizeStore.yAxisTitleLeftOffset = _yAxisTitleLeftOffset;
             _graphCustomizeStore.yAxisTitleTopOffset = _yAxisTitleTopOffset;
@@ -171,6 +200,8 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         }
         private void updateLegendSettings(object _)
         {
+            if(legendSize <= 0) { legendError = "Legend size must be greater than 0"; return; }
+
             _graphCustomizeStore.legendSize = _legendSize;
             _graphCustomizeStore.onGraphCustomizeChanged();
         }

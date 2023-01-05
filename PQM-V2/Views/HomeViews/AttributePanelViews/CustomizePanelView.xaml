@@ -18,6 +18,8 @@
             <Expander Style="{StaticResource indentedExpander}" Header="Title Settings"
                       Expanded="Expander_Expanded">
                 <StackPanel>
+                <TextBlock Style="{StaticResource errorMessage}" Text="{Binding titleError}"
+                       Visibility="{Binding titleError, Converter={StaticResource errorStringVisibilityConverter}}"/>
                 <StackPanel Style="{StaticResource attribSP}">
                     <TextBlock Style="{StaticResource attribTextBlockLabel}">Left Offset</TextBlock>
                     <TextBox Style="{StaticResource attribTextBox}"
@@ -48,6 +50,8 @@
                 Style="{StaticResource indentedExpander}" Header="Axis Settings">
                 <StackPanel>
                 <StackPanel Style="{StaticResource attribSP}">
+                    <TextBlock Style="{StaticResource errorMessage}" Text="{Binding axesError}"
+                           Visibility="{Binding axesError, Converter={StaticResource errorStringVisibilityConverter}}"/>
                     <TextBlock Style="{StaticResource attribTextBlockLabel}">Number of X Ticks</TextBlock>
                     <TextBox Style="{StaticResource attribTextBox}"
                              Text="{Binding Path=numXAxisTicks, Mode=TwoWay}"/>
@@ -84,6 +88,8 @@
             <Expander Expanded="Expander_Expanded"
                 Style="{StaticResource indentedExpander}" Header="X Axis Title Settings">
                 <StackPanel>
+                <TextBlock Style="{StaticResource errorMessage}" Text="{Binding xAxisTitleError}"
+                       Visibility="{Binding xAxisTitleError, Converter={StaticResource errorStringVisibilityConverter}}"/>
                 <StackPanel Style="{StaticResource attribSP}">
                     <TextBlock Style="{StaticResource attribTextBlockLabel}">X Axis Left Offset</TextBlock>
                     <TextBox Style="{StaticResource attribTextBox}"
@@ -113,6 +119,8 @@
             <Expander Expanded="Expander_Expanded"
                 Style="{StaticResource indentedExpander}" Header="Y Axis Title Settings">
                 <StackPanel>
+                <TextBlock Style="{StaticResource errorMessage}" Text="{Binding yAxisTitleError}"
+                       Visibility="{Binding yAxisTitleError, Converter={StaticResource errorStringVisibilityConverter}}"/>
                 <StackPanel Style="{StaticResource attribSP}">
                     <TextBlock Style="{StaticResource attribTextBlockLabel}"> Y Axis Left Offset</TextBlock>
                     <TextBox Style="{StaticResource attribTextBox}"
@@ -142,6 +150,8 @@
             <Expander Expanded="Expander_Expanded"
                 Style="{StaticResource indentedExpander}" Header="Legend Settings">
                 <StackPanel>
+                    <TextBlock Style="{StaticResource errorMessage}" Text="{Binding legendError}"
+                           Visibility="{Binding legendError, Converter={StaticResource errorStringVisibilityConverter}}"/>
                     <StackPanel Style="{StaticResource attribSP}">
                         <TextBlock Style="{StaticResource attribTextBlockLabel}"> Size</TextBlock>
                         <TextBox Style="{StaticResource attribTextBox}"

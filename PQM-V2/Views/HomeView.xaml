@@ -21,13 +21,35 @@
         <KeyBinding Command="{Binding navigateStartupCommand}"
                     CommandParameter="{x:Null}"
                     Key="E"
-                    Modifiers="Ctrl">
-        </KeyBinding>
+                    Modifiers="Ctrl"/>
         <KeyBinding Command="{Binding exitApplicationCommand}"
                     CommandParameter="{x:Null}"
                     Key="E"
-                    Modifiers="Ctrl+Shift">
-        </KeyBinding>
+                    Modifiers="Ctrl+Shift"/>
+
+        <KeyBinding Command="{Binding openFilesCommand}"
+                    CommandParameter="{x:Null}"
+                    Key="O"
+                    Modifiers="Ctrl"/>
+        <KeyBinding Command="{Binding openFolderCommand}"
+                    CommandParameter="{x:Null}"
+                    Key="O"
+                    Modifiers="Ctrl+Shift"/>
+        <KeyBinding Command="{Binding changeStructureCommand}" 
+                CommandParameter="left"
+                Key="Right"/>
+        <KeyBinding Command="{Binding changeStructureCommand}" 
+                CommandParameter="left"
+                Key="Left"/>
+        <KeyBinding Command="{Binding changeStructureCommand}" 
+                CommandParameter="right"
+                Key="Down"/>
+        <KeyBinding Command="{Binding changeStructureCommand}" 
+                CommandParameter="right"
+                Key="Right"/>
+        <KeyBinding Command="{Binding changeStructureCommand}" 
+                CommandParameter="left"
+                Key="Up"/>
     </UserControl.InputBindings>
     <Grid>
             <Grid.ColumnDefinitions>
@@ -49,7 +71,8 @@
                 <MenuItem Header="File" Style="{StaticResource navMenuItem}">
                     <MenuItem Header="Open Files" InputGestureText="Ctrl + O"
                               Command="{Binding openFilesCommand}"/>
-                    <MenuItem Header="Open Folder" InputGestureText="Ctrl + Shift + O"/>
+                    <MenuItem Header="Open Folder" InputGestureText="Ctrl + Shift + O"
+                              Command="{Binding openFolderCommand}"/>
                     <Separator/>
                     <MenuItem Header="Close Graph" InputGestureText="Ctrl + E"
                               Command="{Binding navigateStartupCommand}"/>

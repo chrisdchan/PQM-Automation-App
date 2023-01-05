@@ -36,6 +36,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
         public RelayCommand openFolderCommand { get; private set; }
         public RelayCommand exportGraphCommand { get; private set; }
         public RelayCommand exportTableCommand { get; private set; }
+        public RelayCommand changeStructureCommand { get; private set; }
         public bool graphVisible
         {
             get => _graphVisible;
@@ -86,9 +87,9 @@ namespace PQM_V2.ViewModels.HomeViewModels
             exitApplicationCommand = new RelayCommand(exitApplication);
             openFilesCommand = new RelayCommand(openFileDialog);
             openFolderCommand = new RelayCommand(openFolderDialog);
-
             exportGraphCommand = new RelayCommand(exportGraph);
             exportTableCommand = new RelayCommand(exportTable);
+            changeStructureCommand = new RelayCommand(changeStructure);
 
             _graphStore.graphChanged += onGraphChanged;
         }
@@ -204,6 +205,22 @@ namespace PQM_V2.ViewModels.HomeViewModels
                     }
                 }
             }
+        }
+        private void changeStructure(object message)
+        {
+            if(_graphStore.graph.selectedStructure == null)
+            {
+                _graphStore.graph.selectStructure(0);
+            }
+            else if((string)message == "left")
+            {
+                _graphStore.graph.newSelectedStructureFromOffset(-1);
+            }
+            else if((string)message == "right")
+            {
+                _graphStore.graph.newSelectedStructureFromOffset(1);
+            }
+            _graphStore.onSelectedStructureChanged();
         }
 
     }

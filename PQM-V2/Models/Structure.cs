@@ -156,7 +156,7 @@ namespace PQM_V2.Models
             }
             else
             {
-                name = last;
+                name = last.Split('.')[0];
             }
         }
         private void setHermites()
