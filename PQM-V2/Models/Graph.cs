@@ -8,6 +8,8 @@ using System.Windows.Media;
 
 namespace PQM_V2.Models
 {
+
+    public enum GraphType { CD, EField, SAR, none};
     public class Graph
         {
         private string[] _filepaths;
@@ -18,6 +20,7 @@ namespace PQM_V2.Models
         private bool _multipleMetricsFlag;
         public List<Structure> structures { get; set; }
         public Structure selectedStructure { get; set; }
+        public GraphType graphType { get; set; }
         public string title => _title;
         public string xaxisName => _xaxisName;
         public string yaxisName => _yaxisName;
@@ -138,11 +141,14 @@ namespace PQM_V2.Models
         private void setGraphTitles()
         {
             string metric = null;
+            graphType = GraphType.none;
+
             foreach(Structure structure in structures)
             {
                 if(metric == null)
                 {
                     metric = structure.metric;
+                    graphType = structure.graphType;
                 }
                 else if(metric != structure.metric)
                 {

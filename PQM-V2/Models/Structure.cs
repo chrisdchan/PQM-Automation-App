@@ -33,6 +33,7 @@ namespace PQM_V2.Models
         public bool selected { get; set; }
         public double maxX => _maxX;
         public string metric => _metric;
+        public GraphType graphType { get; set; }
         public int index { get; set; }
         public Structure(string filePath)
         {
@@ -143,6 +144,22 @@ namespace PQM_V2.Models
             string fileName = Path.GetFileName(_filePath);
             string[] fileNameParts = fileName.Split(' ');
             _metric = fileNameParts[0];
+
+            switch (fileNameParts[0])
+            {
+                case "CD":
+                    graphType = GraphType.CD;
+                    break;
+                case "E-Field":
+                    graphType = GraphType.EField;
+                    break;
+                case "E-field":
+                    graphType = GraphType.EField;
+                    break;
+                case "SAR":
+                    graphType = GraphType.SAR;
+                    break;
+            }
 
             string last = fileNameParts.Last();
             if (last == "Raw.csv")

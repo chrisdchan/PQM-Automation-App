@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -182,19 +183,67 @@ namespace PQM_V2.ViewModels.HomeViewModels
                 y += dy;
             }
         }
+
+        private TextBlock getCDTextBlock()
+        {
+            TextBlock textblock = new TextBlock();
+
+            Run title = new Run();
+            title.FontSize = _graphCustomizeStore.xAxisTitleSize;
+            title.Text = "Current Density (A / m";
+            textblock.Inlines.Add(title);
+
+            Run superscript = new Run();
+            superscript.FontSize = _graphCustomizeStore.xAxisTitleSize * 0.75;
+            superscript.BaselineAlignment = BaselineAlignment.TextTop;
+            superscript.Text = " 2";
+            textblock.Inlines.Add(superscript);
+
+            Run end = new Run();
+            end.FontSize = _graphCustomizeStore.xAxisTitleSize;
+            end.Text = " )";
+            textblock.Inlines.Add(end);
+
+            return textblock;
+            
+        }
+
         private void setAxesTitles()
         {
             double axisTitleHeight = 20;
             double axisTitleWidth = 300;
 
-            TextBlock xaxis = new TextBlock();
-            xaxis.Text = _graphStore.graph.xaxisName;
+            TextBlock xaxis;
+            switch (_graphStore.graph.graphType)
+            {
+                case GraphType.CD:
+                    xaxis = getCDTextBlock();
+                    break;
+                case GraphType.EField:
+                    xaxis = new TextBlock();
+                    xaxis.Text = "Electric Field (V / m)";
+                    setTitleSize(xaxis, _graphCustomizeStore.titleSize);
+                    break;
+                case GraphType.SAR:
+                    xaxis = new TextBlock();
+                    xaxis.Text = "Specific Absorption Rate (W / kg)";
+                    setTitleSize(xaxis, _graphCustomizeStore.titleSize);
+                    break;
+                default:
+                    xaxis = new TextBlock();
+                    xaxis.Text = "No Title";
+                    setTitleSize(xaxis, _graphCustomizeStore.titleSize);
+                    break;
+            }
+
+            xaxis.TextAlignment = TextAlignment.Center;
             xaxis.FontWeight = _graphCustomizeStore.xAxisTitleBold ? FontWeights.Bold : FontWeights.Normal;
             xaxis.FontStyle = _graphCustomizeStore.xAxisTitleItalic ? FontStyles.Italic : FontStyles.Normal;
-            xaxis.RenderTransform = new ScaleTransform(1, -1);
             xaxis.Foreground = stringToBrush(_graphCustomizeStore.foregroundColor);
-            xaxis.TextAlignment = TextAlignment.Center;
-            setTitleSize(xaxis, _graphCustomizeStore.xAxisTitleSize);
+            xaxis.RenderTransform = new ScaleTransform(1, -1);
+
+            //setTitleSize(xaxis, _graphCustomizeStore.xAxisTitleSize);
+
             _baseCanvas.Children.Add(xaxis);
             Canvas.SetLeft(xaxis, (_borders.left + _borders.right) / 2.0 - axisTitleWidth / 2.0 + _graphCustomizeStore.xAxisTitleLeftOffset);
             Canvas.SetTop(xaxis, _borders.bottom - 55 + _graphCustomizeStore.xAxisTitleTopOffset);
@@ -338,7 +387,6 @@ namespace PQM_V2.ViewModels.HomeViewModels
             rect.Fill = structure.color;
             return rect;
         }
-
         private void setTitleSize(TextBlock textBlock, double fontSize)
         {
             int textLength = textBlock.Text.Length;
