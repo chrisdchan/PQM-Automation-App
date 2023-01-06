@@ -44,7 +44,7 @@
                   Header="Export">
             <StackPanel>
                 <TextBlock Style="{StaticResource errorMessage}"
-                           Visibility="{Binding exportErrorr, Converter={StaticResource errorStringVisibilityConverter}}"
+                           Visibility="{Binding exportError, Converter={StaticResource errorStringVisibilityConverter}}"
                            Text="{Binding exportError}"/>
                 <StackPanel Style="{StaticResource attribSP}">
                     <TextBlock Style="{StaticResource attribTextBlockLabel}">DPI</TextBlock>

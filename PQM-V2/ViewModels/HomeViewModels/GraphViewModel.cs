@@ -207,43 +207,91 @@ namespace PQM_V2.ViewModels.HomeViewModels
             
         }
 
+        private TextBlock getFormattedTextBox(string title, double fontSize, Brush color)
+        {
+            TextBlock textblock = new TextBlock();
+            string str = "";
+            for(int i = 0; i < title.Length; i++)
+            {
+                char c = title[i];
+                if(c == '^')
+                {
+                    i++;
+                    char n = title[i];
+                    string exponent = "";
+                    while (char.IsNumber(n))
+                    {
+                        exponent += n;
+                        i++;
+                        if (i >= title.Length) break;
+                        n = title[i];
+                    }
+                    i--;
+
+                    if (string.IsNullOrEmpty(exponent))
+                    {
+                        str += "^";
+                    }
+                    else
+                    {
+                        Run text = new Run();
+                        text.FontSize = fontSize;
+                        text.Text = str;
+                        textblock.Inlines.Add(text);
+                        str = "";
+
+                        Run superscript = new Run();
+                        superscript.FontSize = fontSize * 0.75;
+                        superscript.BaselineAlignment = BaselineAlignment.TextTop;
+                        superscript.Text = exponent;
+                        textblock.Inlines.Add(superscript);
+                    }
+                }
+                else
+                {
+                    str += c;
+                }
+            }
+            if (!string.IsNullOrEmpty(str))
+            {
+                Run text = new Run();
+                text.FontSize = fontSize;
+                text.Text = str;
+                textblock.Inlines.Add(text);
+            }
+            textblock.RenderTransform = new ScaleTransform(1, -1);
+            textblock.TextAlignment = TextAlignment.Center;
+            textblock.Width = title.Length * (42.0 / 72.0) * fontSize;
+            textblock.Foreground = color;
+            return textblock;
+        }
+
         private void setAxesTitles()
         {
-            double axisTitleHeight = 20;
-            double axisTitleWidth = 300;
-
             TextBlock xaxis;
+            Brush color = stringToBrush(_graphCustomizeStore.foregroundColor);
             switch (_graphStore.graph.graphType)
             {
                 case GraphType.CD:
-                    xaxis = getCDTextBlock();
+                    xaxis = getFormattedTextBox("Current Density (A / m^2 )", _graphCustomizeStore.xAxisTitleSize, color);
                     break;
                 case GraphType.EField:
-                    xaxis = new TextBlock();
-                    xaxis.Text = "Electric Field (V / m)";
-                    setTitleSize(xaxis, _graphCustomizeStore.titleSize);
+                    xaxis = getFormattedTextBox("Electric Field (V / m)", _graphCustomizeStore.xAxisTitleSize, color);
                     break;
                 case GraphType.SAR:
-                    xaxis = new TextBlock();
-                    xaxis.Text = "Specific Absorption Rate (W / kg)";
-                    setTitleSize(xaxis, _graphCustomizeStore.titleSize);
+                    xaxis = getFormattedTextBox("Specific Absorption Rate (W / kg)", _graphCustomizeStore.xAxisTitleSize, color);
                     break;
                 default:
-                    xaxis = new TextBlock();
-                    xaxis.Text = "No Title";
-                    setTitleSize(xaxis, _graphCustomizeStore.titleSize);
+                    xaxis = getFormattedTextBox("No Title", _graphCustomizeStore.xAxisTitleSize, color);
                     break;
             }
 
-            xaxis.TextAlignment = TextAlignment.Center;
             xaxis.FontWeight = _graphCustomizeStore.xAxisTitleBold ? FontWeights.Bold : FontWeights.Normal;
             xaxis.FontStyle = _graphCustomizeStore.xAxisTitleItalic ? FontStyles.Italic : FontStyles.Normal;
-            xaxis.Foreground = stringToBrush(_graphCustomizeStore.foregroundColor);
-            xaxis.RenderTransform = new ScaleTransform(1, -1);
 
             _baseCanvas.Children.Add(xaxis);
-            Canvas.SetLeft(xaxis, (_borders.left + _borders.right) / 2.0 - axisTitleWidth / 2.0 + _graphCustomizeStore.xAxisTitleLeftOffset);
-            Canvas.SetTop(xaxis, _borders.bottom - 55 + _graphCustomizeStore.xAxisTitleTopOffset);
+            Canvas.SetLeft(xaxis, (_borders.left + _borders.right) / 2.0 - xaxis.Width / 2.0 + _graphCustomizeStore.xAxisTitleLeftOffset);
+            Canvas.SetTop(xaxis, _borders.bottom / 2.0 + _graphCustomizeStore.xAxisTitleTopOffset);
 
             TextBlock yaxis = new TextBlock();
             yaxis.Text = _graphStore.graph.yaxisName;
@@ -254,8 +302,9 @@ namespace PQM_V2.ViewModels.HomeViewModels
             yaxis.TextAlignment = TextAlignment.Center;
             setTitleSize(yaxis, _graphCustomizeStore.yAxisTitleSize);
             _baseCanvas.Children.Add(yaxis);
-            Canvas.SetLeft(yaxis, _borders.left - 100 + _graphCustomizeStore.yAxisTitleLeftOffset);
-            Canvas.SetTop(yaxis, (_borders.top + _borders.bottom) / 2.0 - axisTitleWidth / 2.0 + _graphCustomizeStore.yAxisTitleTopOffset);
+
+            Canvas.SetLeft(yaxis, _borders.left / 2.0 + - _graphCustomizeStore.axesTickSize + _graphCustomizeStore.yAxisTitleLeftOffset);
+            Canvas.SetTop(yaxis, (_borders.top + _borders.bottom) / 2.0 - yaxis.Width / 2.0 + _graphCustomizeStore.yAxisTitleTopOffset);
         }
         private void setTitle()
         {
