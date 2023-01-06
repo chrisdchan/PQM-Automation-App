@@ -116,14 +116,17 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         public string xProbeBtnBackground { get => _xProbeBtnBackground; set { _xProbeBtnBackground = value; onPropertyChanged(nameof(xProbeBtnBackground)); } }
         public string yProbeBtnBackground { get => _yProbeBtnBackground; set { _yProbeBtnBackground = value; onPropertyChanged(nameof(yProbeBtnBackground)); } }
         public string noneProbeBtnBackground { get => _noneProbeBtnBackground; set { _noneProbeBtnBackground = value; onPropertyChanged(nameof(noneProbeBtnBackground)); } }
+
+        private string DEFAULTCOLOR = "#C2C2C2";
+        private string SELECTEDCOLOR = "#D2B4DE";
         public InterpolatePanelViewModel()
         {
             _graphStore = (Application.Current as App).graphStore;
             _canvasStore = (Application.Current as App).canvasStore;
             _selectedStructure = _graph.selectedStructure;
-            xProbeBtnBackground = "#C2C2C2";
-            yProbeBtnBackground = "#C2C2C2";
-            noneProbeBtnBackground = "#C2C2C2";
+            xProbeBtnBackground = SELECTEDCOLOR;
+            yProbeBtnBackground = DEFAULTCOLOR;
+            noneProbeBtnBackground = DEFAULTCOLOR;
 
             _graphStore.selectedStructureChanged += onSelectedStructureChanged;
 
@@ -235,23 +238,23 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         }
         private void updateProbe(object message)
         {
-            xProbeBtnBackground = "#C2C2C2";
-            yProbeBtnBackground = "#C2C2C2";
-            noneProbeBtnBackground = "#C2C2C2";
+            xProbeBtnBackground = DEFAULTCOLOR;
+            yProbeBtnBackground = DEFAULTCOLOR;
+            noneProbeBtnBackground = DEFAULTCOLOR;
 
             switch ((string)message)
             {
                 case "None":
                     _canvasStore.probeType = CanvasStore.ProbeTypes.none;
-                    noneProbeBtnBackground = "#D2B4DE";
+                    noneProbeBtnBackground = SELECTEDCOLOR;
                     break;
                 case "X":
                     _canvasStore.probeType = CanvasStore.ProbeTypes.x;
-                    xProbeBtnBackground = "#D2B4DE";
+                    xProbeBtnBackground = SELECTEDCOLOR;
                     break;
                 case "Y":
                     _canvasStore.probeType = CanvasStore.ProbeTypes.y;
-                    yProbeBtnBackground = "#D2B4DE";
+                    yProbeBtnBackground = SELECTEDCOLOR;
                     break;
 
             }
