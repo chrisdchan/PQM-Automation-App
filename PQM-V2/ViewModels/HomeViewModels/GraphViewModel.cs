@@ -474,7 +474,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
             _probeLabel.Content = txt;
             _displayCanvas.Children.Add(_probeLabel);
             Canvas.SetLeft(_probeLabel, _borders.right - width / 2.0);
-            Canvas.SetTop(_probeLabel, _borders.top + 5);
+            Canvas.SetTop(_probeLabel, _borders.top + 50);
         }
         private void updateProbeLabel(object sender, MouseEventArgs e)
         {

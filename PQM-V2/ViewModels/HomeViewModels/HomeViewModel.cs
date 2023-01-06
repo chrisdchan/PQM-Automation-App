@@ -38,6 +38,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
         public RelayCommand exportGraphCommand { get; private set; }
         public RelayCommand exportTableCommand { get; private set; }
         public RelayCommand changeStructureCommand { get; private set; }
+        public RelayCommand updateSelectedStructureTypeCommand { get; private set; }
         public bool graphVisible
         {
             get => _graphVisible;
@@ -92,6 +93,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
             exportGraphCommand = new RelayCommand(exportGraph);
             exportTableCommand = new RelayCommand(exportTable);
             changeStructureCommand = new RelayCommand(changeStructure);
+            updateSelectedStructureTypeCommand = new RelayCommand(updateSelectedStructureType);
 
             _graphStore.graphChanged += onGraphChanged;
         }
@@ -224,6 +226,19 @@ namespace PQM_V2.ViewModels.HomeViewModels
             }
             _graphStore.onSelectedStructureChanged();
         }
+        private void updateSelectedStructureType(object message)
+        {
+            Structure selected = _graphStore.graph.selectedStructure;
+            int lineType = int.Parse((string)message);
+            lineType -= 1;
+            if(selected != null)
+            {
+                selected.lineType = (LineType)Enum.ToObject(typeof(LineType), lineType);
+                _graphStore.onGraphUpdated();
+                _graphStore.onSelectedStructureChanged();
+            }
+        }
+
 
     }
 }

@@ -26,7 +26,6 @@
                     CommandParameter="{x:Null}"
                     Key="E"
                     Modifiers="Ctrl+Shift"/>
-
         <KeyBinding Command="{Binding openFilesCommand}"
                     CommandParameter="{x:Null}"
                     Key="O"
@@ -50,6 +49,18 @@
         <KeyBinding Command="{Binding changeStructureCommand}" 
                 CommandParameter="left"
                 Key="Up"/>
+        <KeyBinding Command="{Binding updateSelectedStructureTypeCommand}"
+                    CommandParameter="1"
+                    Key="D1"
+                    Modifiers="Ctrl"/>
+        <KeyBinding Command="{Binding updateSelectedStructureTypeCommand}"
+                    CommandParameter="2"
+                    Key="D2"
+                    Modifiers="Ctrl"/>
+        <KeyBinding Command="{Binding updateSelectedStructureTypeCommand}"
+                    CommandParameter="3"
+                    Key="D3"
+                    Modifiers="Ctrl"/>
     </UserControl.InputBindings>
     <Grid>
             <Grid.ColumnDefinitions>
