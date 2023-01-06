@@ -16,10 +16,11 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
 
         private double _xmin;
         private double _xmax;
-        private int _pointsPerPlot;
+        private double _dpi;
 
         private bool _showDomainError;
         private string _domainError;
+        private string _exportError;
 
         public double xmin { get => _xmin; 
             set { 
@@ -30,11 +31,8 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             set { _xmax = value;
                 onPropertyChanged(nameof(xmax));
             } } 
-        public int pointsPerPlot { get => _pointsPerPlot; 
-            set { _pointsPerPlot = value;
-                onPropertyChanged(nameof(pointsPerPlot));
-            } }
 
+        public double dpi { get => _dpi; set { _dpi = value; exportError = null;  onPropertyChanged(nameof(dpi)); } }
         public bool showDomainError { get => _showDomainError;
             set { _showDomainError = value;
                 onPropertyChanged(nameof(showDomainError));
@@ -45,10 +43,13 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
                 onPropertyChanged(nameof(domainError));
             }}
 
+        public string exportError { get => _exportError; set { _exportError = value; onPropertyChanged(nameof(exportError)); } }
+
         public string backgroundColorString { get; set; }
 
         public RelayCommand updateDomainCommand { get; private set; }
         public RelayCommand updateNumPointsCommand { get; private set; }
+        public RelayCommand updateExportCommand { get; private set; }
 
         public GraphGenerationViewModel()
         {
@@ -57,13 +58,14 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
 
             xmin = _graphCustomizeStore.xmin;
             xmax = _graphCustomizeStore.xmax;
-            pointsPerPlot = _graphCustomizeStore.numPoints;
+            dpi = _graphCustomizeStore.dpi;
 
             _showDomainError = false;
             _domainError = string.Format("Value cannot be greater than max value {0}", _graphStore.graph.xmax);
 
             updateDomainCommand = new RelayCommand(updateDomain);
             updateNumPointsCommand = new RelayCommand(updateNumPoints);
+            updateExportCommand = new RelayCommand(updateExport);
         }
         private void updateDomain(object _)
         {
@@ -92,6 +94,13 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         }
         private void updateNumPoints(object _)
         {
+        }
+
+        private void updateExport(object _)
+        {
+            if(dpi <= 0) { exportError = "DPI must be greater than 0"; return; }
+            _graphCustomizeStore.dpi = dpi;
+            _graphCustomizeStore.onGraphCustomizeChanged();
         }
     }
 }

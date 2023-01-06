@@ -54,31 +54,31 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
         private bool _showSelectedStructureColorError;
         private string _selectedStructureColorError;
 
-        public int numXAxisTicks { get => _numXAxisTicks; set { _numXAxisTicks = value; onPropertyChanged(nameof(numXAxisTicks)); } }
-        public int numYAxisTicks { get => _numYAxisTicks; set { _numYAxisTicks = value; onPropertyChanged(nameof(numYAxisTicks)); } }
-        public int axesThickness { get => _axesThickness; set { _axesThickness = value; onPropertyChanged(nameof(axesThickness)); } }
-        public int axesTickSize { get => _axesTickSize; set { _axesTickSize = value; onPropertyChanged(nameof(axesTickSize)); } }
-        public int numPoints { get => _numPoints; set { _numPoints = value; onPropertyChanged(nameof(numPoints)); } }
+        public int numXAxisTicks { get => _numXAxisTicks; set { _numXAxisTicks = value; axesError = null; onPropertyChanged(nameof(numXAxisTicks)); } }
+        public int numYAxisTicks { get => _numYAxisTicks; set { _numYAxisTicks = value; axesError = null; onPropertyChanged(nameof(numYAxisTicks)); } }
+        public int axesThickness { get => _axesThickness; set { _axesThickness = value; axesError = null; onPropertyChanged(nameof(axesThickness)); } }
+        public int axesTickSize { get => _axesTickSize; set { _axesTickSize = value; axesError = null; onPropertyChanged(nameof(axesTickSize)); } }
+        public int numPoints { get => _numPoints; set { _numPoints = value; axesError = null; onPropertyChanged(nameof(numPoints)); } }
 
-        public int titleSize { get => _titleSize; set { _titleSize = value; onPropertyChanged(nameof(titleSize)); } }
-        public int titleLeftOffset { get => _titleLeftOffset; set { _titleLeftOffset = value; onPropertyChanged(nameof(titleLeftOffset)); } }
-        public int titleTopOffset { get => _titleTopOffset; set { _titleTopOffset = value; onPropertyChanged(nameof(titleTopOffset)); } }
-        public bool titleBold { get => _titleBold; set { _titleBold = value; onPropertyChanged(nameof(titleBold)); } }
-        public bool titleItalic { get => _titleItalic; set { _titleItalic = value; onPropertyChanged(nameof(titleItalic)); } }
+        public int titleSize { get => _titleSize; set { _titleSize = value; titleError = null; onPropertyChanged(nameof(titleSize)); } }
+        public int titleLeftOffset { get => _titleLeftOffset; set { _titleLeftOffset = value; titleError = null; onPropertyChanged(nameof(titleLeftOffset)); } }
+        public int titleTopOffset { get => _titleTopOffset; set { _titleTopOffset = value; titleError = null; onPropertyChanged(nameof(titleTopOffset)); } }
+        public bool titleBold { get => _titleBold; set { _titleBold = value; titleError = null; onPropertyChanged(nameof(titleBold)); } }
+        public bool titleItalic { get => _titleItalic; set { _titleItalic = value; titleError = null; onPropertyChanged(nameof(titleItalic)); } }
 
-        public int xAxisTitleSize { get => _xAxisTitleSize; set { _xAxisTitleSize = value; onPropertyChanged(nameof(xAxisTitleSize)); } }
-        public int xAxisTitleLeftOffset { get => _xAxisTitleLeftOffset; set { _xAxisTitleLeftOffset = value; onPropertyChanged(nameof(xAxisTitleLeftOffset)); } }
-        public int xAxisTitleTopOffset { get => _xAxisTitleTopOffset; set { _xAxisTitleTopOffset = value; onPropertyChanged(nameof(xAxisTitleTopOffset)); } }
-        public bool xAxisTitleBold { get => _xAxisTitleBold; set { _xAxisTitleBold = value; onPropertyChanged(nameof(xAxisTitleBold)); } }
-        public bool xAxisTitleItalic { get => _xAxisTitleItalic; set { _xAxisTitleItalic = value; onPropertyChanged(nameof(xAxisTitleItalic)); } }
+        public int xAxisTitleSize { get => _xAxisTitleSize; set { _xAxisTitleSize = value; xAxisTitleError = null; onPropertyChanged(nameof(xAxisTitleSize)); } }
+        public int xAxisTitleLeftOffset { get => _xAxisTitleLeftOffset; set { _xAxisTitleLeftOffset = value; xAxisTitleError = null; onPropertyChanged(nameof(xAxisTitleLeftOffset)); } }
+        public int xAxisTitleTopOffset { get => _xAxisTitleTopOffset; set { _xAxisTitleTopOffset = value; xAxisTitleError = null; onPropertyChanged(nameof(xAxisTitleTopOffset)); } }
+        public bool xAxisTitleBold { get => _xAxisTitleBold; set { _xAxisTitleBold = value; xAxisTitleError = null; onPropertyChanged(nameof(xAxisTitleBold)); } }
+        public bool xAxisTitleItalic { get => _xAxisTitleItalic; set { _xAxisTitleItalic = value; xAxisTitleError = null; onPropertyChanged(nameof(xAxisTitleItalic)); } }
 
-        public int yAxisTitleSize { get => _yAxisTitleSize; set { _yAxisTitleSize = value; onPropertyChanged(nameof(yAxisTitleSize)); } }
-        public int yAxisTitleLeftOffset { get => _yAxisTitleLeftOffset; set { _yAxisTitleLeftOffset = value; onPropertyChanged(nameof(yAxisTitleLeftOffset)); } }
-        public int yAxisTitleTopOffset { get => _yAxisTitleTopOffset; set { _yAxisTitleTopOffset = value; onPropertyChanged(nameof(yAxisTitleTopOffset)); } }
-        public bool yAxisTitleBold { get => _yAxisTitleBold; set { _yAxisTitleBold = value; onPropertyChanged(nameof(yAxisTitleBold)); } }
-        public bool yAxisTitleItalic { get => _yAxisTitleItalic; set { _yAxisTitleItalic = value; onPropertyChanged(nameof(yAxisTitleItalic)); } }
+        public int yAxisTitleSize { get => _yAxisTitleSize; set { _yAxisTitleSize = value;  yAxisTitleError = null; onPropertyChanged(nameof(yAxisTitleSize)); } }
+        public int yAxisTitleLeftOffset { get => _yAxisTitleLeftOffset; set { _yAxisTitleLeftOffset = value;  yAxisTitleError = null; onPropertyChanged(nameof(yAxisTitleLeftOffset)); } }
+        public int yAxisTitleTopOffset { get => _yAxisTitleTopOffset; set { _yAxisTitleTopOffset = value;  yAxisTitleError = null; onPropertyChanged(nameof(yAxisTitleTopOffset)); } }
+        public bool yAxisTitleBold { get => _yAxisTitleBold; set { _yAxisTitleBold = value;  yAxisTitleError = null; onPropertyChanged(nameof(yAxisTitleBold)); } }
+        public bool yAxisTitleItalic { get => _yAxisTitleItalic; set { _yAxisTitleItalic = value;  yAxisTitleError = null; onPropertyChanged(nameof(yAxisTitleItalic)); } }
 
-        public int legendSize { get => _legendSize; set { _legendSize = value; onPropertyChanged(nameof(legendSize)); } }
+        public int legendSize { get => _legendSize; set { _legendSize = value; legendError = null; onPropertyChanged(nameof(legendSize)); } }
 
         public string backgroundColor { get => _backgroundColor; set { _backgroundColor = value; onPropertyChanged(nameof(backgroundColor)); } }
         public string foregroundColor { get => _foregroundColor; set { _foregroundColor = value; onPropertyChanged(nameof(foregroundColor)); } }
@@ -155,6 +155,7 @@ namespace PQM_V2.ViewModels.HomeViewModels.AttributePanelViewModels
             if(numXAxisTicks < 0 ) { axesError = "Axes ticks cannot be negative"; return; }
             if(numYAxisTicks < 0 ) { axesError = "Axes ticks cannot be negative"; return; }
             if(axesThickness <= 0) { axesError = "Axes thickness must be 1 or greater"; return; }
+            if(axesTickSize <= 0) { axesError = "Axes tick size must be 1 or greater"; return; }
             if(numPoints <= 1) { axesError = "Number of points must be 2 or greater"; return; }
             if(numPoints > 1000) { axesError = "Too many points will make the app slow!"; return; }
 

@@ -158,8 +158,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
             xaxis.StrokeThickness = _graphCustomizeStore.axesThickness;
             yaxis.StrokeThickness = _graphCustomizeStore.axesThickness;
 
-            double xTickLength = 10;
-            double yTickLength = 10;
+            double tickLength = _graphCustomizeStore.axesTickSize;
 
             _baseCanvas.Children.Add(xaxis);
             _baseCanvas.Children.Add(yaxis);
@@ -169,7 +168,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
             double dx = (_borders.right - _borders.left) / (_graphCustomizeStore.numXAxisTicks - 1);
             for (int i = 0; i < _graphCustomizeStore.numXAxisTicks; i++)
             {
-                Line tick = getLine(x, _borders.bottom, x, _borders.bottom - xTickLength, color);
+                Line tick = getLine(x, _borders.bottom, x, _borders.bottom - tickLength, color);
                 _baseCanvas.Children.Add(tick);
                 x += dx;
             }
@@ -178,7 +177,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
             double dy = (_borders.top - _borders.bottom) / (_graphCustomizeStore.numYAxisTicks - 1);
             for (int i = 0; i < _graphCustomizeStore.numYAxisTicks; i++)
             {
-                Line tick = getLine(_borders.left, y, _borders.left - yTickLength, y, color);
+                Line tick = getLine(_borders.left, y, _borders.left - tickLength, y, color);
                 _baseCanvas.Children.Add(tick);
                 y += dy;
             }
@@ -241,8 +240,6 @@ namespace PQM_V2.ViewModels.HomeViewModels
             xaxis.FontStyle = _graphCustomizeStore.xAxisTitleItalic ? FontStyles.Italic : FontStyles.Normal;
             xaxis.Foreground = stringToBrush(_graphCustomizeStore.foregroundColor);
             xaxis.RenderTransform = new ScaleTransform(1, -1);
-
-            //setTitleSize(xaxis, _graphCustomizeStore.xAxisTitleSize);
 
             _baseCanvas.Children.Add(xaxis);
             Canvas.SetLeft(xaxis, (_borders.left + _borders.right) / 2.0 - axisTitleWidth / 2.0 + _graphCustomizeStore.xAxisTitleLeftOffset);

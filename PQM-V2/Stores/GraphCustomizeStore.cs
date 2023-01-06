@@ -12,6 +12,7 @@ namespace PQM_V2.Stores
 
         public double xmin { get; set; }
         public double xmax { get; set; }
+        public double dpi { get; set; }
         public int numPoints { get; set; }
 
         public int numXAxisTicks {get; set;}
@@ -45,6 +46,7 @@ namespace PQM_V2.Stores
         {
             xmin = 0;
             xmax = 40;
+            dpi = 600;
             numPoints = 75;
 
             numXAxisTicks = 5;

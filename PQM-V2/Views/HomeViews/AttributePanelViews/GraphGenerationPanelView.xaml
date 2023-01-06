@@ -15,27 +15,47 @@
 
     </UserControl.Resources>
     <Grid>
-        <StackPanel>
-            <StackPanel Style="{StaticResource headerSP}">
-                <TextBlock Style="{StaticResource headerTextBlockLabel}">Domain</TextBlock>
+        <StackPanel x:Name="stackPanel">
+        <Expander Style="{StaticResource indentedExpander}" 
+                  Expanded="Expander_Expanded"
+                  Header="Domain">
+            <StackPanel>
+                <TextBlock Style="{StaticResource errorMessage}"
+                           Visibility="{Binding showDomainError, Converter={StaticResource booleanVisibilityConverter}}"
+                           Text="{Binding domainError}"/>
+                <StackPanel Style="{StaticResource attribSP}">
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}">X Min</TextBlock>
+                    <TextBox Style="{StaticResource attribTextBox}"
+                             Text="{Binding Path=xmin, Mode=TwoWay}"/>
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+                </StackPanel>
+                <StackPanel Style="{StaticResource attribSP}">
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}">X Max</TextBlock>
+                    <TextBox Style="{StaticResource attribTextBox}"
+                             Text="{Binding Path=xmax, Mode=TwoWay}"/>
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+                </StackPanel>
+                <Button Style="{StaticResource updateButton}" Content="Update Domain"
+                        Command="{Binding updateDomainCommand}"/>
             </StackPanel>
-            <TextBlock Style="{StaticResource errorMessage}"
-                       Visibility="{Binding showDomainError, Converter={StaticResource booleanVisibilityConverter}}"
-                       Text="{Binding domainError}"/>
-            <StackPanel Style="{StaticResource attribSP}">
-                <TextBlock Style="{StaticResource attribTextBlockLabel}">X Min</TextBlock>
-                <TextBox Style="{StaticResource attribTextBox}"
-                         Text="{Binding Path=xmin, Mode=TwoWay}"/>
-                <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+        </Expander>
+        <Expander Style="{StaticResource indentedExpander}" 
+                  Expanded="Expander_Expanded"
+                  Header="Export">
+            <StackPanel>
+                <TextBlock Style="{StaticResource errorMessage}"
+                           Visibility="{Binding exportErrorr, Converter={StaticResource errorStringVisibilityConverter}}"
+                           Text="{Binding exportError}"/>
+                <StackPanel Style="{StaticResource attribSP}">
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}">DPI</TextBlock>
+                    <TextBox Style="{StaticResource attribTextBox}"
+                             Text="{Binding Path=dpi, Mode=TwoWay}"/>
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+                </StackPanel>
+                <Button Style="{StaticResource updateButton}" Content="Update"
+                        Command="{Binding updateExportCommand}"/>
             </StackPanel>
-            <StackPanel Style="{StaticResource attribSP}">
-                <TextBlock Style="{StaticResource attribTextBlockLabel}">X Max</TextBlock>
-                <TextBox Style="{StaticResource attribTextBox}"
-                         Text="{Binding Path=xmax, Mode=TwoWay}"/>
-                <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
-            </StackPanel>
-            <Button Style="{StaticResource updateButton}" Content="Update Domain"
-                    Command="{Binding updateDomainCommand}"/>
+        </Expander>
         </StackPanel>
     </Grid>
 </UserControl>

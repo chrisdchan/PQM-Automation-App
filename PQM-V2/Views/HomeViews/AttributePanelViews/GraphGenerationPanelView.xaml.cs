@@ -21,10 +21,30 @@ namespace PQM_V2.Views.HomeViews.AttributePanelViews
     /// </summary>
     public partial class GraphGenerationPanelView : UserControl
     {
+        private bool enableExpanding;
         public GraphGenerationPanelView()
         {
             InitializeComponent();
             DataContext = new GraphGenerationViewModel();
+            enableExpanding = true;
+        }
+        private void Expander_Expanded(object sender, RoutedEventArgs e)
+        {
+            if(enableExpanding)
+            {
+                enableExpanding = false;
+                closeAllExpanders();
+                (sender as Expander).IsExpanded = true;
+                enableExpanding = true;
+            }
+        }
+
+        private void closeAllExpanders()
+        {
+            foreach(Expander expander in stackPanel.Children)
+            {
+                expander.IsExpanded = false;
+            }
         }
     }
 }

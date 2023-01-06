@@ -14,6 +14,7 @@ namespace PQM_V2.Stores
         public event Action selectedStructureChanged;
 
         private Graph _graph;
+
         public Graph graph
         {
             get => _graph;

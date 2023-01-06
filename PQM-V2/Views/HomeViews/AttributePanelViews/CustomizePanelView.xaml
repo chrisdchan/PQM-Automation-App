@@ -15,43 +15,12 @@
     </UserControl.Resources>
     <Grid>
             <StackPanel x:Name="stackPanel">
-            <Expander Style="{StaticResource indentedExpander}" Header="Title Settings"
-                      Expanded="Expander_Expanded">
-                <StackPanel>
-                <TextBlock Style="{StaticResource errorMessage}" Text="{Binding titleError}"
-                       Visibility="{Binding titleError, Converter={StaticResource errorStringVisibilityConverter}}"/>
-                <StackPanel Style="{StaticResource attribSP}">
-                    <TextBlock Style="{StaticResource attribTextBlockLabel}">Left Offset</TextBlock>
-                    <TextBox Style="{StaticResource attribTextBox}"
-                             Text="{Binding Path=titleLeftOffset, Mode=TwoWay}"/>
-                    <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
-                </StackPanel>
-                <StackPanel Style="{StaticResource attribSP}">
-                    <TextBlock Style="{StaticResource attribTextBlockLabel}">Top Offset</TextBlock>
-                    <TextBox Style="{StaticResource attribTextBox}"
-                             Text="{Binding Path=titleTopOffset, Mode=TwoWay}"/>
-                    <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
-                </StackPanel>
-                <StackPanel Style="{StaticResource attribSP}">
-                        <TextBlock Style="{StaticResource attribTextBlockLabel}"> Size</TextBlock>
-                    <TextBox Style="{StaticResource attribTextBox}"
-                             Text="{Binding Path=titleSize, Mode=TwoWay}"/>
-                    <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
-                </StackPanel>
-                <StackPanel Style="{StaticResource attribSP}">
-                    <CheckBox Style="{StaticResource checkbox}" Content="Bold" IsChecked="{Binding Path=titleBold, Mode=TwoWay}"/>
-                    <CheckBox Style="{StaticResource checkbox}" Content="Italics" IsChecked="{Binding Path=titleItalic, Mode=TwoWay}"/>
-                </StackPanel>
-                <Button Style="{StaticResource updateButton}" Content="Update Style"
-                        Command="{Binding updateTitleSettingsCommand}"/>
-                </StackPanel>
-            </Expander>
             <Expander Expanded="Expander_Expanded"
                 Style="{StaticResource indentedExpander}" Header="Axis Settings">
                 <StackPanel>
+                <TextBlock Style="{StaticResource errorMessage}" Text="{Binding axesError}"
+                       Visibility="{Binding axesError, Converter={StaticResource errorStringVisibilityConverter}}"/>
                 <StackPanel Style="{StaticResource attribSP}">
-                    <TextBlock Style="{StaticResource errorMessage}" Text="{Binding axesError}"
-                           Visibility="{Binding axesError, Converter={StaticResource errorStringVisibilityConverter}}"/>
                     <TextBlock Style="{StaticResource attribTextBlockLabel}">Number of X Ticks</TextBlock>
                     <TextBox Style="{StaticResource attribTextBox}"
                              Text="{Binding Path=numXAxisTicks, Mode=TwoWay}"/>
@@ -83,6 +52,37 @@
                 </StackPanel>
                 <Button Style="{StaticResource updateButton}" Content="Update Graph"
                         Command="{Binding updateAxisSettingsCommand}"/>
+                </StackPanel>
+            </Expander>
+            <Expander Style="{StaticResource indentedExpander}" Header="Title Settings"
+                      Expanded="Expander_Expanded">
+                <StackPanel>
+                <TextBlock Style="{StaticResource errorMessage}" Text="{Binding titleError}"
+                       Visibility="{Binding titleError, Converter={StaticResource errorStringVisibilityConverter}}"/>
+                <StackPanel Style="{StaticResource attribSP}">
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}">Left Offset</TextBlock>
+                    <TextBox Style="{StaticResource attribTextBox}"
+                             Text="{Binding Path=titleLeftOffset, Mode=TwoWay}"/>
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+                </StackPanel>
+                <StackPanel Style="{StaticResource attribSP}">
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}">Top Offset</TextBlock>
+                    <TextBox Style="{StaticResource attribTextBox}"
+                             Text="{Binding Path=titleTopOffset, Mode=TwoWay}"/>
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+                </StackPanel>
+                <StackPanel Style="{StaticResource attribSP}">
+                        <TextBlock Style="{StaticResource attribTextBlockLabel}"> Size</TextBlock>
+                    <TextBox Style="{StaticResource attribTextBox}"
+                             Text="{Binding Path=titleSize, Mode=TwoWay}"/>
+                    <TextBlock Style="{StaticResource attribTextBlockLabel}"/>
+                </StackPanel>
+                <StackPanel Style="{StaticResource attribSP}">
+                    <CheckBox Style="{StaticResource checkbox}" Content="Bold" IsChecked="{Binding Path=titleBold, Mode=TwoWay}"/>
+                    <CheckBox Style="{StaticResource checkbox}" Content="Italics" IsChecked="{Binding Path=titleItalic, Mode=TwoWay}"/>
+                </StackPanel>
+                <Button Style="{StaticResource updateButton}" Content="Update Style"
+                        Command="{Binding updateTitleSettingsCommand}"/>
                 </StackPanel>
             </Expander>
             <Expander Expanded="Expander_Expanded"

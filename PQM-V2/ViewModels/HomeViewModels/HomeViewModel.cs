@@ -24,6 +24,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
         private readonly NavigationStore _navigationStore;
         private readonly GraphStore _graphStore;
         private readonly CanvasStore _canvasStore;
+        private readonly GraphCustomizeStore _graphCustomizeStore;
 
         private bool _graphVisible;
         private bool _tableVisible;
@@ -76,6 +77,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
             _navigationStore = (System.Windows.Application.Current as App).navigationStore;
             _graphStore = (System.Windows.Application.Current as App).graphStore;
             _canvasStore = (System.Windows.Application.Current as App).canvasStore;
+            _graphCustomizeStore = (System.Windows.Application.Current as App).graphCustomizeStore;
 
             _graphVisible = true;
             _tableVisible = true;
@@ -120,7 +122,7 @@ namespace PQM_V2.ViewModels.HomeViewModels
             canvas.Children.Remove(_canvasStore.displayCanvas);
 
             Rect rect = new Rect(canvas.RenderSize);
-            int dpi = 600;
+            int dpi = (int)_graphCustomizeStore.dpi;
             int sizeW = (int)(rect.Right * (dpi / 96.0));
             int sizeH = (int)(rect.Bottom * (dpi / 96.0));
 
